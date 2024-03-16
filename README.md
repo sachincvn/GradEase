@@ -21,7 +21,7 @@ GradEase simplifies academic management for students. It offers a centralized pl
 
 To use GradEase:
 
-1. Clone this repository.
+1. Clone this repository `cd server` for the backend APIs to run the flutter app and run  `main.dart` in the lib folder.
 2. Install dependencies using `npm install`.
 3. Start the server using `npm start`.
 4. Access the application using a web browser or mobile device.
