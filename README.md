@@ -1,16 +1,41 @@
-# grad_ease
+# GradEase
 
-A new Flutter project.
+## Description
 
-## Getting Started
+GradEase simplifies academic management for students. It offers a centralized platform for tracking attendance, managing schedules, accessing online classes, monitoring internal marks, managing assignments, organizing notes, providing feedback, and receiving notifications. With a user-friendly interface, GradEase aims to empower students to excel academically and enhance communication with instructors.
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- **Attendance Tracking:** Monitor attendance records and view attendance percentages for all classes.
+- **Schedule Management:** Access personalized class schedules anytime, anywhere.
+- **Online Class Access:** Seamlessly join virtual classrooms and access lecture materials online.
+- **Internal Marks Monitoring:** Stay updated with internal assessment marks and performance feedback.
+- **Assignment Management:** Conveniently manage assignments and track submission deadlines.
+- **Chatbot:** Communicate with queries and details when required.
+- **Notes Organization:** Organize and access lecture notes and study materials in one place.
+- **Feedback Submission:** Provide feedback on courses and instructors effortlessly.
+- **Notifications/Announcements:** Receive notifications for upcoming updates from the college or faculty.
+- **ID Card:** Display student details conveniently.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Usage
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To use GradEase:
+
+1. Clone this repository.
+2. Install dependencies using `npm install`.
+3. Start the server using `npm start`.
+4. Access the application using a web browser or mobile device.
+
+## Technologies Used
+
+- **Front-end:** Dart Language with Flutter framework.
+- **Back-end:** Node.js with Express.js for building RESTful APIs.
+- **Database:** MongoDB for storing and managing data.
+
+## Contributors
+
+- Nitin Gowda
+
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
