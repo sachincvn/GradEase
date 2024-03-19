@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoute");
 require('dotenv').config();
-
 require('./config/dbConfig');
 
 app.use(bodyParser.urlencoded({ extended: false }));
