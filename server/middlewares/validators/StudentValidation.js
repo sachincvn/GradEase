@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-const studentRegistrationValidation = (req, res, next) => {
+const StudentRegistrationValidation = (req, res, next) => {
   const schema = Joi.object({
     fullName: Joi.string().min(3).max(100).required(),
     fatherName: Joi.string().min(3).max(100).required(),
@@ -30,7 +30,7 @@ const studentRegistrationValidation = (req, res, next) => {
   next();
 };
 
-const studentLoginValidation = (req, res, next) => {
+const StudentLoginValidation = (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string()
@@ -48,7 +48,7 @@ const studentLoginValidation = (req, res, next) => {
   next();
 };
 
-module.exports = { 
-    studentRegistrationValidation,
-    studentLoginValidation 
+module.exports = {
+  StudentRegistrationValidation,
+  StudentLoginValidation,
 };
