@@ -1,5 +1,4 @@
 const express = require("express");
-const RegisterNewStudent = require("../controllers/auth_controllerer/RegisterStudentController");
 const StudentLoginController = require("../controllers/auth_controllerer/StudentLoginController");
 const {
   StudentRegistrationValidation,
@@ -8,14 +7,16 @@ const {
 const RegisterAdminController = require("../controllers/auth_controllerer/RegisterAdminController");
 const {
   AdminRegistrationValidation,
+  AdminLoginValidation,
 } = require("../middlewares/validators/AdminValidation");
+const AdminLoginController = require("../controllers/auth_controllerer/AdminLoginController");
 
 const AuthRoutes = express.Router();
 
 AuthRoutes.post(
   "/registerNewStudent",
   StudentRegistrationValidation,
-  RegisterNewStudent
+  RegisterAdminController
 );
 
 AuthRoutes.post("/login", StudentLoginValidation, StudentLoginController);
@@ -26,6 +27,6 @@ AuthRoutes.post(
   RegisterAdminController
 );
 
-// authRoutes.post("/adminLogin", studentLoginValidation, adminLogin);
+AuthRoutes.post("/adminLogin", AdminLoginValidation, AdminLoginController);
 
 module.exports = AuthRoutes;
