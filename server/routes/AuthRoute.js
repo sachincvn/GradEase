@@ -10,6 +10,7 @@ const {
   AdminRegistrationValidation,
 } = require("../middlewares/validators/AdminValidation");
 
+const Addetend =""
 const AuthRoutes = express.Router();
 
 AuthRoutes.post(
