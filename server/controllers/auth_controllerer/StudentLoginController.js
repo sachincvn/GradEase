@@ -1,4 +1,7 @@
 const StudentModel = require("../../models/StudentModel");
+const RestResponse = require("../../utils/RestResponse");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const StudentLoginController = async (req, res) => {
   try {
@@ -33,11 +36,12 @@ const StudentLoginController = async (req, res) => {
       email: existingStudent.email,
     };
 
-    const jwtToken = jwt.sign(tokenObject, process.env.JWT_SECRET, {
+    const jwtToken = jwt.sign(tokenObject, process.env.JWT_STUDENT_SECRET, {
       expiresIn: "12h",
     });
     res.status(200).json(RestResponse(200, "Successfully Login", jwtToken));
   } catch (error) {
+    console.log(error);
     return res.status(500).json(RestResponse(500, "error", error));
   }
 };

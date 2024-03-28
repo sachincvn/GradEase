@@ -35,7 +35,7 @@ const AdminLoginController = async (req, res) => {
       email: adminModel.email,
     };
 
-    const jwtToken = jwt.sign(tokenObject, process.env.JWT_ADMIN_SCRET);
+    const jwtToken = jwt.sign(tokenObject, process.env.JWT_ADMIN_SECRET);
     res.status(200).json(RestResponse(200, "Successfully Login", jwtToken));
   } catch (error) {
     return res.status(500).json(RestResponse(500, "error", error));
