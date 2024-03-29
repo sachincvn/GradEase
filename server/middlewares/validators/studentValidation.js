@@ -1,6 +1,8 @@
-const Joi = require("joi");
+import Joi from "joi";
+import ResponseError from "../../utils/RestResponseError.js";
+import { RestResponseError } from "../../utils/RestResponse.js";
 
-const StudentRegistrationValidation = (req, res, next) => {
+export function StudentRegistrationValidation(req, res, next) {
   const schema = Joi.object({
     fullName: Joi.string().min(3).max(100).required(),
     fatherName: Joi.string().min(3).max(100).required(),
@@ -22,15 +24,16 @@ const StudentRegistrationValidation = (req, res, next) => {
 
   const { error } = schema.validate(req.body);
   if (error) {
-    return res
-      .status(400)
-      .json({ message: "Bad request", error: error.details[0].message });
+    return RestResponseError(
+      res,
+      new ResponseError(400, error.details[0].message)
+    );
   }
 
   next();
-};
+}
 
-const StudentLoginValidation = (req, res, next) => {
+export function StudentLoginValidation(req, res, next) {
   const schema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string()
@@ -40,15 +43,11 @@ const StudentLoginValidation = (req, res, next) => {
 
   const { error } = schema.validate(req.body);
   if (error) {
-    return res
-      .status(400)
-      .json({ message: "Bad request", error: error.details[0].message });
+    return RestResponseError(
+      res,
+      new ResponseError(400, error.details[0].message)
+    );
   }
 
   next();
-};
-
-module.exports = {
-  StudentRegistrationValidation,
-  StudentLoginValidation,
-};
+}

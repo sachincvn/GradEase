@@ -1,5 +1,14 @@
-const RestResponse = (statusCode, message, data = null) => {
-  return { statusCode, message, data };
-};
+export function RestResponse(res, statusCode, message, data = null) {
+  return res.status(statusCode).json({ statusCode, message, data });
+}
 
-module.exports = RestResponse;
+export function RestResponseError(res, error) {
+  if (error.name === "ResponseError") {
+    const { statusCode, message } = error;
+    return res.json({ statusCode, message });
+  }
+  return res.json({
+    statusCode: 500,
+    message: `Internal Server Error - ${error.message}`,
+  });
+}

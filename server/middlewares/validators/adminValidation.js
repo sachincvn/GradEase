@@ -1,4 +1,6 @@
 const Joi = require("joi");
+const { RestResponseError } = require("../../utils/RestResponse.js");
+const { default: ResponseError } = require("../../utils/RestResponseError.js");
 
 const AdminRegistrationValidation = (req, res, next) => {
   const schema = Joi.object({
@@ -11,9 +13,10 @@ const AdminRegistrationValidation = (req, res, next) => {
 
   const { error } = schema.validate(req.body);
   if (error) {
-    return res
-      .status(400)
-      .json({ message: "Bad request", error: error.details[0].message });
+    return RestResponseError(
+      res,
+      new ResponseError(400, error.details[0].message)
+    );
   }
 
   next();
@@ -29,9 +32,10 @@ const AdminLoginValidation = (req, res, next) => {
 
   const { error } = schema.validate(req.body);
   if (error) {
-    return res
-      .status(400)
-      .json({ message: "Bad request", error: error.details[0].message });
+    return RestResponseError(
+      res,
+      new ResponseError(400, error.details[0].message)
+    );
   }
 
   next();

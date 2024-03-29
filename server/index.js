@@ -1,17 +1,23 @@
-const express = require("express");
+import express, { json } from "express";
 const app = express();
-const bodyParser = require("body-parser");
-require("dotenv").config();
-require("./config/dbConfig");
+import dotenv from "dotenv";
+dotenv.config();
+import "./config/dbConfig.js";
+import studentRoute from "./routes/studentRoute.js";
+import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
 
-const port = process.env.PORT || 8080;
+const apiBasePath = "/api/v1/";
+
+app.use(`${apiBasePath}student/`, studentRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to GradEase" });
 });
+
+app.use(errorMiddleware);
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
