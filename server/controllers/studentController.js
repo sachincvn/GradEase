@@ -1,5 +1,4 @@
 import {
-  loginStudent,
   getAllStudentsDetails,
   getStudentByEmail,
   registerStudent,
@@ -7,17 +6,6 @@ import {
 } from "../services/studentService.js";
 import StudentModel from "../models/studentModel.js";
 import { RestResponse, RestResponseError } from "../utils/RestResponse.js";
-
-// Login Controller
-export async function StudentLoginController(req, res) {
-  try {
-    const { email, password } = req.body;
-    const jwtToken = await loginStudent(email, password);
-    return RestResponse(res, 200, "Successfully Login", jwtToken);
-  } catch (error) {
-    return RestResponseError(res, error);
-  }
-}
 
 // Register new student controller
 export async function RegisterNewStudentController(req, res) {

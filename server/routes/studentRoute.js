@@ -3,7 +3,6 @@ import {
   GetAllStudentsController,
   GetStudentByEmailController,
   RegisterNewStudentController,
-  StudentLoginController,
   UpdateStudentDetailController,
 } from "../controllers/studentController.js";
 import { AuthStudentMiddleware } from "../middlewares/authentication/authStudentMiddleware.js";
@@ -13,7 +12,6 @@ import {
 } from "../middlewares/validators/studentValidation.js";
 const studentRoute = Router();
 
-studentRoute.post("/login", StudentLoginValidation, StudentLoginController);
 studentRoute.post(
   "/register",
   StudentRegistrationValidation,
