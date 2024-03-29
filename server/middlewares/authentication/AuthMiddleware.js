@@ -32,10 +32,20 @@ module.exports = {
           .json(RestResponse(403, "Authorization token is not provided"));
       }
 
-      const decodedToken = jwtToken.verify(
-        req.headers["authorization"],
-        process.env.JWT_STUDENT_SECRET
-      );
+      var decodedToken = undefined;
+
+      try {
+        decodedToken = jwtToken.verify(
+          req.headers["authorization"],
+          process.env.JWT_STUDENT_SECRET
+        );
+      } catch (error) {
+        decodedToken = jwtToken.verify(
+          req.headers["authorization"],
+          process.env.JWT_ADMIN_SECRET
+        );
+      }
+
       if (!decodedToken) {
         return res.status(403).json(RestResponse(403, "Invalid token"));
       }
