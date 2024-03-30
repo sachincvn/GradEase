@@ -7,7 +7,7 @@ export function RestResponseError(res, error) {
     const { statusCode, message } = error;
     return res.status(statusCode).json({ statusCode, message });
   }
-  return res.status(statusCode).json({
+  return res.status(500).json({
     statusCode: 500,
     message: `Internal Server Error - ${error.message}`,
   });

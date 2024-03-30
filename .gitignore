@@ -59,3 +59,4 @@ out/
 #Servers
 node_modules/
 .env
+upload/
