@@ -1,8 +1,8 @@
-const Joi = require("joi");
-const { RestResponseError } = require("../../utils/RestResponse.js");
-const { default: ResponseError } = require("../../utils/RestResponseError.js");
+import Joi from "joi";
+import { RestResponseError } from "../../utils/RestResponse.js";
+import { default as ResponseError } from "../../utils/RestResponseError.js";
 
-const AdminRegistrationValidation = (req, res, next) => {
+export function AdminRegistrationValidation(req, res, next) {
   const schema = Joi.object({
     fullName: Joi.string().min(3).max(100).required(),
     email: Joi.string().email().required(),
@@ -20,9 +20,9 @@ const AdminRegistrationValidation = (req, res, next) => {
   }
 
   next();
-};
+}
 
-const AdminLoginValidation = (req, res, next) => {
+export function AdminLoginValidation(req, res, next) {
   const schema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string()
@@ -39,9 +39,4 @@ const AdminLoginValidation = (req, res, next) => {
   }
 
   next();
-};
-
-module.exports = {
-  AdminLoginValidation,
-  AdminRegistrationValidation,
-};
+}
