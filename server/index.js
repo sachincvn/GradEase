@@ -8,6 +8,7 @@ import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import authRoute from "./routes/authRoute.js";
 import timeTableRoute from "./routes/timeTableRoute.js";
 import notesRoute from "./routes/notesRoute.js";
+import assignmentRoute from "./routes/assignmentRoute.js";
 
 app.use(express.json());
 
@@ -17,6 +18,8 @@ app.use(`${apiBasePath}student/`, studentRoute);
 app.use(`${apiBasePath}auth/`, authRoute);
 app.use(`${apiBasePath}timetable/`, timeTableRoute);
 app.use(`${apiBasePath}notes/`, notesRoute);
+app.use(`${apiBasePath}assignment/`, assignmentRoute);
+
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to GradEase" });
