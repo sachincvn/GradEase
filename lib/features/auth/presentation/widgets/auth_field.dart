@@ -6,12 +6,13 @@ class AuthInputField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   final bool isObscureText;
-  const AuthInputField(
-      {super.key,
-      required this.labelText,
-      required this.hintText,
-      required this.controller,
-      this.isObscureText = false});
+  const AuthInputField({
+    super.key,
+    required this.labelText,
+    required this.hintText,
+    required this.controller,
+    this.isObscureText = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class AuthInputField extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         TextFormField(
+          controller: controller,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle:

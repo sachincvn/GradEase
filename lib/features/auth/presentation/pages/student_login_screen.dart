@@ -19,6 +19,13 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
   final passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -85,6 +92,9 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
             AuthButton(
               buttonText: "Sign In",
               onPressed: () {
+                // context.read<AuthBloc>().add(AuthSignIn(
+                //     email: emailController.text.trim(),
+                //     password: passwordController.text.trim()));
                 Navigator.push(
                   context,
                   PageTransition(
