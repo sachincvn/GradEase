@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:grad_ease/core/extension/rest_request_extensions.dart';
+import 'package:grad_ease/core/extensions/rest_request_extensions.dart';
 import 'package:grad_ease/core/remote/rest_client.dart';
 import 'package:grad_ease/core/remote/rest_service_base.dart';
 

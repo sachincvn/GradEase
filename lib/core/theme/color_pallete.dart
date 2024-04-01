@@ -11,6 +11,6 @@ class ColorPallete {
   static const Color lightGreyColor = Color(0xFF2a363d);
   static const Color grey400 = Color(0xFF2a343f);
   static const Color grey500 = Color.fromARGB(255, 54, 67, 82);
-  static const Color errorColor = Colors.redAccent;
+  static const Color errorColor = Color(0xFFFF5252);
   static const Color transparentColor = Colors.transparent;
 }

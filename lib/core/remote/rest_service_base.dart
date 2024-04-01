@@ -19,6 +19,9 @@ abstract class RestServiceBase extends RestClient {
         throw Exception("Unknown Method");
       }
     } catch (error) {
+      if (error is DioException) {
+        throw Exception(error.response?.data['message'] ?? error.message);
+      }
       rethrow;
     }
   }

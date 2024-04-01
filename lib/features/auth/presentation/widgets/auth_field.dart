@@ -5,12 +5,16 @@ class AuthInputField extends StatelessWidget {
   final String labelText;
   final String hintText;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final String? errorMessage;
   final bool isObscureText;
   const AuthInputField({
     super.key,
     required this.labelText,
     required this.hintText,
     required this.controller,
+    this.validator,
+    this.errorMessage,
     this.isObscureText = false,
   });
 
@@ -34,12 +38,7 @@ class AuthInputField extends StatelessWidget {
             hintStyle:
                 const TextStyle(fontSize: 14, color: ColorPallete.grey500),
           ),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return "$hintText is missing!";
-            }
-            return null;
-          },
+          validator: validator,
           obscureText: isObscureText,
           style: const TextStyle(
               fontSize: 14,

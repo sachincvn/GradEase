@@ -4,8 +4,13 @@ import 'package:grad_ease/core/theme/color_pallete.dart';
 class AuthButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
-  const AuthButton(
-      {super.key, required this.buttonText, required this.onPressed});
+  final bool isLoading;
+  const AuthButton({
+    super.key,
+    required this.buttonText,
+    required this.onPressed,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +32,24 @@ class AuthButton extends StatelessWidget {
           backgroundColor: ColorPallete.transparentColor,
           shadowColor: ColorPallete.transparentColor,
         ),
-        child: Text(
-          buttonText,
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
+        child: isLoading // Show loading indicator if isLoading is true
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.white,
+                  ),
+                ),
+              )
+            : Text(
+                buttonText,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
       ),
     );
   }

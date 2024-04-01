@@ -25,7 +25,9 @@ class AuthRepositoryImpl implements AuthRepository {
       {required String email, required String password}) async {
     try {
       final response = await authRemoteDataSource.studentLogin(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       return right(response);
     } catch (e) {
       return left(Failure(e.toString()));
