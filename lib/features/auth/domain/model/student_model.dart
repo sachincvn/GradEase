@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 enum GenderEnum { MALE, FEMALE, OTHER }
 
 enum CourseEnum { MCA, MBA } // Define your CourseEnum

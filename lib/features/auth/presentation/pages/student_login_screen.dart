@@ -45,7 +45,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                 Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(
-                    type: PageTransitionType.bottomToTopPop,
+                    type: PageTransitionType.bottomToTop,
                     child: const HomeScreen(),
                   ),
                   (route) => false,
