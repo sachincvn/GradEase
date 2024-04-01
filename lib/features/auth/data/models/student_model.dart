@@ -1,30 +1,22 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:grad_ease/features/auth/domain/enitites/student_enity.dart';
+
 enum GenderEnum { MALE, FEMALE, OTHER }
 
 enum CourseEnum { MCA, MBA } // Define your CourseEnum
 
-class StudentModel {
-  final String fullName;
-  final String fatherName;
-  final DateTime dob;
-  final GenderEnum gender;
-  final CourseEnum course;
-  final int courseYear;
-  final String email;
-  final String studentPhone;
-  final String parentPhone;
-
+class StudentModel extends StudentEntity {
   StudentModel({
-    required this.fullName,
-    required this.fatherName,
-    required this.dob,
-    required this.gender,
-    required this.course,
-    required this.courseYear,
-    required this.email,
-    required this.studentPhone,
-    required this.parentPhone,
+    required super.fullName,
+    required super.fatherName,
+    required super.dob,
+    required super.gender,
+    required super.course,
+    required super.courseYear,
+    required super.email,
+    required super.studentPhone,
+    required super.parentPhone,
   });
 
   factory StudentModel.fromJson(Map<String, dynamic> json) {
