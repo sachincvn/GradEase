@@ -29,9 +29,7 @@ export async function loginStudent(email, password) {
     email: existingStudent.email,
   };
 
-  const jwtToken = jwt.sign(tokenObject, process.env.JWT_STUDENT_SECRET, {
-    expiresIn: "12h",
-  });
+  const jwtToken = jwt.sign(tokenObject, process.env.JWT_STUDENT_SECRET);
 
   return jwtToken;
 }
@@ -58,9 +56,7 @@ export async function loginAdmin(email, password) {
     email: adminModel.email,
   };
 
-  const jwtToken = jwt.sign(tokenObject, process.env.JWT_ADMIN_SECRET, {
-    expiresIn: "12h",
-  });
+  const jwtToken = jwt.sign(tokenObject, process.env.JWT_ADMIN_SECRET);
 
   return jwtToken;
 }
