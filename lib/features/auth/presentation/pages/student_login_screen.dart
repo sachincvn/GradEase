@@ -41,7 +41,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
             listener: (context, state) {
               if (state is AuthFailure) {
                 showErrorSnackBar(context, state.message);
-              } else if (state is AuthSuccess) {
+              } else if (state is StudentAuthSuccess) {
                 Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(

@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:grad_ease/features/auth/domain/enitites/student_enity.dart';
+import 'package:grad_ease/core/common/entities/student_enity.dart';
 
 enum GenderEnum { MALE, FEMALE, OTHER }
 
@@ -33,13 +33,27 @@ class StudentModel extends StudentEntity {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'fullName': fullName,
+      'fatherName': fatherName,
+      'dob': dob.toIso8601String(),
+      'gender': gender.name,
+      'course': course.name,
+      'courseYear': courseYear,
+      'email': email,
+      'studentPhone': studentPhone,
+      'parentPhone': parentPhone,
+    };
+  }
+
   static GenderEnum _parseGender(String gender) {
-    switch (gender) {
-      case 'Male':
+    switch (gender.toLowerCase()) {
+      case 'male':
         return GenderEnum.MALE;
-      case 'Female':
+      case 'female':
         return GenderEnum.FEMALE;
-      case 'Other':
+      case 'other':
         return GenderEnum.OTHER;
       default:
         throw Exception('Invalid gender value: $gender');

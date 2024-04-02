@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grad_ease/core/common/cubit/app_user_cubit.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/app_theme.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/auth/presentation/pages/student_login_screen.dart';
+import 'package:grad_ease/features/home/presentation/pages/home_screen.dart';
 import 'package:grad_ease/init_dependencies.dart';
 
 void main() async {
@@ -11,14 +13,26 @@ void main() async {
   await initDependencies();
   runApp(MultiBlocProvider(
     providers: [
+      BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
       BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
     ],
     child: const MyApp(),
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthBloc>().add(AuthIsUserLoggedIn());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +40,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: StringConstants.appTitle,
       theme: AppTheme.darkThemeMode,
-      home: const StudentLoginScreen(),
+      home: BlocSelector<AppUserCubit, AppUserState, bool>(
+        selector: (state) {
+          return state is AppUserLoggedIn;
+        },
+        builder: (context, isLoggedIn) {
+          return isLoggedIn ? const HomeScreen() : const StudentLoginScreen();
+        },
+      ),
     );
   }
 }
