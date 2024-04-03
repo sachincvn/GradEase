@@ -27,20 +27,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> onAuthSignIn(AuthSignIn event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
 
-    final response = await _studentLoginUseCase(
-      StudentLoginParams(email: event.email, password: event.password),
-    );
+    try {
+      final response = await _studentLoginUseCase(
+        StudentLoginParams(email: event.email, password: event.password),
+      );
 
-    response.fold(
-      (failure) => emit(AuthFailure(message: failure.message!)),
-      (data) async {
-        if (data == null) {
-          emit(const AuthFailure(message: "Unable to login !"));
-          return;
-        }
-        _emitAuthSuccess(data, emit);
-      },
-    );
+      response.fold(
+        (failure) => emit(AuthFailure(message: failure.message!)),
+        (data) async {
+          if (data == null) {
+            emit(const AuthFailure(message: "Unable to login !"));
+            return;
+          }
+          _emitAuthSuccess(data, emit);
+        },
+      );
+    } catch (e) {
+      emit(AuthFailure(message: e.toString()));
+    }
   }
 
   FutureOr<void> _isUserLoggedIn(

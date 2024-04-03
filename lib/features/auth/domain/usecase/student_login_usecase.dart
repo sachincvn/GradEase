@@ -13,11 +13,24 @@ class StudentLoginUseCase
   @override
   Future<Either<Failure, StudentEntity?>> call(
       StudentLoginParams params) async {
-    await authRepository.studentLogin(
-      email: params.email,
-      password: params.password,
-    );
-    return await authRepository.getStudentDetail(params.email);
+    try {
+      final result = await authRepository.studentLogin(
+        email: params.email,
+        password: params.password,
+      );
+
+      if (result.isRight()) {
+        final studentDetail =
+            await authRepository.getStudentDetail(params.email);
+        return studentDetail;
+      } else {
+        result.getLeft().match(
+            () => throw Exception("Unexpected error occurred!"),
+            (failure) => throw Exception(failure.message));
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
   String? loginAuthToken() => authRepository.getLocalLoginAuthToken();
