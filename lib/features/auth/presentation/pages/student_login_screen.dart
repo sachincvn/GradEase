@@ -5,6 +5,7 @@ import 'package:grad_ease/core/extensions/string_validation_extension.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:grad_ease/features/auth/presentation/pages/admin_login_screen.dart';
 import 'package:grad_ease/features/auth/presentation/widgets/auth_button.dart';
 import 'package:grad_ease/features/auth/presentation/widgets/auth_field.dart';
 import 'package:grad_ease/features/home/presentation/pages/home_screen.dart';
@@ -41,7 +42,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
             listener: (context, state) {
               if (state is AuthFailure) {
                 showErrorSnackBar(context, state.message);
-              } else if (state is AuthSuccess) {
+              } else if (state is StudentAuthSuccess) {
                 Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(
@@ -145,20 +146,31 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                   ),
                   SizedBox(height: context.topSpacing(20)),
                   Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: "Login to admin account?",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(fontWeight: FontWeight.w500),
-                        children: const [
-                          TextSpan(text: " "),
-                          TextSpan(
-                            style: TextStyle(color: ColorPallete.blue500),
-                            text: "Click here",
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: const AdminLoginScreen(),
                           ),
-                        ],
+                        );
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          text: "Login to admin account?",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontWeight: FontWeight.w500),
+                          children: const [
+                            TextSpan(text: " "),
+                            TextSpan(
+                              style: TextStyle(color: ColorPallete.blue500),
+                              text: "Click here",
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

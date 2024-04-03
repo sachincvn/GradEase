@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/extensions/spacing_extension.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/features/auth/presentation/pages/student_login_screen.dart';
 import 'package:grad_ease/features/auth/presentation/widgets/auth_button.dart';
 import 'package:grad_ease/features/auth/presentation/widgets/auth_field.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class AdminLoginScreen extends StatefulWidget {
@@ -86,20 +88,31 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
             ),
             SizedBox(height: context.topSpacing(20)),
             Center(
-              child: RichText(
-                text: TextSpan(
-                  text: "Login to stucdent account?",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.w500),
-                  children: const [
-                    TextSpan(text: " "),
-                    TextSpan(
-                      style: TextStyle(color: ColorPallete.blue500),
-                      text: "Click here",
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.leftToRight,
+                      child: const StudentLoginScreen(),
                     ),
-                  ],
+                  );
+                },
+                child: RichText(
+                  text: TextSpan(
+                    text: "Login to stucdent account?",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(fontWeight: FontWeight.w500),
+                    children: const [
+                      TextSpan(text: " "),
+                      TextSpan(
+                        style: TextStyle(color: ColorPallete.blue500),
+                        text: "Click here",
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
