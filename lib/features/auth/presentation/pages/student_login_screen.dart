@@ -8,7 +8,7 @@ import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/auth/presentation/pages/admin_login_screen.dart';
 import 'package:grad_ease/features/auth/presentation/widgets/auth_button.dart';
 import 'package:grad_ease/features/auth/presentation/widgets/auth_field.dart';
-import 'package:grad_ease/features/home/presentation/pages/home_screen.dart';
+import 'package:grad_ease/features/main/landing_page.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -47,7 +47,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                   context,
                   PageTransition(
                     type: PageTransitionType.bottomToTop,
-                    child: const HomeScreen(),
+                    child: const LandingPage(),
                   ),
                   (route) => false,
                 );

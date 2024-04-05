@@ -9,17 +9,20 @@ class AppTheme {
       );
 
   static final darkThemeMode = ThemeData(
-    brightness: Brightness.dark,
-    fontFamily: 'montserrat',
-    scaffoldBackgroundColor: ColorPallete.backgroundColor,
-    appBarTheme: const AppBarTheme(
-      backgroundColor: ColorPallete.backgroundColor,
-    ),
-    inputDecorationTheme: InputDecorationTheme(
+      brightness: Brightness.dark,
+      fontFamily: 'montserrat',
+      scaffoldBackgroundColor: ColorPallete.backgroundColor,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: ColorPallete.backgroundColor,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.all(18),
         enabledBorder: _inputBorder(ColorPallete.grey400),
         focusedBorder: _inputBorder(ColorPallete.blue800),
         errorBorder: _inputBorder(ColorPallete.errorColor),
-        focusedErrorBorder: _inputBorder(ColorPallete.errorColor)),
-  );
+        focusedErrorBorder: _inputBorder(ColorPallete.errorColor),
+      ),
+      bottomAppBarTheme: const BottomAppBarTheme(
+        color: ColorPallete.backgroundColor,
+      ));
 }
