@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
-import 'package:grad_ease/features/community/data/commnity_post.dart';
+import 'package:grad_ease/features/feeds/data/feed_post_model.dart';
 
-class CommunityScreen extends StatelessWidget {
-  final CommunityPost post;
+class FeedPost extends StatelessWidget {
+  const FeedPost({
+    super.key,
+    required this.post,
+  });
 
-  const CommunityScreen({Key? key, required this.post}) : super(key: key);
+  final FeedPostModel post;
 
   @override
   Widget build(BuildContext context) {

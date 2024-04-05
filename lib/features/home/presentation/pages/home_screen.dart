@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
-import 'package:grad_ease/features/community/data/commnity_post.dart';
-import 'package:grad_ease/features/community/presentation/pages/community_sreen.dart';
-import 'package:grad_ease/features/community/data/community_info.dart';
+import 'package:grad_ease/features/feeds/presentation/pages/latest_feed_screen.dart';
+import 'package:grad_ease/features/feeds/data/community_info.dart';
 import 'package:grad_ease/features/home/presentation/delegates/divider_delegate.dart';
 import 'package:grad_ease/features/home/presentation/delegates/tab_bar_delegate.dart';
 import 'package:grad_ease/features/home/presentation/widgets/clock_in_card.dart';
@@ -50,14 +48,7 @@ class HomeScreen extends StatelessWidget {
                   },
                   body: TabBarView(
                     children: [
-                      ListView.builder(
-                        itemCount: communityPosts.length,
-                        itemBuilder: (context, index) {
-                          return CommunityScreen(
-                            post: communityPosts[index],
-                          );
-                        },
-                      ),
+                      const LatestFeedScreen(),
                       _communities(context),
                     ],
                   ),
