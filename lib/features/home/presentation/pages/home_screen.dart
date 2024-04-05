@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/features/communities/presentation/pages/community_screen.dart';
 import 'package:grad_ease/features/feeds/presentation/pages/latest_feed_screen.dart';
-import 'package:grad_ease/features/feeds/data/community_info.dart';
 import 'package:grad_ease/features/home/presentation/delegates/divider_delegate.dart';
 import 'package:grad_ease/features/home/presentation/delegates/tab_bar_delegate.dart';
 import 'package:grad_ease/features/home/presentation/widgets/clock_in_card.dart';
-import 'package:grad_ease/features/home/presentation/widgets/community_card.dart';
 import 'package:grad_ease/features/home/presentation/widgets/home_screen_header.dart';
 import 'package:grad_ease/features/home/presentation/widgets/quick_cards.dart';
 
@@ -46,10 +45,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ];
                   },
-                  body: TabBarView(
+                  body: const TabBarView(
                     children: [
-                      const LatestFeedScreen(),
-                      _communities(context),
+                      LatestFeedScreen(),
+                      CommunityScreen(),
                     ],
                   ),
                 ),
@@ -100,26 +99,6 @@ class HomeScreen extends StatelessWidget {
               imageUrl:
                   "https://cdn-icons-png.freepik.com/512/13434/13434630.png?filename=data-analytics_13434630.png&fd=1"),
         ],
-      ),
-    );
-  }
-
-  Widget _communities(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 14, right: 14, bottom: 10),
-      child: ListView.builder(
-        itemCount: communityList.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            key: UniqueKey(), // Use UniqueKey as the key for each item
-            padding: const EdgeInsets.only(bottom: 10.0),
-            child: CommunityCard(
-              title: communityList[index].title,
-              description: communityList[index].description,
-              groupImageUrl: communityList[index].groupImageUrl,
-            ),
-          );
-        },
       ),
     );
   }
