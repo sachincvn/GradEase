@@ -10,7 +10,7 @@ class HomeScreenHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 14, right: 14),
+      padding: const EdgeInsets.only(top: 20, left: 14, right: 14, bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -21,7 +21,7 @@ class HomeScreenHeader extends StatelessWidget {
                 backgroundColor: ColorPallete.transparentColor,
                 minRadius: 28,
                 child: Image.network(
-                    height: 55,
+                    height: 50,
                     fit: BoxFit.cover,
                     "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1"),
               ),

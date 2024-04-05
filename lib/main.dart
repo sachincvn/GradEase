@@ -5,8 +5,9 @@ import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/app_theme.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/auth/presentation/pages/student_login_screen.dart';
-import 'package:grad_ease/features/home/presentation/pages/home_screen.dart';
+import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:grad_ease/init_dependencies.dart';
+import 'package:grad_ease/features/main/landing_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +16,7 @@ void main() async {
     providers: [
       BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
       BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
+      BlocProvider(create: (_) => serviceLocator<LandingPageBloc>()),
     ],
     child: const MyApp(),
   ));
@@ -45,7 +47,7 @@ class _MyAppState extends State<MyApp> {
           return state is AppUserLoggedIn;
         },
         builder: (context, isLoggedIn) {
-          return isLoggedIn ? const HomeScreen() : const StudentLoginScreen();
+          return isLoggedIn ? const LandingPage() : const StudentLoginScreen();
         },
       ),
     );

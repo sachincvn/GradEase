@@ -6,6 +6,7 @@ import 'package:grad_ease/features/auth/data/repository/auth_repository_impl.dar
 import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
 import 'package:grad_ease/features/auth/domain/usecase/student_login_usecase.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -46,8 +47,10 @@ void _registerUseCases() {
 }
 
 void _registerBlocs() {
-  serviceLocator.registerLazySingleton(() => AuthBloc(
-        studentLoginUseCase: serviceLocator(),
-        appUserCubit: serviceLocator(),
-      ));
+  serviceLocator
+    ..registerLazySingleton(() => AuthBloc(
+          studentLoginUseCase: serviceLocator(),
+          appUserCubit: serviceLocator(),
+        ))
+    ..registerLazySingleton(() => LandingPageBloc());
 }

@@ -3,8 +3,8 @@ import 'package:grad_ease/core/theme/color_pallete.dart';
 
 class ClockInCard extends StatelessWidget {
   const ClockInCard({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,58 +15,56 @@ class ClockInCard extends StatelessWidget {
         color: const Color(0xFF6d61f3),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Chip(
-                backgroundColor: const Color(0xFF8c85f6),
-                side: const BorderSide(color: ColorPallete.transparentColor),
-                label: Text(
-                  "Today : 02/04/2024",
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ),
-              Chip(
-                backgroundColor: const Color(0xFF8c85f6),
-                side: const BorderSide(color: ColorPallete.transparentColor),
-                label: Text(
-                  "Clock-In",
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  Text(
+                    "Good Morning",
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .copyWith(fontWeight: FontWeight.w400),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    "Cloud Computing",
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 5),
                   Text(
                     "10:30 - 11:30",
                     style: Theme.of(context)
                         .textTheme
-                        .headlineLarge!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Computer Science",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
+                        .titleLarge!
                         .copyWith(fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 90,
-                width: 90,
-                child: Image.network(
-                    "https://cdn-icons-png.freepik.com/512/5832/5832416.png?filename=stack-books_5832416.png&fd=1"),
-              )
-            ],
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: ColorPallete.whiteColor,
+            ),
+            child: Text(
+              "Clock In",
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: ColorPallete.backgroundColor,
+                  ),
+            ),
           ),
         ],
       ),
