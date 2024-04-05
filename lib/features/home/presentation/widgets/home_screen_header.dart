@@ -21,7 +21,7 @@ class HomeScreenHeader extends StatelessWidget {
                 backgroundColor: ColorPallete.transparentColor,
                 minRadius: 28,
                 child: Image.network(
-                    height: 55,
+                    height: 50,
                     fit: BoxFit.cover,
                     "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1"),
               ),
