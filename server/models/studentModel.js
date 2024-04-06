@@ -45,6 +45,10 @@ const studentSchema = new Schema({
     type: String,
     required: true,
   },
+  profileImage: {
+    type: String,
+    required: false,
+  },
 });
 
 const StudentModel = model("Student", studentSchema);

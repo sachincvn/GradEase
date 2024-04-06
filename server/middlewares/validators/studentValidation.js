@@ -20,6 +20,7 @@ export function StudentRegistrationValidation(req, res, next) {
     password: Joi.string()
       .pattern(/^[a-zA-Z0-9]{3,30}$/)
       .required(),
+    profileImage: Joi.string(),
   });
 
   const { error } = schema.validate(req.body);
