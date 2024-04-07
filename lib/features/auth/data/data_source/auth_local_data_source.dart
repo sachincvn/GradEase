@@ -25,7 +25,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   void updateStudentDetails(StudentModel studentModel) {
-    box.put('studentDetail', studentModel.toJson());
+    box.put('studentDetail', studentModel.toMap());
   }
 
   @override
@@ -36,7 +36,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   StudentModel? getStudentDetail() {
     final studentDetail = box.get('studentDetail', defaultValue: null);
-    return StudentModel.fromJson(studentDetail);
+    return StudentModel.fromMap(studentDetail);
   }
 
   @override
