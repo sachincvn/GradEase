@@ -45,10 +45,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ];
                   },
-                  body: const TabBarView(
+                  body: TabBarView(
                     children: [
                       LatestFeedScreen(),
-                      CommunityScreen(),
+                      const CommunityScreen(),
                     ],
                   ),
                 ),

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
-import 'package:grad_ease/features/feeds/data/feed_post_model.dart';
+import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
 import 'package:grad_ease/features/feeds/presentation/pages/post_detail_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
 class FeedPost extends StatelessWidget {
-  final FeedPostModel post;
+  final FeedPostEntity post;
 
   const FeedPost({
     super.key,
@@ -22,7 +22,7 @@ class FeedPost extends StatelessWidget {
           PageTransition(
             type: PageTransitionType.rightToLeft,
             child: PostDetailScreen(
-              feedPostModel: post,
+              feedPost: post,
             ),
           ),
         );
@@ -43,7 +43,8 @@ class FeedPost extends StatelessWidget {
                   backgroundColor: ColorPallete.transparentColor,
                   minRadius: 28,
                   child: Image.network(
-                    "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1",
+                    post.author?.profileImage ??
+                        "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1",
                     height: 40,
                     fit: BoxFit.cover,
                   ),
@@ -53,7 +54,7 @@ class FeedPost extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      post.name,
+                      post.author!.fullName!,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -61,7 +62,7 @@ class FeedPost extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      post.course,
+                      post.author!.email!,
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall!
@@ -73,14 +74,14 @@ class FeedPost extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              post.title,
+              post.title!,
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
                   .copyWith(fontWeight: FontWeight.w600),
             ),
             Text(
-              post.description,
+              post.content!,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context)
@@ -97,7 +98,7 @@ class FeedPost extends StatelessWidget {
                   iconSize: 22,
                 ),
                 Text(
-                  post.commentCount.toString(),
+                  "1",
                   style: Theme.of(context).textTheme.labelMedium!,
                 ),
                 const Spacer(),
@@ -112,7 +113,7 @@ class FeedPost extends StatelessWidget {
                   iconSize: 22,
                 ),
                 Text(
-                  post.likeCount.toString(),
+                  post.likedBy.length.toString(),
                   style: Theme.of(context).textTheme.labelMedium!,
                 ),
                 const SizedBox(width: 10),

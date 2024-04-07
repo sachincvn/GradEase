@@ -1,4 +1,4 @@
-class FeedPostModel {
+class FeedPostModelTemp {
   final String title;
   final String description;
   final String name;
@@ -7,7 +7,7 @@ class FeedPostModel {
   final int likeCount;
   final int commentCount;
 
-  FeedPostModel({
+  FeedPostModelTemp({
     required this.title,
     required this.description,
     required this.name,
@@ -18,8 +18,8 @@ class FeedPostModel {
   });
 }
 
-final List<FeedPostModel> communityPosts = [
-  FeedPostModel(
+final List<FeedPostModelTemp> communityPosts = [
+  FeedPostModelTemp(
     title: "Post Title 1",
     description: "Description of post 1",
     name: "Sachin Chavan",
@@ -28,7 +28,7 @@ final List<FeedPostModel> communityPosts = [
     likeCount: 42,
     commentCount: 2,
   ),
-  FeedPostModel(
+  FeedPostModelTemp(
     title: "Post Title 2",
     description: "Description of post 2",
     name: "John Doe",
@@ -37,7 +37,7 @@ final List<FeedPostModel> communityPosts = [
     likeCount: 12,
     commentCount: 5,
   ),
-  FeedPostModel(
+  FeedPostModelTemp(
     title: "Post Title 3",
     description: "Description of post 3",
     name: "Jane Smith",
@@ -46,7 +46,7 @@ final List<FeedPostModel> communityPosts = [
     likeCount: 30,
     commentCount: 8,
   ),
-  FeedPostModel(
+  FeedPostModelTemp(
     title: "Post Title 4",
     description: "Description of post 4",
     name: "Alice Johnson",
@@ -55,7 +55,7 @@ final List<FeedPostModel> communityPosts = [
     likeCount: 55,
     commentCount: 15,
   ),
-  FeedPostModel(
+  FeedPostModelTemp(
     title: "Post Title 5",
     description: "Description of post 5",
     profileUrl: "https://source.unsplash.com/150x150/?portrait",
