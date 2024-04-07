@@ -6,6 +6,11 @@ import 'package:grad_ease/features/auth/data/repository/auth_repository_impl.dar
 import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
 import 'package:grad_ease/features/auth/domain/usecase/student_login_usecase.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:grad_ease/features/feeds/data/data_sourse/feed_post_remote_data_source.dart';
+import 'package:grad_ease/features/feeds/data/repository/feed_post_repository_impl.dart';
+import 'package:grad_ease/features/feeds/domain/repository/feed_post_repository.dart';
+import 'package:grad_ease/features/feeds/domain/usecase/getall_feed_post_usecase.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/feed_post_bloc.dart';
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
@@ -32,18 +37,25 @@ void _registerDataSources() {
   serviceLocator
     ..registerFactory<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl())
     ..registerFactory<AuthLocalDataSource>(
-        () => AuthLocalDataSourceImpl(serviceLocator.get()));
+        () => AuthLocalDataSourceImpl(serviceLocator.get()))
+    ..registerFactory<FeedPostRemoteDataSource>(
+        () => FeedPostRemoteDataSourceImpl());
 }
 
 void _registerRepositories() {
-  serviceLocator.registerFactory<AuthRepository>(() => AuthRepositoryImpl(
-        authRemoteDataSource: serviceLocator(),
-        authLocalDataSource: serviceLocator(),
-      ));
+  serviceLocator
+    ..registerFactory<AuthRepository>(() => AuthRepositoryImpl(
+          authRemoteDataSource: serviceLocator(),
+          authLocalDataSource: serviceLocator(),
+        ))
+    ..registerFactory<FeedPostRepository>(() =>
+        FeedPostRepositoryImpl(feedPostRemoteDataSource: serviceLocator()));
 }
 
 void _registerUseCases() {
-  serviceLocator.registerFactory(() => StudentLoginUseCase(serviceLocator()));
+  serviceLocator
+    ..registerFactory(() => StudentLoginUseCase(serviceLocator()))
+    ..registerFactory(() => GetAllFeedPostUseCase(serviceLocator()));
 }
 
 void _registerBlocs() {
@@ -52,5 +64,6 @@ void _registerBlocs() {
           studentLoginUseCase: serviceLocator(),
           appUserCubit: serviceLocator(),
         ))
-    ..registerLazySingleton(() => LandingPageBloc());
+    ..registerLazySingleton(() => LandingPageBloc())
+    ..registerLazySingleton(() => FeedPostBloc(serviceLocator()));
 }

@@ -17,9 +17,10 @@ class StudentModel extends StudentEntity {
     required super.email,
     required super.studentPhone,
     required super.parentPhone,
+    required super.profileImage,
   });
 
-  factory StudentModel.fromJson(Map<String, dynamic> json) {
+  factory StudentModel.fromMap(Map<String, dynamic> json) {
     return StudentModel(
       fullName: json['fullName'],
       fatherName: json['fatherName'],
@@ -30,20 +31,23 @@ class StudentModel extends StudentEntity {
       email: json['email'],
       studentPhone: json['studentPhone'],
       parentPhone: json['parentPhone'],
+      profileImage: json['profileImage'] ??
+          "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1",
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
       'fullName': fullName,
       'fatherName': fatherName,
-      'dob': dob.toIso8601String(),
-      'gender': gender.name,
-      'course': course.name,
+      'dob': dob!.toIso8601String(),
+      'gender': gender?.name,
+      'course': course?.name,
       'courseYear': courseYear,
       'email': email,
       'studentPhone': studentPhone,
       'parentPhone': parentPhone,
+      'profileImage': profileImage,
     };
   }
 

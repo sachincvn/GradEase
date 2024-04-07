@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/feeds/data/feed_post_model.dart';
+import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
 import 'package:grad_ease/features/feeds/presentation/widgets/feed_post.dart';
 
 class PostDetailScreen extends StatelessWidget {
-  final FeedPostModel feedPostModel;
-  const PostDetailScreen({Key? key, required this.feedPostModel})
-      : super(key: key);
+  final FeedPostEntity feedPost;
+  const PostDetailScreen({Key? key, required this.feedPost}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +27,7 @@ class PostDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FeedPost(
-              post: FeedPostModel(
-                title: feedPostModel.title,
-                description: feedPostModel.description,
-                name: feedPostModel.name,
-                course: feedPostModel.course,
-                profileUrl: feedPostModel.profileUrl,
-                likeCount: 12,
-                commentCount: 2,
-              ),
+              post: feedPost,
             ),
             const Divider(),
             Expanded(

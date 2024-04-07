@@ -42,7 +42,7 @@ class AuthRemoteDataSourceImpl extends GradEaseRestService
     final response = await executeRequest(restRequest);
     return RestResponse<StudentModel>.fromJson(
       response.data,
-      fromJson: (data) => StudentModel.fromJson(data),
+      fromJson: (data) => StudentModel.fromMap(data),
     ).data;
   }
 }
