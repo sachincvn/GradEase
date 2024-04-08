@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 
-class AuthInputField extends StatelessWidget {
+class GradEaseInputField extends StatelessWidget {
   final String labelText;
   final String hintText;
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final String? errorMessage;
   final bool isObscureText;
-  const AuthInputField({
+  const GradEaseInputField({
     super.key,
     required this.labelText,
     required this.hintText,

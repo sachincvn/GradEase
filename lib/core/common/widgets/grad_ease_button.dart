@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 
-class AuthButton extends StatelessWidget {
+class GradEaseAuthButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
   final bool isLoading;
-  const AuthButton({
+  const GradEaseAuthButton({
     super.key,
     required this.buttonText,
     required this.onPressed,
