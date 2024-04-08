@@ -2,13 +2,15 @@ import 'package:fpdart/fpdart.dart';
 import 'package:grad_ease/core/common/entities/auth_login_entity.dart';
 import 'package:grad_ease/core/common/entities/student_enity.dart';
 import 'package:grad_ease/core/common/usecase/usecase.dart';
+import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
 import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
 
 class StudentLoginUseCase
     implements UseCase<StudentEntity?, StudentLoginParams> {
   final AuthRepository authRepository;
-  const StudentLoginUseCase(this.authRepository);
+  final LocalDetailsRepository localDetailsRepository;
+  const StudentLoginUseCase(this.authRepository, this.localDetailsRepository);
 
   @override
   Future<Either<Failure, StudentEntity?>> call(
@@ -33,9 +35,9 @@ class StudentLoginUseCase
     }
   }
 
-  String? loginAuthToken() => authRepository.getLocalLoginAuthToken();
-  AuthLoginEntity? loginDetail() => authRepository.getLocalAuthLoginDetail();
-  StudentEntity? studentDetail() => authRepository.getLocalStudentDetail();
+  String? loginAuthToken() => localDetailsRepository.getLoginAuthToken();
+  AuthLoginEntity? loginDetail() => localDetailsRepository.getLoginDetail();
+  StudentEntity? studentDetail() => localDetailsRepository.getStudentDetail();
 }
 
 class StudentLoginParams {

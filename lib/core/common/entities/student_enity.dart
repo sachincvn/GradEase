@@ -1,6 +1,7 @@
 import 'package:grad_ease/features/auth/data/models/student_model.dart';
 
 class StudentEntity {
+  final String id;
   final String fullName;
   final String? fatherName;
   final DateTime? dob;
@@ -13,6 +14,7 @@ class StudentEntity {
   final String? profileImage;
 
   StudentEntity({
+    required this.id,
     required this.fullName,
     required this.fatherName,
     required this.dob,

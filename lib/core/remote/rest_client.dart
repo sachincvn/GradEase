@@ -9,7 +9,7 @@ class RestClient {
   }
 
   String _getRestClientBaseUrl() {
-    return RestResources.restApiBaseUrl(true);
+    return RestResources.restApiBaseUrl(false);
   }
 }
 

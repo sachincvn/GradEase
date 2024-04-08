@@ -26,6 +26,19 @@ const postSchema = new Schema({
       ref: "Student",
     },
   ],
+  replies: [
+    {
+      content: {
+        type: String,
+        required: true,
+      },
+      author: {
+        type: Schema.Types.ObjectId,
+        ref: "Student",
+        required: true,
+      },
+    },
+  ],
 });
 
 const PostModel = model("Post", postSchema);

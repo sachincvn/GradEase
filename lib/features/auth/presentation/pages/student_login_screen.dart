@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grad_ease/core/common/widgets/grad_ease_button.dart';
+import 'package:grad_ease/core/common/widgets/grad_ease_field.dart';
 import 'package:grad_ease/core/extensions/spacing_extension.dart';
 import 'package:grad_ease/core/extensions/string_validation_extension.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/auth/presentation/pages/admin_login_screen.dart';
-import 'package:grad_ease/features/auth/presentation/widgets/auth_button.dart';
-import 'package:grad_ease/features/auth/presentation/widgets/auth_field.dart';
 import 'package:grad_ease/features/main/landing_page.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:page_transition/page_transition.dart';
@@ -70,7 +70,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                         .copyWith(fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 40),
-                  AuthInputField(
+                  GradEaseInputField(
                     labelText: "Email",
                     hintText: "sachinchavan@gmail.com",
                     controller: emailController,
@@ -82,7 +82,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  AuthInputField(
+                  GradEaseInputField(
                     labelText: "Password",
                     hintText: "*********",
                     controller: passwordController,
@@ -130,7 +130,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  AuthButton(
+                  GradEaseButton(
                     buttonText: "Sign In",
                     isLoading: isLoading,
                     onPressed: () {

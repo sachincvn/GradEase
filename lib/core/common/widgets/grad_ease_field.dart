@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 
-class AuthInputField extends StatelessWidget {
+class GradEaseInputField extends StatelessWidget {
   final String labelText;
   final String hintText;
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final String? errorMessage;
   final bool isObscureText;
-  const AuthInputField({
+  final int maxLines;
+  final int? maxLength;
+  const GradEaseInputField({
     super.key,
     required this.labelText,
     required this.hintText,
@@ -16,6 +18,8 @@ class AuthInputField extends StatelessWidget {
     this.validator,
     this.errorMessage,
     this.isObscureText = false,
+    this.maxLines = 1,
+    this.maxLength,
   });
 
   @override
@@ -41,9 +45,12 @@ class AuthInputField extends StatelessWidget {
           validator: validator,
           obscureText: isObscureText,
           style: const TextStyle(
-              fontSize: 14,
-              color: ColorPallete.whiteColor,
-              fontWeight: FontWeight.w500),
+            fontSize: 14,
+            color: ColorPallete.whiteColor,
+            fontWeight: FontWeight.w500,
+          ),
+          maxLines: maxLines,
+          maxLength: maxLength,
         ),
       ],
     );

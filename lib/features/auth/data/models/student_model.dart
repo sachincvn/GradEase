@@ -6,22 +6,36 @@ enum GenderEnum { MALE, FEMALE, OTHER }
 
 enum CourseEnum { MCA, MBA } // Define your CourseEnum
 
-class StudentModel extends StudentEntity {
+class StudentModel {
+  final String id;
+  final String fullName;
+  final String? fatherName;
+  final DateTime? dob;
+  final GenderEnum? gender;
+  final CourseEnum? course;
+  final int? courseYear;
+  final String? email;
+  final String? studentPhone;
+  final String? parentPhone;
+  final String? profileImage;
+
   StudentModel({
-    required super.fullName,
-    required super.fatherName,
-    required super.dob,
-    required super.gender,
-    required super.course,
-    required super.courseYear,
-    required super.email,
-    required super.studentPhone,
-    required super.parentPhone,
-    required super.profileImage,
+    required this.id,
+    required this.fullName,
+    required this.fatherName,
+    required this.dob,
+    required this.gender,
+    required this.course,
+    required this.courseYear,
+    required this.email,
+    required this.studentPhone,
+    required this.parentPhone,
+    required this.profileImage,
   });
 
   factory StudentModel.fromMap(Map<String, dynamic> json) {
     return StudentModel(
+      id: json['_id'],
       fullName: json['fullName'],
       fatherName: json['fatherName'],
       dob: DateTime.parse(json['dob']),
@@ -38,6 +52,7 @@ class StudentModel extends StudentEntity {
 
   Map<String, dynamic> toMap() {
     return {
+      '_id': id,
       'fullName': fullName,
       'fatherName': fatherName,
       'dob': dob!.toIso8601String(),
@@ -73,5 +88,20 @@ class StudentModel extends StudentEntity {
       default:
         throw Exception('Invalid course value: $course');
     }
+  }
+
+  StudentEntity toEntity() {
+    return StudentEntity(
+        id: id,
+        fullName: fullName,
+        fatherName: fatherName,
+        dob: dob,
+        gender: gender,
+        course: course,
+        courseYear: courseYear,
+        email: email,
+        studentPhone: studentPhone,
+        parentPhone: parentPhone,
+        profileImage: profileImage);
   }
 }

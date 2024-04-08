@@ -78,3 +78,50 @@ export async function deletePost(postId) {
   }
   return post;
 }
+
+export async function addReply(postId, content, authorId) {
+  const post = await PostModel.findById(postId);
+  if (!post) {
+    throw new ResponseError(404, "Post not found");
+  }
+
+  const newReply = {
+    content,
+    author: authorId,
+  };
+
+  post.replies.push(newReply);
+  await post.save();
+  return post;
+}
+
+export async function deleteReply(postId, replyId) {
+  const post = await PostModel.findById(postId);
+  if (!post) {
+    throw new ResponseError(404, "Post not found");
+  }
+
+  const reply = post.replies.id(replyId);
+  if (!reply) {
+    throw new ResponseError(404, "Post not found");
+  }
+
+  reply.remove();
+  await post.save();
+  return post;
+}
+
+export async function getRepliesForPost(postId) {
+  const post = await PostModel.findById(postId).populate({
+    path: "replies",
+    populate: {
+      path: "author",
+      select: "fullName email profileImage",
+    },
+  });
+  if (!post) {
+    throw new ResponseError(404, "Post not found");
+  }
+
+  return post.replies;
+}
