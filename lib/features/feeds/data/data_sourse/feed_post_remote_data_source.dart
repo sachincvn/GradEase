@@ -1,5 +1,6 @@
 import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/remote/gradease_rest_service.dart';
+import 'package:grad_ease/core/remote/response_wrapper.dart';
 import 'package:grad_ease/features/feeds/data/models/feed_post_replies_response.dart';
 import 'package:grad_ease/features/feeds/data/models/feed_post_response.dart';
 import 'package:grad_ease/features/feeds/data/models/feed_posts_response.dart';
@@ -10,6 +11,12 @@ abstract interface class FeedPostRemoteDataSource {
   Future<bool> likePost(String id, String userId);
   Future<bool> dislikePost(String id, String userId);
   Future<bool> deletePost(String id, String userId);
+
+  Future<RestResponse<String?>> createNewPost(
+    String title,
+    String description,
+    String userId,
+  );
 
   Future<FeedPostRepliesResponse> getFeesPostReplies(String id);
   Future<bool> addPostReply(String postId, String authorId, String content);
@@ -83,5 +90,17 @@ class FeedPostRemoteDataSourceImpl extends GradEaseRestService
       return true;
     }
     return false;
+  }
+
+  @override
+  Future<RestResponse<String?>> createNewPost(
+      String title, String description, String userId) async {
+    final restRequest = createPostRequest(RestResources.feedPosts, body: {
+      "title": title,
+      "content": description,
+      "authorId": userId,
+    });
+    final response = await executeRequest(restRequest);
+    return RestResponse.fromJson(response.data);
   }
 }

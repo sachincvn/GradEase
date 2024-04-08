@@ -54,7 +54,9 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
 
   @override
   Future<Either<Failure, FeedPostEntity?>> getPostById(
-      String id, String userId) async {
+    String id,
+    String userId,
+  ) async {
     try {
       final post = await _feedPostRemoteDataSource.getPostById(id, userId);
       return right(post?.data?.toEntity());
@@ -75,7 +77,8 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
 
   @override
   Future<Either<Failure, List<FeedPostReplyEntity>>> getFeedPostReplies(
-      String id) async {
+    String id,
+  ) async {
     try {
       final postReplies =
           await _feedPostRemoteDataSource.getFeesPostReplies(id);
@@ -87,7 +90,9 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
 
   @override
   Future<Either<Failure, bool>> addPostReply(
-      String postId, String content) async {
+    String postId,
+    String content,
+  ) async {
     try {
       final response =
           await _feedPostRemoteDataSource.addPostReply(postId, userId, content);
@@ -99,7 +104,9 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
 
   @override
   Future<Either<Failure, bool>> deletePostReply(
-      String postId, String replyId) async {
+    String postId,
+    String replyId,
+  ) async {
     try {
       final response =
           await _feedPostRemoteDataSource.deletePostReply(postId, replyId);
@@ -112,4 +119,18 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
   @override
   AuthorEntity? getLocalAuthorDetail() =>
       _localDetailsRepository.getAuthorEntity();
+
+  @override
+  Future<Either<Failure, String?>> createNewPost(
+    String title,
+    String description,
+  ) async {
+    try {
+      final postId = await _feedPostRemoteDataSource.createNewPost(
+          title, description, userId);
+      return right(postId.data);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
 }
