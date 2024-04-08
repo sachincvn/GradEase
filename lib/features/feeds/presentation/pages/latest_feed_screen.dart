@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
-import 'package:grad_ease/features/feeds/presentation/bloc/feed_post_bloc.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 
 import '../widgets/feed_post.dart';
 
@@ -27,7 +27,7 @@ class _LatestFeedScreenState extends State<LatestFeedScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: ColorPallete.blue500,
           onPressed: () {},
-          child: Icon(CupertinoIcons.add),
+          child: const Icon(CupertinoIcons.add),
         ),
         body: BlocConsumer<FeedPostBloc, FeedPostState>(
           listener: (context, state) {

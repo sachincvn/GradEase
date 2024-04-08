@@ -12,8 +12,6 @@ final class FeedFailure extends FeedPostState {
   FeedFailure(this.error);
 }
 
-final class BlogUploadSuccess extends FeedPostState {}
-
 final class FeedDisplaySuccess extends FeedPostState {
   final List<FeedPostEntity?> posts;
   FeedDisplaySuccess(this.posts);

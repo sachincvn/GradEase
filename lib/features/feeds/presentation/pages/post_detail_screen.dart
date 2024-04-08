@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
-import 'package:grad_ease/features/feeds/data/feed_post_model.dart';
 import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
+import 'package:grad_ease/features/feeds/domain/usecase/add_reply_use_case.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/widgets/feed_post.dart';
 
-class PostDetailScreen extends StatelessWidget {
+class PostDetailScreen extends StatefulWidget {
   final FeedPostEntity feedPost;
   const PostDetailScreen({Key? key, required this.feedPost}) : super(key: key);
+
+  @override
+  State<PostDetailScreen> createState() => _PostDetailScreenState();
+}
+
+class _PostDetailScreenState extends State<PostDetailScreen> {
+  final replyTextEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<FeedDetailBloc>().add(
+          GetAllPostReplies(postId: widget.feedPost.id),
+        );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    replyTextEditingController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,22 +51,52 @@ class PostDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FeedPost(
-              post: feedPost,
+              post: widget.feedPost,
             ),
             const Divider(),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: communityPosts.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(communityPosts[index].profileUrl),
-                      ),
-                      title: Text(communityPosts[index].name),
-                      subtitle: Text(communityPosts[index].description),
+            BlocConsumer<FeedDetailBloc, FeedDetailState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is FeedPostRepliesLoading) {
+                  return const Expanded(
+                    child: Center(
+                        child: SizedBox(
+                      height: 30,
+                      width: 40,
+                      child: CircularProgressIndicator(),
+                    )),
+                  );
+                }
+                if (state is FeedPostRepliesSuccess) {
+                  if (state.postReplies.isEmpty) {
+                    return Expanded(
+                      child: Center(
+                          child: Text(
+                        "Be the first one to discuss on this post !",
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      )),
                     );
-                  }),
+                  }
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: state.postReplies.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(state
+                                      .postReplies[index].author.profileImage ??
+                                  StringConstants.avtarImage),
+                            ),
+                            title:
+                                Text(state.postReplies[index].author.fullName!),
+                            subtitle: Text(state.postReplies[index].content!),
+                          );
+                        }),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -50,14 +104,46 @@ class PostDetailScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextField(
+                      controller: replyTextEditingController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.symmetric(horizontal: 10),
                         hintText: 'Enter item',
                       ),
                       style: Theme.of(context).textTheme.labelMedium,
+                      onSubmitted: (replyText) {
+                        final addReplyParams = AddReplyUseCaseParams(
+                          postId: widget.feedPost.id,
+                          content: replyText,
+                        );
+                        context.read<FeedDetailBloc>().add(
+                              AddNewReply(addReply: addReplyParams),
+                            );
+                      },
                     ),
                   ),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.send))
+                  BlocBuilder<FeedDetailBloc, FeedDetailState>(
+                    builder: (context, state) {
+                      if (state is FeedPostReplying) {
+                        return const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return IconButton(
+                          onPressed: () {
+                            final addReplyParams = AddReplyUseCaseParams(
+                              postId: widget.feedPost.id,
+                              content: replyTextEditingController.text.trim(),
+                            );
+                            context.read<FeedDetailBloc>().add(
+                                  AddNewReply(addReply: addReplyParams),
+                                );
+                            replyTextEditingController.clear();
+                          },
+                          icon: const Icon(Icons.send));
+                    },
+                  )
                 ],
               ),
             ),
