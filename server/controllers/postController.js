@@ -6,6 +6,9 @@ import {
   dislikePost,
   getPostById,
   deletePost,
+  addReply,
+  deleteReply,
+  getRepliesForPost,
 } from "../services/postService.js";
 
 export async function CreatePostController(req, res) {
@@ -71,6 +74,37 @@ export async function DeletePostController(req, res) {
       return RestResponse(res, 200, "Deleted", true);
     }
     return RestResponse(res, 401, null, false);
+  } catch (error) {
+    return RestResponseError(res, error);
+  }
+}
+
+export async function AddReplyController(req, res) {
+  try {
+    const { postId } = req.params;
+    const { content, authorId } = req.body;
+    const post = await addReply(postId, content, authorId);
+    return RestResponse(res, 200, null, post);
+  } catch (error) {
+    return RestResponseError(res, error);
+  }
+}
+
+export async function DeleteReplyController(req, res) {
+  try {
+    const { postId, replyId } = req.params;
+    const post = await deleteReply(postId, replyId);
+    return RestResponse(res, 200, "Reply deleted successfully", post);
+  } catch (error) {
+    return RestResponseError(res, error);
+  }
+}
+
+export async function GetRepliesForPostController(req, res) {
+  try {
+    const { postId } = req.params;
+    const replies = await getRepliesForPost(postId);
+    return RestResponse(res, 200, null, replies);
   } catch (error) {
     return RestResponseError(res, error);
   }
