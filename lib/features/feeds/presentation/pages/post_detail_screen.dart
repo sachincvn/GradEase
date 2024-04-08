@@ -4,7 +4,7 @@ import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/add_reply_use_case.dart';
-import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/bloc/feed_detail_bloc.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/widgets/feed_post.dart';
 
 class PostDetailScreen extends StatefulWidget {

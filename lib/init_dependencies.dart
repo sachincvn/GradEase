@@ -9,10 +9,12 @@ import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/feeds/data/data_sourse/feed_post_remote_data_source.dart';
 import 'package:grad_ease/features/feeds/data/repository/feed_post_repository_impl.dart';
 import 'package:grad_ease/features/feeds/domain/repository/feed_post_repository.dart';
+import 'package:grad_ease/features/feeds/domain/usecase/add_post_use_case.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/add_reply_use_case.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/get_replies_use_case.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/getall_feed_post_usecase.dart';
-import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/bloc/feed_detail_bloc.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/add_post_bloc/add_post_bloc_bloc.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:hive/hive.dart';
@@ -61,7 +63,8 @@ void _registerUseCases() {
         () => StudentLoginUseCase(serviceLocator(), serviceLocator()))
     ..registerFactory(() => GetAllFeedPostUseCase(serviceLocator()))
     ..registerFactory(() => GetRepliesUseCase(serviceLocator()))
-    ..registerFactory(() => AddReplyUseCase(serviceLocator()));
+    ..registerFactory(() => AddReplyUseCase(serviceLocator()))
+    ..registerFactory(() => AddPostUseCase(serviceLocator()));
 }
 
 void _registerBlocs() {
@@ -73,5 +76,6 @@ void _registerBlocs() {
     ..registerLazySingleton(() => LandingPageBloc())
     ..registerLazySingleton(() => FeedPostBloc(serviceLocator()))
     ..registerLazySingleton(
-        () => FeedDetailBloc(serviceLocator(), serviceLocator()));
+        () => FeedDetailBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(() => AddPostBloc(serviceLocator()));
 }

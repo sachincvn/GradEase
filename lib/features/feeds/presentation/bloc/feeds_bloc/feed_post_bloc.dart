@@ -23,7 +23,7 @@ class FeedPostBloc extends Bloc<FeedPostEvent, FeedPostState> {
 
     res.fold(
       (l) => emit(FeedFailure(l.message!)),
-      (posts) => emit(FeedDisplaySuccess(posts)),
+      (posts) => emit(FeedDisplaySuccess(posts.reversed.toList())),
     );
   }
 }

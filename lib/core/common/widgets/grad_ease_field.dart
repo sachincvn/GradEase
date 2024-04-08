@@ -8,6 +8,8 @@ class GradEaseInputField extends StatelessWidget {
   final String? Function(String?)? validator;
   final String? errorMessage;
   final bool isObscureText;
+  final int maxLines;
+  final int? maxLength;
   const GradEaseInputField({
     super.key,
     required this.labelText,
@@ -16,6 +18,8 @@ class GradEaseInputField extends StatelessWidget {
     this.validator,
     this.errorMessage,
     this.isObscureText = false,
+    this.maxLines = 1,
+    this.maxLength,
   });
 
   @override
@@ -41,9 +45,12 @@ class GradEaseInputField extends StatelessWidget {
           validator: validator,
           obscureText: isObscureText,
           style: const TextStyle(
-              fontSize: 14,
-              color: ColorPallete.whiteColor,
-              fontWeight: FontWeight.w500),
+            fontSize: 14,
+            color: ColorPallete.whiteColor,
+            fontWeight: FontWeight.w500,
+          ),
+          maxLines: maxLines,
+          maxLength: maxLength,
         ),
       ],
     );
