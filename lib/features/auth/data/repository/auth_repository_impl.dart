@@ -1,17 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:fpdart/fpdart.dart';
-import 'package:grad_ease/core/common/entities/auth_login_entity.dart';
-
 import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
-import 'package:grad_ease/features/auth/data/data_source/auth_local_data_source.dart';
 import 'package:grad_ease/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:grad_ease/features/auth/data/models/auth_login_model.dart';
 import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;
-  final AuthLocalDataSource authLocalDataSource;
+  final LocalDetailsRepository authLocalDataSource;
 
   const AuthRepositoryImpl({
     required this.authRemoteDataSource,
@@ -64,24 +62,9 @@ class AuthRepositoryImpl implements AuthRepository {
       if (studentEntity != null) {
         authLocalDataSource.updateStudentDetails(studentEntity);
       }
-      return right(studentEntity);
+      return right(studentEntity!.toEntity());
     } catch (e) {
       return left(Failure(e.toString()));
     }
-  }
-
-  @override
-  String? getLocalLoginAuthToken() {
-    return authLocalDataSource.getLoginAuthToken();
-  }
-
-  @override
-  AuthLoginEntity? getLocalAuthLoginDetail() {
-    return authLocalDataSource.getLoginDetail();
-  }
-
-  @override
-  StudentEntity? getLocalStudentDetail() {
-    return authLocalDataSource.getStudentDetail();
   }
 }
