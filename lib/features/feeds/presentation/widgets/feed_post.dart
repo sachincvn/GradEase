@@ -93,12 +93,14 @@ class FeedPost extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, PageTransition(child: PostDetailScreen(feedPost: post), type: PageTransitionType.rightToLeft,));
+                  },
                   icon: const Icon(CupertinoIcons.chat_bubble),
                   iconSize: 22,
                 ),
                 Text(
-                  "1",
+                  post.replies.length.toString(),
                   style: Theme.of(context).textTheme.labelMedium!,
                 ),
                 const Spacer(),

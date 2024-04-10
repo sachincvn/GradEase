@@ -20,6 +20,10 @@ FeedPostModel _$FeedPostModelFromJson(Map<String, dynamic> json) =>
           .map((e) =>
               e == null ? null : Author.fromJson(e as Map<String, dynamic>))
           .toList(),
+      replies: (json['replies'] as List<dynamic>)
+          .map((e) =>
+              e == null ? null : ReplyModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$FeedPostModelToJson(FeedPostModel instance) =>
@@ -30,4 +34,5 @@ Map<String, dynamic> _$FeedPostModelToJson(FeedPostModel instance) =>
       'author': instance.author,
       'likedBy': instance.likedBy,
       'dislikedBy': instance.dislikedBy,
+      'replies': instance.replies,
     };
