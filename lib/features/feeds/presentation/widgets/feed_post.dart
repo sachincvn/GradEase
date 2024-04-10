@@ -94,7 +94,7 @@ class FeedPost extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(CupertinoIcons.bubble_middle_bottom),
+                  icon: const Icon(CupertinoIcons.chat_bubble),
                   iconSize: 22,
                 ),
                 Text(
@@ -104,12 +104,12 @@ class FeedPost extends StatelessWidget {
                 const Spacer(),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(CupertinoIcons.hand_thumbsdown),
+                  icon: const Icon(CupertinoIcons.arrowtriangle_down),
                   iconSize: 22,
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(CupertinoIcons.hand_thumbsup_fill),
+                  icon: const Icon(CupertinoIcons.arrowtriangle_up),
                   iconSize: 22,
                 ),
                 Text(
