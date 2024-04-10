@@ -16,3 +16,28 @@ final class FeedDisplaySuccess extends FeedPostState {
   final List<FeedPostEntity?> posts;
   FeedDisplaySuccess(this.posts);
 }
+
+
+final class LikePostSuccess extends FeedPostState{
+  final bool liked;
+
+  LikePostSuccess(this.liked);
+}
+
+final class LikePostFailure extends FeedPostState{
+  final String error;
+
+  LikePostFailure(this.error);
+}
+
+final class DisLikePostSuccess extends FeedPostState{
+  final bool disliked;
+
+  DisLikePostSuccess(this.disliked);
+}
+
+final class DisLikePostFailure extends FeedPostState{
+  final String error;
+
+  DisLikePostFailure(this.error);
+}

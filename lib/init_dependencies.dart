@@ -11,8 +11,10 @@ import 'package:grad_ease/features/feeds/data/repository/feed_post_repository_im
 import 'package:grad_ease/features/feeds/domain/repository/feed_post_repository.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/add_post_use_case.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/add_reply_use_case.dart';
+import 'package:grad_ease/features/feeds/domain/usecase/dislike_post_use_case.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/get_replies_use_case.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/getall_feed_post_usecase.dart';
+import 'package:grad_ease/features/feeds/domain/usecase/like_post_use_case.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/add_post_bloc/add_post_bloc_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
@@ -64,7 +66,9 @@ void _registerUseCases() {
     ..registerFactory(() => GetAllFeedPostUseCase(serviceLocator()))
     ..registerFactory(() => GetRepliesUseCase(serviceLocator()))
     ..registerFactory(() => AddReplyUseCase(serviceLocator()))
-    ..registerFactory(() => AddPostUseCase(serviceLocator()));
+    ..registerFactory(() => AddPostUseCase(serviceLocator()))
+    ..registerFactory(() => LikePostUseCase(serviceLocator()))
+    ..registerFactory(() => DislikePostUseCase(serviceLocator()));
 }
 
 void _registerBlocs() {
@@ -74,7 +78,7 @@ void _registerBlocs() {
           appUserCubit: serviceLocator(),
         ))
     ..registerLazySingleton(() => LandingPageBloc())
-    ..registerLazySingleton(() => FeedPostBloc(serviceLocator()))
+    ..registerLazySingleton(() => FeedPostBloc(serviceLocator(),serviceLocator(),serviceLocator()))
     ..registerLazySingleton(
         () => FeedDetailBloc(serviceLocator(), serviceLocator()))
     ..registerLazySingleton(() => AddPostBloc(serviceLocator()));

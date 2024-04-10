@@ -59,7 +59,7 @@ class FeedPostRemoteDataSourceImpl extends GradEaseRestService
     final restRequest = createPostRequest(RestResources.likePost,
         body: {"postId": id, "userId": userId});
     final response = await executeRequest(restRequest);
-    return response.data;
+    return response.data['data'];
   }
 
   @override
