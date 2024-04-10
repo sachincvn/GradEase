@@ -11,7 +11,6 @@ import {
     GetRepliesForPostController,
 } from "../controllers/postController.js";
 
-hhelo
 const postRoute = Router();
 
 postRoute.post("/", CreatePostController);
