@@ -12,8 +12,8 @@ class FeedPostModel {
   final String? title;
   final String? content;
   final Author author;
-  final List<Author?> likedBy;
-  final List<Author?> dislikedBy;
+  final List<String?> likedBy;
+  final List<String?> dislikedBy;
   final List<ReplyModel?> replies;
 
   FeedPostModel({
@@ -28,14 +28,13 @@ class FeedPostModel {
 
   FeedPostEntity toEntity() {
     return FeedPostEntity(
-      id: id,
-      title: title,
-      content: content,
-      author: author,
-      likedBy: likedBy,
-      dislikedBy: dislikedBy,
-      replies: replies
-    );
+        id: id,
+        title: title,
+        content: content,
+        author: author,
+        likedBy: likedBy,
+        dislikedBy: dislikedBy,
+        replies: replies);
   }
 
   factory FeedPostModel.fromJson(Map<String, dynamic> json) =>

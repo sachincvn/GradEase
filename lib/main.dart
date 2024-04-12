@@ -8,6 +8,7 @@ import 'package:grad_ease/features/auth/presentation/pages/student_login_screen.
 import 'package:grad_ease/features/feeds/presentation/bloc/add_post_bloc/add_post_bloc_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/fees_post_item/feed_post_item_bloc.dart';
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:grad_ease/init_dependencies.dart';
 import 'package:grad_ease/features/main/landing_page.dart';
@@ -22,6 +23,7 @@ void main() async {
       BlocProvider(create: (_) => serviceLocator<LandingPageBloc>()),
       BlocProvider(create: (_) => serviceLocator<FeedPostBloc>()),
       BlocProvider(create: (_) => serviceLocator<FeedDetailBloc>()),
+      BlocProvider(create: (_) => serviceLocator<FeedPostItemBloc>()),
       BlocProvider(create: (_) => serviceLocator<AddPostBloc>()),
     ],
     child: const MyApp(),

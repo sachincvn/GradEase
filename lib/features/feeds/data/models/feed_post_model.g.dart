@@ -12,13 +12,10 @@ FeedPostModel _$FeedPostModelFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       content: json['content'] as String?,
       author: Author.fromJson(json['author'] as Map<String, dynamic>),
-      likedBy: (json['likedBy'] as List<dynamic>)
-          .map((e) =>
-              e == null ? null : Author.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      likedBy:
+          (json['likedBy'] as List<dynamic>).map((e) => e as String?).toList(),
       dislikedBy: (json['dislikedBy'] as List<dynamic>)
-          .map((e) =>
-              e == null ? null : Author.fromJson(e as Map<String, dynamic>))
+          .map((e) => e as String?)
           .toList(),
       replies: (json['replies'] as List<dynamic>)
           .map((e) =>

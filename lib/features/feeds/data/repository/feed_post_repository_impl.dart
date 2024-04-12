@@ -19,21 +19,21 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> deletePost(String id) async {
+  Future<Either<Failure, String?>> deletePost(String id) async {
     try {
       final deletePost = await _feedPostRemoteDataSource.deletePost(id, userId);
-      return right(deletePost);
+      return right(deletePost.data);
     } catch (e) {
       return left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, bool>> dislikePost(String id) async {
+  Future<Either<Failure, String?>> dislikePost(String id) async {
     try {
       final dislikePost =
           await _feedPostRemoteDataSource.dislikePost(id, userId);
-      return right(dislikePost);
+      return right(dislikePost.data);
     } catch (e) {
       return left(Failure(e.toString()));
     }
@@ -66,10 +66,10 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> likePost(String id) async {
+  Future<Either<Failure, String?>> likePost(String id) async {
     try {
       final likePost = await _feedPostRemoteDataSource.likePost(id, userId);
-      return right(likePost);
+      return right(likePost.data);
     } catch (e) {
       return left(Failure(e.toString()));
     }

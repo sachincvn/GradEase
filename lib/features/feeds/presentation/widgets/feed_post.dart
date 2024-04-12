@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
-import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/fees_post_item/feed_post_item_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/pages/post_detail_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -93,18 +93,19 @@ class FeedPost extends StatelessWidget {
                   .copyWith(fontWeight: FontWeight.w400),
             ),
             const Divider(),
-            BlocConsumer<FeedPostBloc, FeedPostState>(
+            BlocConsumer<FeedPostItemBloc, FeedPostItemState>(
               listener: (context, state) {
-                if (state is DisLikePostFailure) {
-                  showSnackBar(context, state.error);
-                }
                 if (state is LikePostFailure) {
-                  showSnackBar(context, state.error);
+                  showErrorSnackBar(context, state.error);
                 }
               },
               builder: (context, state) {
                 final isLiked = state is LikePostSuccess;
-                final isDisLiked = state is DisLikePostSuccess;
+                final isDisliked = state is DisLikePostSuccess;
+                if (state is LikePostSuccess) {
+                  post.copyWith(likedBy: state.feedPostEntity!.likedBy);
+                }
+
                 return Row(
                   children: [
                     IconButton(
@@ -126,16 +127,20 @@ class FeedPost extends StatelessWidget {
                     const Spacer(),
                     IconButton(
                       onPressed: () {
-                        context.read<FeedPostBloc>().add(DislikePost(post.id));
+                        context
+                            .read<FeedPostItemBloc>()
+                            .add(DislikePostEvent(post.id));
                       },
-                      icon: isDisLiked
+                      icon: isDisliked
                           ? const Icon(CupertinoIcons.arrowtriangle_down_fill)
                           : const Icon(CupertinoIcons.arrowtriangle_down),
                       iconSize: 22,
                     ),
                     IconButton(
                       onPressed: () {
-                        context.read<FeedPostBloc>().add(LikePost(post.id));
+                        context
+                            .read<FeedPostItemBloc>()
+                            .add(LikePostEvent(post));
                       },
                       icon: isLiked
                           ? const Icon(CupertinoIcons.arrowtriangle_up_fill)
@@ -150,7 +155,7 @@ class FeedPost extends StatelessWidget {
                   ],
                 );
               },
-            ),
+            )
           ],
         ),
       ),
