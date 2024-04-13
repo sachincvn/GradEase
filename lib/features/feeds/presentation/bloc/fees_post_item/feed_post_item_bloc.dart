@@ -19,36 +19,46 @@ class FeedPostItemBloc extends Bloc<FeedPostItemEvent, FeedPostItemState> {
   FeedPostItemBloc(this._likePostUseCase, this._dislikePostUseCase,
       this._localDetailsRepository)
       : super(FeedPostItemInitial()) {
+    on<FeedPostItemInital>(_onFeedPostItemInital);
     on<LikePostEvent>(_onLikePost);
-    on<DislikePostEvent>(_onDislikePost);
   }
 
   FutureOr<void> _onLikePost(
     LikePostEvent event,
     Emitter<FeedPostItemState> emit,
   ) async {
-    final isAlreadyLiked = event.feedPostEntity.likedBy.any(
-      (element) => element == _localDetailsRepository.getUserId(),
-    );
-    if (isAlreadyLiked) {
+    if (_isAlreadyLiked(event.feedPostEntity)) {
       return;
     }
 
     final likePost = await _likePostUseCase(event.feedPostEntity);
 
     likePost.fold(
-      (l) => emit(LikePostFailure(l.message!)),
-      (r) => emit(LikePostSuccess(r)),
+      (l) => emit(FeedPostItemFailure(l.message!)),
+      (r) => emit(FeedPostItemSucess(r)),
     );
   }
 
-  FutureOr<void> _onDislikePost(
-      DislikePostEvent event, Emitter<FeedPostItemState> emit) async {
-    final disLike = await _dislikePostUseCase(event.postId);
+  FutureOr<void> _onFeedPostItemInital(
+    FeedPostItemInital event,
+    Emitter<FeedPostItemState> emit,
+  ) async {
+    final feedPostitem = event.feedPost.copyWith(
+      isPostLiked: _isAlreadyLiked(event.feedPost),
+      isPostDisliked: _isAlreadyDisLiked(event.feedPost),
+    );
+    emit(FeedPostItemSucess(feedPostitem));
+  }
 
-    disLike.fold(
-      (l) => emit(DisLikePostFailure(l.message!)),
-      (r) => emit(DisLikePostSuccess(r)),
+  bool _isAlreadyLiked(FeedPostEntity feedPostEntity) {
+    return feedPostEntity.likedBy.any(
+      (element) => element == _localDetailsRepository.getUserId(),
+    );
+  }
+
+  bool _isAlreadyDisLiked(FeedPostEntity feedPostEntity) {
+    return feedPostEntity.dislikedBy.any(
+      (element) => element == _localDetailsRepository.getUserId(),
     );
   }
 }

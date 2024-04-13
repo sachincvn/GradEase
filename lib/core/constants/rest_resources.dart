@@ -1,7 +1,7 @@
 class RestResources {
   static String restApiBaseUrl(value) => value
       ? "https://gradease.onrender.com/api/v1/"
-      : "http://192.168.0.105:8080/api/v1/";
+      : "http://192.168.3.141:8081/api/v1/";
 
   static const String studentLogin = "/auth/student";
   static const String adminLogin = "auth/admin";
