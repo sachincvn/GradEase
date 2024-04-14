@@ -8,6 +8,8 @@ export async function createPost(title, content, authorId) {
     author: authorId,
   });
 
+  await newPost.populate("author", "fullName email profileImage");
+
   const savedPost = await newPost.save();
   return savedPost;
 }
@@ -28,7 +30,7 @@ export async function likePost(postId, userId) {
     "fullName email profileImage"
   );
   if (!post) {
-    throw new Error("Post not found");
+    throw new ResponseError(404, "Post not found");
   }
 
   const likedIndex = post.likedBy.indexOf(userId);
@@ -52,7 +54,7 @@ export async function dislikePost(postId, userId) {
     "fullName email profileImage"
   );
   if (!post) {
-    throw new Error("Post not found");
+    throw new ResponseError(404, "Post not found");
   }
 
   const likedIndex = post.likedBy.indexOf(userId);

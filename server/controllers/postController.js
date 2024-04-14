@@ -15,7 +15,7 @@ export async function CreatePostController(req, res) {
   try {
     const { title, content, authorId } = req.body;
     const post = await createPost(title, content, authorId);
-    return RestResponse(res, 200, null, post._id);
+    return RestResponse(res, 200, null, post);
   } catch (error) {
     return RestResponseError(res, error);
   }
