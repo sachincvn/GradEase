@@ -9,26 +9,17 @@ import 'package:page_transition/page_transition.dart';
 
 class FeedPost extends StatelessWidget {
   final FeedPostEntity post;
-
+  final VoidCallback? onTapCallback;
   const FeedPost({
     super.key,
     required this.post,
+    this.onTapCallback,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          PageTransition(
-            type: PageTransitionType.rightToLeft,
-            child: PostDetailScreen(
-              feedPost: post,
-            ),
-          ),
-        );
-      },
+      onTap: onTapCallback,
       child: Container(
         margin: const EdgeInsets.only(top: 5, left: 14, right: 14, bottom: 10),
         padding: const EdgeInsets.only(top: 2, bottom: 2, left: 10, right: 10),

@@ -50,9 +50,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            FeedPost(
-              post: widget.feedPost,
-            ),
+            FeedPost(post: widget.feedPost),
             const Divider(),
             BlocConsumer<FeedDetailBloc, FeedDetailState>(
               listener: (context, state) {},
@@ -129,10 +127,12 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   BlocBuilder<FeedDetailBloc, FeedDetailState>(
                     builder: (context, state) {
                       if (state.isReplying ?? false) {
-                        return const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(),
+                        return const Padding(
+                          padding: EdgeInsets.all(8),
+                          child: PreferredSize(
+                            preferredSize: Size(30, 30),
+                            child: CircularProgressIndicator(),
+                          ),
                         );
                       }
                       return IconButton(

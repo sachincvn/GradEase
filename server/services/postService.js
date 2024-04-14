@@ -16,6 +16,7 @@ export async function getAllPosts(pageNumber = 1, pageSize = 10) {
   const skip = (pageNumber - 1) * pageSize;
   const posts = await PostModel.find()
     .populate("author", "fullName email profileImage")
+    .sort({ createdAt: -1 })
     .skip(skip)
     .limit(pageSize);
   return posts;

@@ -5,6 +5,7 @@ import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/pages/add_post_screen.dart';
+import 'package:grad_ease/features/feeds/presentation/pages/post_detail_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../widgets/feed_post.dart';
@@ -48,7 +49,7 @@ class _LatestFeedScreenState extends State<LatestFeedScreen> {
             if (state.feedPostStateStatus == FeedPostStateStatus.loading) {
               return const Center(
                   child: SizedBox(
-                height: 30,
+                height: 40,
                 width: 40,
                 child: CircularProgressIndicator(),
               ));
@@ -63,7 +64,20 @@ class _LatestFeedScreenState extends State<LatestFeedScreen> {
               return ListView.builder(
                 itemCount: posts.length,
                 itemBuilder: (context, index) {
-                  return FeedPost(post: posts[index]!);
+                  return FeedPost(
+                    post: posts[index]!,
+                    onTapCallback: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: PostDetailScreen(
+                            feedPost: posts[index]!,
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 },
               );
             }

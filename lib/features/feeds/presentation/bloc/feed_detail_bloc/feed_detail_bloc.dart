@@ -23,7 +23,7 @@ class FeedDetailBloc extends Bloc<FeedDetailEvent, FeedDetailState> {
 
   FutureOr<void> _onGetAllPostReplies(
       GetAllPostReplies event, Emitter<FeedDetailState> emit) async {
-    emit(const FeedDetailState(
+    emit(state.copyWith(
       feedDetailStateStatus: FeedDetailStateStatus.loading,
     ));
 
@@ -32,7 +32,7 @@ class FeedDetailBloc extends Bloc<FeedDetailEvent, FeedDetailState> {
       (l) => emit(emitErrorState(l.message!)),
       (postReplies) {
         _postReplies = postReplies.reversed.toList();
-        emit(FeedDetailState(
+        emit(state.copyWith(
           feedPostReplies: _postReplies,
           feedDetailStateStatus: FeedDetailStateStatus.success,
         ));
@@ -42,18 +42,22 @@ class FeedDetailBloc extends Bloc<FeedDetailEvent, FeedDetailState> {
 
   FutureOr<void> _onAddNewReply(
       AddNewReply event, Emitter<FeedDetailState> emit) async {
-    emit(const FeedDetailState(isReplying: true));
+    emit(state.copyWith(isReplying: true));
+
     final reply = await _addReplyUseCase(event.addReply);
-    reply.fold((l) => null, (r) {
-      _postReplies.add(FeedPostReplyEntity(
-          content: event.addReply.content,
-          author: _addReplyUseCase.authorEntity()!.toAuthor()));
-      emit(FeedDetailState(feedPostReplies: _postReplies));
+    reply.fold((l) => emit(emitErrorState(l.message!)), (r) {
+      _postReplies.insert(
+          0,
+          FeedPostReplyEntity(
+            content: event.addReply.content,
+            author: _addReplyUseCase.authorEntity()!.toAuthor(),
+          ));
+      emit(state.copyWith(isReplying: false));
     });
   }
 
   FeedDetailState emitErrorState(String error) {
-    return (FeedDetailState(
+    return (state.copyWith(
       feedDetailStateStatus: FeedDetailStateStatus.error,
       errorMessage: error,
     ));

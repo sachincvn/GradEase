@@ -66,7 +66,7 @@ export async function DeletePostController(req, res) {
   try {
     const { postId } = req.params;
     const post = await deletePost(postId);
-    return RestResponse(res, 200, "Deleted", userId);
+    return RestResponse(res, 200, "Deleted", post);
   } catch (error) {
     return RestResponseError(res, error);
   }
