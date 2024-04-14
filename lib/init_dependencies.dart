@@ -18,7 +18,6 @@ import 'package:grad_ease/features/feeds/domain/usecase/like_post_use_case.dart'
 import 'package:grad_ease/features/feeds/presentation/bloc/add_post_bloc/add_post_bloc_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
-import 'package:grad_ease/features/feeds/presentation/bloc/fees_post_item/feed_post_item_bloc.dart';
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
@@ -79,10 +78,9 @@ void _registerBlocs() {
           appUserCubit: serviceLocator(),
         ))
     ..registerLazySingleton(() => LandingPageBloc())
-    ..registerLazySingleton(() => FeedPostBloc(serviceLocator()))
+    ..registerLazySingleton(() =>
+        FeedPostBloc(serviceLocator(), serviceLocator(), serviceLocator(),serviceLocator()))
     ..registerLazySingleton(
         () => FeedDetailBloc(serviceLocator(), serviceLocator()))
-    ..registerLazySingleton(() => AddPostBloc(serviceLocator()))
-    ..registerLazySingleton(() =>
-        FeedPostItemBloc(serviceLocator(), serviceLocator(), serviceLocator()));
+    ..registerLazySingleton(() => AddPostBloc(serviceLocator()));
 }

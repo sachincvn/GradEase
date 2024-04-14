@@ -9,8 +9,11 @@ class FeedPostResponse {
   final String? message;
   final FeedPostModel? data;
 
-  FeedPostResponse(
-      {required this.statusCode, required this.message, required this.data});
+  FeedPostResponse({
+    required this.statusCode,
+    required this.message,
+    required this.data,
+  });
 
   factory FeedPostResponse.fromJson(Map<String, dynamic> json) =>
       _$FeedPostResponseFromJson(json);

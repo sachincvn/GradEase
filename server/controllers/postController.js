@@ -36,7 +36,7 @@ export async function LikePostController(req, res) {
   try {
     const { postId, userId } = req.body;
     const post = await likePost(postId, userId);
-    return RestResponse(res, 200, "Liked", post._id);
+    return RestResponse(res, 200, "Liked", post);
   } catch (error) {
     return RestResponseError(res, error);
   }
@@ -46,7 +46,7 @@ export async function DislikePostController(req, res) {
   try {
     const { postId, userId } = req.body;
     const post = await dislikePost(postId, userId);
-    return RestResponse(res, 200, "Disliked", post._id);
+    return RestResponse(res, 200, "Liked", post);
   } catch (error) {
     return RestResponseError(res, error);
   }
@@ -66,7 +66,7 @@ export async function DeletePostController(req, res) {
   try {
     const { postId } = req.params;
     const post = await deletePost(postId);
-    return RestResponse(res, 200, "Deleted", post._id);
+    return RestResponse(res, 200, "Deleted", userId);
   } catch (error) {
     return RestResponseError(res, error);
   }

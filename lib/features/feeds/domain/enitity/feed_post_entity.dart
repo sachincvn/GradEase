@@ -10,8 +10,6 @@ class FeedPostEntity {
   final List<String?> likedBy;
   final List<String?> dislikedBy;
   final List<ReplyModel?> replies;
-  final bool? isPostLiked;
-  final bool? isPostDisliked;
 
   FeedPostEntity({
     required this.id,
@@ -21,8 +19,6 @@ class FeedPostEntity {
     required this.likedBy,
     required this.dislikedBy,
     required this.replies,
-    required this.isPostLiked,
-    required this.isPostDisliked,
   });
 
   FeedPostEntity copyWith({
@@ -37,15 +33,12 @@ class FeedPostEntity {
     bool? isPostDisliked,
   }) {
     return FeedPostEntity(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      content: content ?? this.content,
-      author: author ?? this.author,
-      likedBy: likedBy ?? this.likedBy,
-      dislikedBy: dislikedBy ?? this.dislikedBy,
-      replies: replies ?? this.replies,
-      isPostLiked: isPostLiked ?? this.isPostLiked,
-      isPostDisliked: isPostDisliked ?? this.isPostDisliked,
-    );
+        id: id ?? this.id,
+        title: title ?? this.title,
+        content: content ?? this.content,
+        author: author ?? this.author,
+        likedBy: likedBy ?? this.likedBy,
+        dislikedBy: dislikedBy ?? this.dislikedBy,
+        replies: replies ?? this.replies);
   }
 }

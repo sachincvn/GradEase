@@ -35,8 +35,6 @@ class FeedPostModel {
       likedBy: likedBy,
       dislikedBy: dislikedBy,
       replies: replies,
-      isPostDisliked: false,
-      isPostLiked: false,
     );
   }
 

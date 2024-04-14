@@ -6,10 +6,9 @@ import 'package:grad_ease/features/feeds/domain/enitity/feed_post_reply_entity.d
 
 abstract interface class FeedPostRepository {
   Future<Either<Failure, List<FeedPostEntity?>>> getAllFeedPosts();
-  Future<Either<Failure, FeedPostEntity?>> getPostById(
-      String id, String userId);
-  Future<Either<Failure, String?>> likePost(String id);
-  Future<Either<Failure, String?>> dislikePost(String id);
+  Future<Either<Failure, FeedPostEntity?>> getPostById(String id);
+  Future<Either<Failure, FeedPostEntity>> likePost(String id);
+  Future<Either<Failure, FeedPostEntity>> dislikePost(String id);
   Future<Either<Failure, String?>> deletePost(String id);
   Future<Either<Failure, List<FeedPostReplyEntity>>> getFeedPostReplies(
     String id,

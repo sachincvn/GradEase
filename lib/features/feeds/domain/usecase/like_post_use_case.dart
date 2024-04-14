@@ -12,10 +12,6 @@ class LikePostUseCase implements UseCase<FeedPostEntity, FeedPostEntity> {
   Future<Either<Failure, FeedPostEntity>> call(
     FeedPostEntity feedPostItem,
   ) async {
-    final likePost = await _feedPostRepository.likePost(feedPostItem.id);
-    List<String?> totalLikedId = feedPostItem.likedBy;
-    likePost.fold((l) => throw Failure(l.message), (r) => totalLikedId.add(r));
-    final updatedPostItem = feedPostItem.copyWith(likedBy: totalLikedId);
-    return right(updatedPostItem);
+    return await _feedPostRepository.likePost(feedPostItem.id);
   }
 }
