@@ -27,13 +27,14 @@ class FeedPostBloc extends Bloc<FeedPostEvent, FeedPostState> {
     on<FetchAllPosts>(_onFetchAllPost);
     on<LikePostEvent>(_onLikePost);
     on<DislikePostEvent>(_onDislikePost);
+    on<AddPostEvent>(_onAddPost);
   }
 
   FutureOr<void> _onFetchAllPost(
     FetchAllPosts event,
     Emitter<FeedPostState> emit,
   ) async {
-    emit(const FeedPostState(feedPostStateStatus: FeedPostStateStatus.loading));
+    emit(state.copyWith(feedPostStateStatus: FeedPostStateStatus.loading));
 
     final res = await _getAllFeedPostUseCase(NoParams());
 
@@ -70,7 +71,7 @@ class FeedPostBloc extends Bloc<FeedPostEvent, FeedPostState> {
             .indexWhere((post) => post?.id == event.feedPostEntity.id);
         updatedPosts[index] = result;
         emit(
-          FeedPostState(
+          state.copyWith(
               feedPostStateStatus: FeedPostStateStatus.success,
               errorMessage: null,
               posts: updatedPosts),
@@ -80,7 +81,7 @@ class FeedPostBloc extends Bloc<FeedPostEvent, FeedPostState> {
   }
 
   FeedPostState emitErrorState(String error) {
-    return (FeedPostState(
+    return (state.copyWith(
       feedPostStateStatus: FeedPostStateStatus.error,
       errorMessage: error,
     ));
@@ -100,7 +101,7 @@ class FeedPostBloc extends Bloc<FeedPostEvent, FeedPostState> {
             .indexWhere((post) => post?.id == event.feedPostEntity.id);
         updatedPosts[index] = result;
         emit(
-          FeedPostState(
+          state.copyWith(
             feedPostStateStatus: FeedPostStateStatus.success,
             errorMessage: null,
             posts: updatedPosts,
@@ -108,5 +109,13 @@ class FeedPostBloc extends Bloc<FeedPostEvent, FeedPostState> {
         );
       },
     );
+  }
+
+  FutureOr<void> _onAddPost(AddPostEvent event, Emitter<FeedPostState> emit) {
+    emit(state.copyWith(
+      feedPostStateStatus: FeedPostStateStatus.success,
+      errorMessage: null,
+      posts: state.posts..insert(0, event.feedPostEntity),
+    ));
   }
 }

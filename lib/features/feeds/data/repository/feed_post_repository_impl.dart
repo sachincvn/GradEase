@@ -120,14 +120,14 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
       _localDetailsRepository.getAuthorEntity();
 
   @override
-  Future<Either<Failure, String?>> createNewPost(
+  Future<Either<Failure, FeedPostEntity>> createNewPost(
     String title,
     String description,
   ) async {
     try {
-      final postId = await _feedPostRemoteDataSource.createNewPost(
+      final post = await _feedPostRemoteDataSource.createNewPost(
           title, description, userId);
-      return right(postId.data);
+      return right(post.data!.toEntity());
     } catch (e) {
       return left(Failure(e.toString()));
     }

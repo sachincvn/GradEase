@@ -12,7 +12,7 @@ abstract interface class FeedPostRemoteDataSource {
   Future<FeedPostResponse> dislikePost(String id, String userId);
   Future<RestResponse<String?>> deletePost(String id, String userId);
 
-  Future<RestResponse<String?>> createNewPost(
+  Future<FeedPostResponse> createNewPost(
     String title,
     String description,
     String userId,
@@ -93,7 +93,7 @@ class FeedPostRemoteDataSourceImpl extends GradEaseRestService
   }
 
   @override
-  Future<RestResponse<String?>> createNewPost(
+  Future<FeedPostResponse> createNewPost(
       String title, String description, String userId) async {
     final restRequest = createPostRequest(RestResources.feedPosts, body: {
       "title": title,
@@ -101,6 +101,6 @@ class FeedPostRemoteDataSourceImpl extends GradEaseRestService
       "authorId": userId,
     });
     final response = await executeRequest(restRequest);
-    return RestResponse.fromJson(response.data);
+    return FeedPostResponse.fromJson(response.data);
   }
 }
