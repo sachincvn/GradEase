@@ -1,22 +1,37 @@
 part of 'feed_detail_bloc.dart';
 
 @immutable
-sealed class FeedDetailState {}
+class FeedDetailState {
+  final FeedDetailStateStatus feedDetailStateStatus;
+  final FeedPostEntity? feedPost;
+  final List<FeedPostReplyEntity>? feedPostReplies;
+  final String? errorMessage;
+  final bool? isReplying;
 
-final class FeedDetailInitial extends FeedDetailState {}
+  const FeedDetailState({
+    this.feedDetailStateStatus = FeedDetailStateStatus.initial,
+    this.feedPost,
+    this.feedPostReplies,
+    this.errorMessage,
+    this.isReplying,
+  });
 
-final class FeedPostRepliesInitial extends FeedDetailState {}
-
-final class FeedPostRepliesLoading extends FeedDetailState {}
-
-final class FeedPostRepliesSuccess extends FeedDetailState {
-  final List<FeedPostReplyEntity> postReplies;
-  FeedPostRepliesSuccess({required this.postReplies});
+  FeedDetailState copyWith({
+    FeedDetailStateStatus? feedDetailStateStatus,
+    FeedPostEntity? feedPost,
+    String? errorMessage,
+    List<FeedPostReplyEntity>? feedPostReplies,
+    final bool? isReplying,
+  }) {
+    return FeedDetailState(
+      feedDetailStateStatus:
+          feedDetailStateStatus ?? this.feedDetailStateStatus,
+      errorMessage: errorMessage ?? this.errorMessage,
+      feedPost: feedPost ?? this.feedPost,
+      feedPostReplies: feedPostReplies ?? this.feedPostReplies,
+      isReplying: isReplying ?? this.isReplying,
+    );
+  }
 }
 
-final class FeedPostRepliesFailure extends FeedDetailState {
-  final String error;
-  FeedPostRepliesFailure(this.error);
-}
-
-final class FeedPostReplying extends FeedDetailState {}
+enum FeedDetailStateStatus { initial, loading, success, error }

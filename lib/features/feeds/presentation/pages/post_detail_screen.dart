@@ -57,7 +57,8 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             BlocConsumer<FeedDetailBloc, FeedDetailState>(
               listener: (context, state) {},
               builder: (context, state) {
-                if (state is FeedPostRepliesLoading) {
+                if (state.feedDetailStateStatus ==
+                    FeedDetailStateStatus.loading) {
                   return const Expanded(
                     child: Center(
                         child: SizedBox(
@@ -67,8 +68,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     )),
                   );
                 }
-                if (state is FeedPostRepliesSuccess) {
-                  if (state.postReplies.isEmpty) {
+                if (state.feedDetailStateStatus ==
+                    FeedDetailStateStatus.success) {
+                  if (state.feedPostReplies!.isEmpty) {
                     return Expanded(
                       child: Center(
                           child: Text(
@@ -79,17 +81,20 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   }
                   return Expanded(
                     child: ListView.builder(
-                        itemCount: state.postReplies.length,
+                        itemCount: state.feedPostReplies!.length,
                         itemBuilder: (context, index) {
                           return ListTile(
                             leading: CircleAvatar(
                               backgroundImage: NetworkImage(state
-                                      .postReplies[index].author.profileImage ??
+                                      .feedPostReplies![index]
+                                      .author
+                                      .profileImage ??
                                   StringConstants.avtarImage),
                             ),
-                            title:
-                                Text(state.postReplies[index].author.fullName!),
-                            subtitle: Text(state.postReplies[index].content!),
+                            title: Text(
+                                state.feedPostReplies![index].author.fullName!),
+                            subtitle:
+                                Text(state.feedPostReplies![index].content!),
                           );
                         }),
                   );
@@ -123,7 +128,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   ),
                   BlocBuilder<FeedDetailBloc, FeedDetailState>(
                     builder: (context, state) {
-                      if (state is FeedPostReplying) {
+                      if (state.isReplying ?? false) {
                         return const SizedBox(
                           height: 20,
                           width: 20,
