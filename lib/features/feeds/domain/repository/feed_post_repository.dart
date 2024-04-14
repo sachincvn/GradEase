@@ -6,21 +6,16 @@ import 'package:grad_ease/features/feeds/domain/enitity/feed_post_reply_entity.d
 
 abstract interface class FeedPostRepository {
   Future<Either<Failure, List<FeedPostEntity?>>> getAllFeedPosts();
-  Future<Either<Failure, FeedPostEntity?>> getPostById(
-      String id, String userId);
-  Future<Either<Failure, bool>> likePost(String id);
-  Future<Either<Failure, bool>> dislikePost(String id);
-  Future<Either<Failure, bool>> deletePost(String id);
-
+  Future<Either<Failure, FeedPostEntity?>> getPostById(String id);
+  Future<Either<Failure, FeedPostEntity>> likePost(String id);
+  Future<Either<Failure, FeedPostEntity>> dislikePost(String id);
+  Future<Either<Failure, String?>> deletePost(String id);
   Future<Either<Failure, List<FeedPostReplyEntity>>> getFeedPostReplies(
-      String id);
-
+    String id,
+  );
   Future<Either<Failure, bool>> addPostReply(String postId, String content);
-
   Future<Either<Failure, bool>> deletePostReply(String postId, String replyId);
-
   Future<Either<Failure, String?>> createNewPost(
       String title, String description);
-
   AuthorEntity? getLocalAuthorDetail();
 }

@@ -7,10 +7,10 @@ import 'package:grad_ease/features/feeds/data/models/feed_posts_response.dart';
 
 abstract interface class FeedPostRemoteDataSource {
   Future<FeedPostsResponse?> getAllFeedPosts();
-  Future<FeedPostResponse?> getPostById(String id, String userId);
-  Future<bool> likePost(String id, String userId);
-  Future<bool> dislikePost(String id, String userId);
-  Future<bool> deletePost(String id, String userId);
+  Future<FeedPostResponse?> getPostById(String id);
+  Future<FeedPostResponse> likePost(String id, String userId);
+  Future<FeedPostResponse> dislikePost(String id, String userId);
+  Future<RestResponse<String?>> deletePost(String id, String userId);
 
   Future<RestResponse<String?>> createNewPost(
     String title,
@@ -26,18 +26,18 @@ abstract interface class FeedPostRemoteDataSource {
 class FeedPostRemoteDataSourceImpl extends GradEaseRestService
     implements FeedPostRemoteDataSource {
   @override
-  Future<bool> deletePost(String id, String userId) async {
+  Future<RestResponse<String?>> deletePost(String id, String userId) async {
     final restRequest = createDeleteRequest(RestResources.deletePost(id));
     final response = await executeRequest(restRequest);
-    return response.data;
+    return RestResponse.fromJson(response.data);
   }
 
   @override
-  Future<bool> dislikePost(String id, String userId) async {
+  Future<FeedPostResponse> dislikePost(String id, String userId) async {
     final restRequest = createPostRequest(RestResources.dislikePost,
         body: {"postId": id, "userId": userId});
     final response = await executeRequest(restRequest);
-    return response.data;
+    return FeedPostResponse.fromJson(response.data);
   }
 
   @override
@@ -48,18 +48,18 @@ class FeedPostRemoteDataSourceImpl extends GradEaseRestService
   }
 
   @override
-  Future<FeedPostResponse?> getPostById(String id, String userId) async {
+  Future<FeedPostResponse?> getPostById(String id) async {
     final restRequest = createGetRequest(RestResources.getPostById(id));
     final response = await executeRequest(restRequest);
     return FeedPostResponse.fromJson(response.data);
   }
 
   @override
-  Future<bool> likePost(String id, String userId) async {
+  Future<FeedPostResponse> likePost(String id, String userId) async {
     final restRequest = createPostRequest(RestResources.likePost,
         body: {"postId": id, "userId": userId});
     final response = await executeRequest(restRequest);
-    return response.data;
+    return FeedPostResponse.fromJson(response.data);
   }
 
   @override

@@ -12,16 +12,20 @@ export async function createPost(title, content, authorId) {
   return savedPost;
 }
 
-export async function getAllPosts() {
+export async function getAllPosts(pageNumber = 1, pageSize = 10) {
+  const skip = (pageNumber - 1) * pageSize;
   const posts = await PostModel.find()
     .populate("author", "fullName email profileImage")
-    .populate("likedBy", "fullName email profileImage")
-    .populate("dislikedBy", "fullName email profileImage");
+    .skip(skip)
+    .limit(pageSize);
   return posts;
 }
 
 export async function likePost(postId, userId) {
-  const post = await PostModel.findById(postId);
+  const post = await PostModel.findById(postId).populate(
+    "author",
+    "fullName email profileImage"
+  );
   if (!post) {
     throw new Error("Post not found");
   }
@@ -42,7 +46,10 @@ export async function likePost(postId, userId) {
 }
 
 export async function dislikePost(postId, userId) {
-  const post = await PostModel.findById(postId);
+  const post = await PostModel.findById(postId).populate(
+    "author",
+    "fullName email profileImage"
+  );
   if (!post) {
     throw new Error("Post not found");
   }

@@ -1,14 +1,14 @@
 import { Router } from "express";
 import {
-  CreatePostController,
-  GetAllPostController,
-  LikePostController,
-  DislikePostController,
-  GetPostByIdController,
-  DeletePostController,
-  AddReplyController,
-  DeleteReplyController,
-  GetRepliesForPostController,
+    CreatePostController,
+    GetAllPostController,
+    LikePostController,
+    DislikePostController,
+    GetPostByIdController,
+    DeletePostController,
+    AddReplyController,
+    DeleteReplyController,
+    GetRepliesForPostController,
 } from "../controllers/postController.js";
 
 const postRoute = Router();

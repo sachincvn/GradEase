@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/pages/post_detail_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -93,23 +95,38 @@ class FeedPost extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(CupertinoIcons.bubble_middle_bottom),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                          child: PostDetailScreen(feedPost: post),
+                          type: PageTransitionType.rightToLeft,
+                        ));
+                  },
+                  icon: const Icon(CupertinoIcons.chat_bubble),
                   iconSize: 22,
                 ),
                 Text(
-                  "1",
+                  post.replies.length.toString(),
                   style: Theme.of(context).textTheme.labelMedium!,
                 ),
                 const Spacer(),
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(CupertinoIcons.hand_thumbsdown),
+                  onPressed: () {
+                    context.read<FeedPostBloc>().add(DislikePostEvent(post));
+                  },
+                  icon: context.read<FeedPostBloc>().isDisLiked(post)
+                      ? const Icon(CupertinoIcons.arrowtriangle_down_fill)
+                      : const Icon(CupertinoIcons.arrowtriangle_down),
                   iconSize: 22,
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(CupertinoIcons.hand_thumbsup_fill),
+                  onPressed: () {
+                    context.read<FeedPostBloc>().add(LikePostEvent(post));
+                  },
+                  icon: context.watch<FeedPostBloc>().isLiked(post)
+                      ? const Icon(CupertinoIcons.arrowtriangle_up_fill)
+                      : const Icon(CupertinoIcons.arrowtriangle_up),
                   iconSize: 22,
                 ),
                 Text(
@@ -118,7 +135,7 @@ class FeedPost extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
               ],
-            ),
+            )
           ],
         ),
       ),

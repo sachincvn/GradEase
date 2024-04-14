@@ -40,12 +40,12 @@ class _LatestFeedScreenState extends State<LatestFeedScreen> {
         ),
         body: BlocConsumer<FeedPostBloc, FeedPostState>(
           listener: (context, state) {
-            if (state is FeedFailure) {
-              showSnackBar(context, state.error);
+            if (state.feedPostStateStatus == FeedPostStateStatus.error) {
+              showSnackBar(context, state.errorMessage);
             }
           },
           builder: (context, state) {
-            if (state is FeedLoading) {
+            if (state.feedPostStateStatus == FeedPostStateStatus.loading) {
               return const Center(
                   child: SizedBox(
                 height: 30,
@@ -53,7 +53,7 @@ class _LatestFeedScreenState extends State<LatestFeedScreen> {
                 child: CircularProgressIndicator(),
               ));
             }
-            if (state is FeedDisplaySuccess) {
+            if (state.feedPostStateStatus == FeedPostStateStatus.success) {
               final posts = state.posts;
               if (posts.isEmpty) {
                 return const Center(

@@ -27,6 +27,10 @@ class RestResponse<T> {
           : json['data'] as T?,
     );
   }
+
+  static List<String> listOfStringData(Map<String, dynamic> data) {
+    return (data['data'] as List<dynamic>).map((e) => e as String).toList();
+  }
 }
 
 class Failure {
