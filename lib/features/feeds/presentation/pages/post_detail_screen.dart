@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/add_reply_use_case.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/widgets/feed_post.dart';
 
 class PostDetailScreen extends StatefulWidget {
@@ -37,6 +40,30 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: ColorPallete.whiteColor),
+        actions: [
+          BlocBuilder<FeedDetailBloc, FeedDetailState>(
+            builder: (context, state) {
+              if (state.isDeleting ?? false) {
+                return const PreferredSize(
+                  preferredSize: Size(30, 30),
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (context
+                  .read<FeedDetailBloc>()
+                  .canDeletePost(widget.feedPost.id)) {
+                return IconButton(
+                    onPressed: () {
+                      context
+                          .read<FeedDetailBloc>()
+                          .add(DeletePostEvent(widget.feedPost.id));
+                    },
+                    icon: const Icon(CupertinoIcons.delete_simple));
+              }
+              return const SizedBox();
+            },
+          )
+        ],
         centerTitle: true,
         title: Text(
           "Detail",
@@ -50,14 +77,25 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            FeedPost(
-              post: widget.feedPost,
-            ),
+            FeedPost(post: widget.feedPost),
             const Divider(),
             BlocConsumer<FeedDetailBloc, FeedDetailState>(
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state.feedDetailStateStatus ==
+                    FeedDetailStateStatus.error) {
+                  showErrorSnackBar(context, state.errorMessage);
+                }
+                if (state.feedDetailStateStatus ==
+                    FeedDetailStateStatus.deletedPost) {
+                  context
+                      .read<FeedPostBloc>()
+                      .add(RemovePostEvent(widget.feedPost.id));
+                  Navigator.pop(context);
+                }
+              },
               builder: (context, state) {
-                if (state is FeedPostRepliesLoading) {
+                if (state.feedDetailStateStatus ==
+                    FeedDetailStateStatus.loading) {
                   return const Expanded(
                     child: Center(
                         child: SizedBox(
@@ -67,8 +105,9 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     )),
                   );
                 }
-                if (state is FeedPostRepliesSuccess) {
-                  if (state.postReplies.isEmpty) {
+                if (state.feedDetailStateStatus ==
+                    FeedDetailStateStatus.success) {
+                  if (state.feedPostReplies!.isEmpty) {
                     return Expanded(
                       child: Center(
                           child: Text(
@@ -79,17 +118,20 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   }
                   return Expanded(
                     child: ListView.builder(
-                        itemCount: state.postReplies.length,
+                        itemCount: state.feedPostReplies!.length,
                         itemBuilder: (context, index) {
                           return ListTile(
                             leading: CircleAvatar(
                               backgroundImage: NetworkImage(state
-                                      .postReplies[index].author.profileImage ??
+                                      .feedPostReplies![index]
+                                      .author
+                                      .profileImage ??
                                   StringConstants.avtarImage),
                             ),
-                            title:
-                                Text(state.postReplies[index].author.fullName!),
-                            subtitle: Text(state.postReplies[index].content!),
+                            title: Text(
+                                state.feedPostReplies![index].author.fullName!),
+                            subtitle:
+                                Text(state.feedPostReplies![index].content!),
                           );
                         }),
                   );
@@ -123,11 +165,13 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   ),
                   BlocBuilder<FeedDetailBloc, FeedDetailState>(
                     builder: (context, state) {
-                      if (state is FeedPostReplying) {
-                        return const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(),
+                      if (state.isReplying ?? false) {
+                        return const Padding(
+                          padding: EdgeInsets.all(8),
+                          child: PreferredSize(
+                            preferredSize: Size(30, 30),
+                            child: CircularProgressIndicator(),
+                          ),
                         );
                       }
                       return IconButton(

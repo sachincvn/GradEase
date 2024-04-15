@@ -39,6 +39,10 @@ const postSchema = new Schema({
       },
     },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const PostModel = model("Post", postSchema);

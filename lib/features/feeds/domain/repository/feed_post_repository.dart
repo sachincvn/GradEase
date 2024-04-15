@@ -15,7 +15,7 @@ abstract interface class FeedPostRepository {
   );
   Future<Either<Failure, bool>> addPostReply(String postId, String content);
   Future<Either<Failure, bool>> deletePostReply(String postId, String replyId);
-  Future<Either<Failure, String?>> createNewPost(
+  Future<Either<Failure, FeedPostEntity>> createNewPost(
       String title, String description);
   AuthorEntity? getLocalAuthorDetail();
 }

@@ -11,6 +11,7 @@ import 'package:grad_ease/features/feeds/data/repository/feed_post_repository_im
 import 'package:grad_ease/features/feeds/domain/repository/feed_post_repository.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/add_post_use_case.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/add_reply_use_case.dart';
+import 'package:grad_ease/features/feeds/domain/usecase/delete_post_use_case.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/dislike_post_use_case.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/get_replies_use_case.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/getall_feed_post_usecase.dart';
@@ -68,7 +69,8 @@ void _registerUseCases() {
     ..registerFactory(() => AddReplyUseCase(serviceLocator()))
     ..registerFactory(() => AddPostUseCase(serviceLocator()))
     ..registerFactory(() => LikePostUseCase(serviceLocator()))
-    ..registerFactory(() => DislikePostUseCase(serviceLocator()));
+    ..registerFactory(() => DislikePostUseCase(serviceLocator()))
+    ..registerFactory(() => DeletePostUseCase(serviceLocator()));
 }
 
 void _registerBlocs() {
@@ -78,9 +80,17 @@ void _registerBlocs() {
           appUserCubit: serviceLocator(),
         ))
     ..registerLazySingleton(() => LandingPageBloc())
-    ..registerLazySingleton(() =>
-        FeedPostBloc(serviceLocator(), serviceLocator(), serviceLocator(),serviceLocator()))
-    ..registerLazySingleton(
-        () => FeedDetailBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(() => FeedPostBloc(
+          serviceLocator(),
+          serviceLocator(),
+          serviceLocator(),
+          serviceLocator(),
+        ))
+    ..registerLazySingleton(() => FeedDetailBloc(
+          serviceLocator(),
+          serviceLocator(),
+          serviceLocator(),
+          serviceLocator(),
+        ))
     ..registerLazySingleton(() => AddPostBloc(serviceLocator()));
 }

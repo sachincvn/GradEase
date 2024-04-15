@@ -6,6 +6,7 @@ import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/add_post_use_case.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/add_post_bloc/add_post_bloc_bloc.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({super.key});
@@ -27,6 +28,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
           showErrorSnackBar(context, state.message);
         }
         if (state is AddPostSuccessState) {
+          context
+              .read<FeedPostBloc>()
+              .add(InsertNewPostEvent(state.feedPostEntity));
           Navigator.pop(context);
         }
       },

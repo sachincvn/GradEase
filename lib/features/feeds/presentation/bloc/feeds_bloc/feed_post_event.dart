@@ -16,3 +16,15 @@ final class DislikePostEvent extends FeedPostEvent {
 
   DislikePostEvent(this.feedPostEntity);
 }
+
+final class InsertNewPostEvent extends FeedPostEvent {
+  final FeedPostEntity feedPostEntity;
+
+  InsertNewPostEvent(this.feedPostEntity);
+}
+
+final class RemovePostEvent extends FeedPostEvent {
+  final String id;
+
+  RemovePostEvent(this.id);
+}
