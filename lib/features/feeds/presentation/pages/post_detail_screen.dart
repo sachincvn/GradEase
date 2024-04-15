@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
 import 'package:grad_ease/features/feeds/domain/usecase/add_reply_use_case.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
+import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/widgets/feed_post.dart';
 
 class PostDetailScreen extends StatefulWidget {
@@ -37,6 +40,30 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: ColorPallete.whiteColor),
+        actions: [
+          BlocBuilder<FeedDetailBloc, FeedDetailState>(
+            builder: (context, state) {
+              if (state.isDeleting ?? false) {
+                return const PreferredSize(
+                  preferredSize: Size(30, 30),
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (context
+                  .read<FeedDetailBloc>()
+                  .canDeletePost(widget.feedPost.id)) {
+                return IconButton(
+                    onPressed: () {
+                      context
+                          .read<FeedDetailBloc>()
+                          .add(DeletePostEvent(widget.feedPost.id));
+                    },
+                    icon: const Icon(CupertinoIcons.delete_simple));
+              }
+              return const SizedBox();
+            },
+          )
+        ],
         centerTitle: true,
         title: Text(
           "Detail",
@@ -53,7 +80,19 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
             FeedPost(post: widget.feedPost),
             const Divider(),
             BlocConsumer<FeedDetailBloc, FeedDetailState>(
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state.feedDetailStateStatus ==
+                    FeedDetailStateStatus.error) {
+                  showErrorSnackBar(context, state.errorMessage);
+                }
+                if (state.feedDetailStateStatus ==
+                    FeedDetailStateStatus.deletedPost) {
+                  context
+                      .read<FeedPostBloc>()
+                      .add(RemovePostEvent(widget.feedPost.id));
+                  Navigator.pop(context);
+                }
+              },
               builder: (context, state) {
                 if (state.feedDetailStateStatus ==
                     FeedDetailStateStatus.loading) {

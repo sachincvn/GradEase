@@ -33,8 +33,8 @@ abstract class RestServiceBase extends RestClient {
       RestRequest(resource, body, method: RequestMethod.post);
 
   RestRequest createPutRequest(String resource, {dynamic body}) =>
-      RestRequest(resource, body, method: RequestMethod.post);
+      RestRequest(resource, body, method: RequestMethod.put);
 
   RestRequest createDeleteRequest(String resource, {dynamic body}) =>
-      RestRequest(resource, body, method: RequestMethod.post);
+      RestRequest(resource, body, method: RequestMethod.delete);
 }

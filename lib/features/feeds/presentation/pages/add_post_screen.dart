@@ -28,7 +28,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
           showErrorSnackBar(context, state.message);
         }
         if (state is AddPostSuccessState) {
-          context.read<FeedPostBloc>().add(AddPostEvent(state.feedPostEntity));
+          context
+              .read<FeedPostBloc>()
+              .add(InsertNewPostEvent(state.feedPostEntity));
           Navigator.pop(context);
         }
       },

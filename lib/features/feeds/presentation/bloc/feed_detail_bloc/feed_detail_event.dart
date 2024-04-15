@@ -14,3 +14,8 @@ final class AddNewReply extends FeedDetailEvent {
 
   AddNewReply({required this.addReply});
 }
+
+final class DeletePostEvent extends FeedDetailEvent {
+  final String postId;
+  DeletePostEvent(this.postId);
+}

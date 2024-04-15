@@ -7,13 +7,15 @@ class FeedDetailState {
   final List<FeedPostReplyEntity>? feedPostReplies;
   final String? errorMessage;
   final bool? isReplying;
+  final bool? isDeleting;
 
   const FeedDetailState({
     this.feedDetailStateStatus = FeedDetailStateStatus.initial,
     this.feedPost,
     this.feedPostReplies,
     this.errorMessage,
-    this.isReplying,
+    this.isReplying = false,
+    this.isDeleting = false,
   });
 
   FeedDetailState copyWith({
@@ -22,6 +24,7 @@ class FeedDetailState {
     String? errorMessage,
     List<FeedPostReplyEntity>? feedPostReplies,
     final bool? isReplying,
+    final bool? isDeleting,
   }) {
     return FeedDetailState(
       feedDetailStateStatus:
@@ -30,8 +33,9 @@ class FeedDetailState {
       feedPost: feedPost ?? this.feedPost,
       feedPostReplies: feedPostReplies ?? this.feedPostReplies,
       isReplying: isReplying ?? this.isReplying,
+      isDeleting: isDeleting ?? this.isDeleting,
     );
   }
 }
 
-enum FeedDetailStateStatus { initial, loading, success, error }
+enum FeedDetailStateStatus { initial, loading, success, error, deletedPost }

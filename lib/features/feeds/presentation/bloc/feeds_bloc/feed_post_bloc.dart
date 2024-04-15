@@ -27,7 +27,8 @@ class FeedPostBloc extends Bloc<FeedPostEvent, FeedPostState> {
     on<FetchAllPosts>(_onFetchAllPost);
     on<LikePostEvent>(_onLikePost);
     on<DislikePostEvent>(_onDislikePost);
-    on<AddPostEvent>(_onAddPost);
+    on<InsertNewPostEvent>(_onInsertPost);
+    on<RemovePostEvent>(_onRemovePost);
   }
 
   FutureOr<void> _onFetchAllPost(
@@ -111,11 +112,21 @@ class FeedPostBloc extends Bloc<FeedPostEvent, FeedPostState> {
     );
   }
 
-  FutureOr<void> _onAddPost(AddPostEvent event, Emitter<FeedPostState> emit) {
+  FutureOr<void> _onInsertPost(
+      InsertNewPostEvent event, Emitter<FeedPostState> emit) {
     emit(state.copyWith(
       feedPostStateStatus: FeedPostStateStatus.success,
       errorMessage: null,
       posts: state.posts..insert(0, event.feedPostEntity),
+    ));
+  }
+
+  FutureOr<void> _onRemovePost(
+      RemovePostEvent event, Emitter<FeedPostState> emit) {
+    emit(state.copyWith(
+      feedPostStateStatus: FeedPostStateStatus.success,
+      errorMessage: null,
+      posts: state.posts..removeWhere((element) => element!.id == event.id),
     ));
   }
 }
