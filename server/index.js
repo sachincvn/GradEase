@@ -9,6 +9,7 @@ import authRoute from "./routes/authRoute.js";
 import timeTableRoute from "./routes/timeTableRoute.js";
 import notesRoute from "./routes/notesRoute.js";
 import postRoute from "./routes/postRoute.js";
+import communityRoutes from "./routes/communityRoute.js";
 
 app.use(express.json());
 
@@ -19,6 +20,7 @@ app.use(`${apiBasePath}auth/`, authRoute);
 app.use(`${apiBasePath}timetable/`, timeTableRoute);
 app.use(`${apiBasePath}notes/`, notesRoute);
 app.use(`${apiBasePath}post/`, postRoute);
+app.use(`${apiBasePath}communites/`, communityRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to GradEase" });
