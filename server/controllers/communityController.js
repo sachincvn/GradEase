@@ -43,3 +43,5 @@ export const joinCommunityController = async (req, res) => {
     return RestResponseError(res, error);
   }
 };
+
+//community controller
