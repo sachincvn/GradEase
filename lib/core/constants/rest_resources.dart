@@ -1,4 +1,5 @@
 class RestResources {
+  static String baseUrl = "http://192.168.0.105:8080/";
   static String restApiBaseUrl(value) => value
       ? "https://gradease.onrender.com/api/v1/"
       : "http://192.168.0.105:8080/api/v1/";

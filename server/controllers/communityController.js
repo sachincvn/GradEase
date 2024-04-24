@@ -5,6 +5,21 @@ import {
 } from "../services/communityService.js";
 import { RestResponse, RestResponseError } from "../utils/RestResponse.js";
 
+import { getSocketInstance } from "../socket.js";
+
+export const sendMessageController = async (req, res) => {
+  try {
+    const { communityId, message, senderId } = req.body;
+
+    const io = getSocketInstance();
+    io.emit("sendMessage", { communityId, message, senderId });
+
+    return RestResponse(res, 200, "Message sent successfully");
+  } catch (error) {
+    return RestResponseError(res, error);
+  }
+};
+
 export const createCommunityController = async (req, res) => {
   try {
     const { name, description, profileImage, course, year } = req.body;

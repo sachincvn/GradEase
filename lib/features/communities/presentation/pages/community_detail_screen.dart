@@ -1,11 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/feeds/data/feed_post_model.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-class CommunityDetailScreen extends StatelessWidget {
+class CommunityDetailScreen extends StatefulWidget {
   final String communityTitle;
   const CommunityDetailScreen({Key? key, required this.communityTitle})
       : super(key: key);
+
+  @override
+  State<CommunityDetailScreen> createState() => _CommunityDetailScreenState();
+}
+
+class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
+  final IO.Socket socket = IO.io(RestResources.baseUrl, <String, dynamic>{
+    'transports': ['websocket'],
+    'autoConnect': false,
+  });
+
+  final TextEditingController _messageEditingController =
+      TextEditingController();
+
+  initSocket() {
+    socket.connect();
+    socket.onConnect((_) {
+      print("Connection established");
+      socket.emit('joinCommunity', 'community123');
+    });
+    socket.onDisconnect((_) => print("connection Disconnection"));
+  }
+
+  List<FeedPostModelTemp> _messages = [];
+  @override
+  void initState() {
+    super.initState();
+    initSocket();
+    socket.on('newMessage', (data) {
+      print("newMessage");
+      setState(() {
+        _messages
+            .add(FeedPostModelTemp(message: data['message'], name: "sachin"));
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    socket.dispose();
+    _messageEditingController.dispose();
+    super.dispose();
+  }
+
+  void _sendMessage(String message) {
+    socket.emit('chatMessage', {
+      'communityId': 'community123',
+      'message': message,
+    });
+    _messageEditingController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +67,7 @@ class CommunityDetailScreen extends StatelessWidget {
         leading: const BackButton(color: ColorPallete.whiteColor),
         centerTitle: true,
         title: Text(
-          communityTitle,
+          widget.communityTitle,
           style: Theme.of(context)
               .textTheme
               .titleLarge!
@@ -27,9 +80,9 @@ class CommunityDetailScreen extends StatelessWidget {
           children: [
             Expanded(
               child: ListView.builder(
-                  itemCount: communityPosts.length,
+                  itemCount: _messages.length,
                   itemBuilder: (context, index) {
-                    return _communityPost(context);
+                    return _communityPost(context, _messages[index]);
                   }),
             ),
             Padding(
@@ -38,14 +91,21 @@ class CommunityDetailScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextField(
+                      minLines: 1,
+                      maxLines: 100,
+                      controller: _messageEditingController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.symmetric(horizontal: 10),
                         hintText: 'Enter message',
                       ),
-                      style: Theme.of(context).textTheme.labelMedium,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.send))
+                  IconButton(
+                      onPressed: () {
+                        _sendMessage(_messageEditingController.text);
+                      },
+                      icon: const Icon(Icons.send))
                 ],
               ),
             ),
@@ -55,7 +115,7 @@ class CommunityDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _communityPost(BuildContext context) {
+  Widget _communityPost(BuildContext context, FeedPostModelTemp message) {
     return Column(
       children: [
         Column(
@@ -111,21 +171,17 @@ class CommunityDetailScreen extends StatelessWidget {
                 Expanded(
                   child: RichText(
                     text: TextSpan(
-                      text: "Login to stucdent account?",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
                           .copyWith(fontWeight: FontWeight.w500),
                       children: [
-                        const TextSpan(text: "\n"),
-                        const TextSpan(text: "\n"),
                         TextSpan(
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!
-                              .copyWith(fontWeight: FontWeight.w300),
-                          text:
-                              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, incidunt recusandae. Cupiditate nesciunt, rerum excepturi earum mollitia facilis hic tempore magni neque.Quis\n \nAecessitatibus praesentium non quam temporibus laborum consectetur doloribus? Quod recusandae reiciendis mollitia, error repellendus porro nam, cum quisquam perferendis, iusto autem temporibus facilis laborum? Fugiat, odit accusantium!",
+                              .copyWith(fontWeight: FontWeight.w500),
+                          text: message.message,
                         ),
                       ],
                     ),
