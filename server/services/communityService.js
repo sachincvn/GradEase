@@ -1,5 +1,32 @@
 import CommunityModel from "../models/communityModel.js";
+import MessageModel from "../models/messageModel.js";
 import ResponseError from "../utils/RestResponseError.js";
+
+export const sendMessage = async (communityId, message, senderId) => {
+  const newMessage = await MessageModel.create({
+    communityId,
+    message,
+    sender: senderId,
+  });
+  return newMessage;
+};
+
+export const getCommunityMessages = async (
+  communityId,
+  page = 1,
+  limit = 10
+) => {
+  const skip = (page - 1) * limit;
+
+  const messages = await MessageModel.find({ communityId })
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit)
+    .populate({ path: "sender", select: "fullName profileImage" })
+    .exec();
+
+  return messages;
+};
 
 export async function createCommunity(
   name,

@@ -1,7 +1,9 @@
 import {
   createCommunity,
   getCommunitiesByCourseYear,
+  getCommunityMessages,
   joinCommunity,
+  sendMessage,
 } from "../services/communityService.js";
 import { RestResponse, RestResponseError } from "../utils/RestResponse.js";
 
@@ -11,10 +13,24 @@ export const sendMessageController = async (req, res) => {
   try {
     const { communityId, message, senderId } = req.body;
 
+    const newMessage = await sendMessage(communityId, message, senderId);
+
     const io = getSocketInstance();
     io.emit("sendMessage", { communityId, message, senderId });
 
-    return RestResponse(res, 200, "Message sent successfully");
+    return RestResponse(res, 200, newMessage);
+  } catch (error) {
+    return RestResponseError(res, error);
+  }
+};
+
+export const getCommunityMessagesController = async (req, res) => {
+  try {
+    const { communityId } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const messages = await getCommunityMessages(communityId, page, limit);
+    return RestResponse(res, 200, "Messages retrieved successfully", messages);
   } catch (error) {
     return RestResponseError(res, error);
   }
