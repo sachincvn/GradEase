@@ -9,11 +9,13 @@ class CommunityCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.groupImageUrl,
+    required this.groupMemebers,
   });
 
   final String title;
   final String description;
   final String groupImageUrl;
+  final int groupMemebers;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,7 @@ class CommunityCard extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "112 memebers",
+                          "$groupMemebers memebers",
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!
