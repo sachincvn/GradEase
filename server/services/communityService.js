@@ -46,9 +46,10 @@ export async function createCommunity(
 }
 
 export async function getCommunitiesByCourseYear(course, year) {
-  const communities = await CommunityModel.find({ course, year }).populate(
-    "members"
-  );
+  const communities = await CommunityModel.find({ course, year }).populate({
+    path: "members",
+    select: "fullName email profileImage",
+  });
   return communities;
 }
 
