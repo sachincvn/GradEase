@@ -1,4 +1,4 @@
-import 'package:grad_ease/features/feeds/data/models/author_model.dart';
+import 'package:grad_ease/core/common/models/author_model.dart';
 
 class FeedPostReplyEntity {
   final String? content;
