@@ -6,6 +6,11 @@ import 'package:grad_ease/features/auth/data/repository/auth_repository_impl.dar
 import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
 import 'package:grad_ease/features/auth/domain/usecase/student_login_usecase.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:grad_ease/features/communities/data/data_source/community_remote_data_source.dart';
+import 'package:grad_ease/features/communities/data/repository/community_repository_impl.dart';
+import 'package:grad_ease/features/communities/domain/repository/communtiy_repository.dart';
+import 'package:grad_ease/features/communities/domain/usecase/get_community_use_case.dart';
+import 'package:grad_ease/features/communities/presentation/bloc/community_bloc/community_bloc.dart';
 import 'package:grad_ease/features/feeds/data/data_sourse/feed_post_remote_data_source.dart';
 import 'package:grad_ease/features/feeds/data/repository/feed_post_repository_impl.dart';
 import 'package:grad_ease/features/feeds/domain/repository/feed_post_repository.dart';
@@ -47,7 +52,9 @@ void _registerDataSources() {
     ..registerFactory<LocalDetailsRepository>(
         () => LocalDetailsRepositoryImpl(serviceLocator.get()))
     ..registerFactory<FeedPostRemoteDataSource>(
-        () => FeedPostRemoteDataSourceImpl());
+        () => FeedPostRemoteDataSourceImpl())
+    ..registerFactory<CommunityRemoteDataSource>(
+        () => CommunityRemoteDataSourceImpl());
 }
 
 void _registerRepositories() {
@@ -57,7 +64,9 @@ void _registerRepositories() {
           authLocalDataSource: serviceLocator(),
         ))
     ..registerFactory<FeedPostRepository>(
-        () => FeedPostRepositoryImpl(serviceLocator(), serviceLocator()));
+        () => FeedPostRepositoryImpl(serviceLocator(), serviceLocator()))
+    ..registerFactory<CommunityRepository>(
+        () => CommunityRepositoryImpl(serviceLocator(), serviceLocator()));
 }
 
 void _registerUseCases() {
@@ -70,7 +79,8 @@ void _registerUseCases() {
     ..registerFactory(() => AddPostUseCase(serviceLocator()))
     ..registerFactory(() => LikePostUseCase(serviceLocator()))
     ..registerFactory(() => DislikePostUseCase(serviceLocator()))
-    ..registerFactory(() => DeletePostUseCase(serviceLocator()));
+    ..registerFactory(() => DeletePostUseCase(serviceLocator()))
+    ..registerFactory(() => GetCommunityUseCase(serviceLocator()));
 }
 
 void _registerBlocs() {
@@ -92,5 +102,6 @@ void _registerBlocs() {
           serviceLocator(),
           serviceLocator(),
         ))
-    ..registerLazySingleton(() => AddPostBloc(serviceLocator()));
+    ..registerLazySingleton(() => AddPostBloc(serviceLocator()))
+    ..registerLazySingleton(() => CommunityBloc(serviceLocator()));
 }
