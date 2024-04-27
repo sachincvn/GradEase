@@ -17,4 +17,9 @@ class RestResources {
   static String addReply(String id) => "$feedPosts/$id/replies";
   static String deleteReply(String postId, String replyId) =>
       "$feedPosts/$postId/replies/$replyId";
+
+  //communites
+  static const String communites = "/communites";
+  static String getCommunites(String course, int year) =>
+      "$communites/$course/$year";
 }
