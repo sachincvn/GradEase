@@ -3,6 +3,7 @@ import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
 import 'package:grad_ease/features/communities/data/data_source/community_remote_data_source.dart';
 import 'package:grad_ease/features/communities/domain/entity/community_entity.dart';
+import 'package:grad_ease/features/communities/domain/entity/community_message_entity.dart';
 import 'package:grad_ease/features/communities/domain/repository/communtiy_repository.dart';
 
 class CommunityRepositoryImpl implements CommunityRepository {
@@ -23,6 +24,18 @@ class CommunityRepositoryImpl implements CommunityRepository {
         studentModel.courseYear!,
       );
       return right(response.data.map((e) => e.toEntity()).toList());
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CommunityMessageEntity>>> getAllCommunityMessage(
+      {String? communityId, int page = 1, int pageLimt = 10}) async {
+    try {
+      final messages =
+          await _communityRemoteDataSource.getCommunityMessages(communityId!);
+      return right(messages.data.map((e) => e.toEntity()).toList());
     } catch (e) {
       return left(Failure(e.toString()));
     }

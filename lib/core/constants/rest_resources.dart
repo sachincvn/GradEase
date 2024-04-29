@@ -22,4 +22,7 @@ class RestResources {
   static const String communites = "/communites";
   static String getCommunites(String course, int year) =>
       "$communites/$course/$year";
+
+  static String getCommunityMessages(String communityId) =>
+      "$communites/$communityId";
 }
