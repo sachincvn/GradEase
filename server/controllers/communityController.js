@@ -29,7 +29,6 @@ export const getCommunityMessagesController = async (req, res) => {
     const { communityId } = req.params;
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 10;
-    console.log(page, pageSize);
     const messages = await getCommunityMessages(communityId, page, pageSize);
     return RestResponse(res, 200, "Messages retrieved successfully", messages);
   } catch (error) {

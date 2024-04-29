@@ -8,6 +8,7 @@ export const sendMessage = async (communityId, message, senderId) => {
     message,
     sender: senderId,
   });
+  await newMessage.populate("sender", "fullName email profileImage");
   return newMessage;
 };
 
@@ -22,7 +23,7 @@ export const getCommunityMessages = async (
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit)
-    .populate({ path: "sender", select: "fullName profileImage" })
+    .populate({ path: "sender", select: "fullName  email profileImage" })
     .exec();
 
   return messages;
