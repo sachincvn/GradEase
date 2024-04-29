@@ -24,5 +24,5 @@ class RestResources {
       "$communites/$course/$year";
 
   static String getCommunityMessages(String communityId) =>
-      "$communites/$communityId";
+      "$communites/$communityId/messages";
 }

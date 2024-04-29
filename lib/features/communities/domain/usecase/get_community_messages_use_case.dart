@@ -14,6 +14,7 @@ class GetCommunityMessagesUseCase
   Future<Either<Failure, List<CommunityMessageEntity>>> call(
       String communityId) async {
     return await _communityRepository.getAllCommunityMessage(
-        communityId: communityId);
+      communityId: communityId,
+    );
   }
 }

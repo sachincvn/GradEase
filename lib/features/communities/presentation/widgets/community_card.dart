@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/features/communities/domain/entity/community_entity.dart';
 import 'package:grad_ease/features/communities/presentation/pages/community_detail_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CommunityCard extends StatelessWidget {
   const CommunityCard({
     super.key,
-    required this.title,
-    required this.description,
-    required this.groupImageUrl,
-    required this.groupMemebers,
+    required this.communityEntity,
   });
 
-  final String title;
-  final String description;
-  final String groupImageUrl;
-  final int groupMemebers;
+  final CommunityEntity communityEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +21,7 @@ class CommunityCard extends StatelessWidget {
           PageTransition(
             type: PageTransitionType.rightToLeft,
             child: CommunityDetailScreen(
-              communityTitle: title,
+              communityEntity: communityEntity,
             ),
           ),
         );
@@ -50,7 +45,7 @@ class CommunityCard extends StatelessWidget {
                       child: Image.network(
                         fit: BoxFit.cover,
                         height: 50,
-                        groupImageUrl,
+                        communityEntity.profileImage,
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -58,14 +53,14 @@ class CommunityCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          title,
+                          communityEntity.name,
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
                               .copyWith(fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "$groupMemebers memebers",
+                          "${communityEntity.members.length} memebers",
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!
@@ -88,7 +83,7 @@ class CommunityCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              description,
+              communityEntity.description,
               style: Theme.of(context)
                   .textTheme
                   .titleSmall!

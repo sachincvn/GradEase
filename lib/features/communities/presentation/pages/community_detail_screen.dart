@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/features/communities/domain/entity/community_entity.dart';
+import 'package:grad_ease/features/communities/presentation/bloc/community_detail/community_detail_bloc.dart';
+import 'package:grad_ease/features/communities/presentation/widgets/community_post.dart';
 import 'package:grad_ease/features/feeds/data/feed_post_model.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class CommunityDetailScreen extends StatefulWidget {
-  final String communityTitle;
-  const CommunityDetailScreen({Key? key, required this.communityTitle})
+  final CommunityEntity communityEntity;
+  const CommunityDetailScreen({Key? key, required this.communityEntity})
       : super(key: key);
 
   @override
@@ -25,19 +29,21 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
   initSocket() {
     socket.connect();
     socket.onConnect((_) {
-      print("Connection established");
       socket.emit('joinCommunity', 'community123');
     });
     socket.onDisconnect((_) => print("connection Disconnection"));
   }
 
   List<FeedPostModelTemp> _messages = [];
+
   @override
   void initState() {
     super.initState();
+    context
+        .read<CommunityDetailBloc>()
+        .add(FetchAllCommunityMessages(widget.communityEntity.id));
     initSocket();
     socket.on('newMessage', (data) {
-      print("newMessage");
       setState(() {
         _messages
             .add(FeedPostModelTemp(message: data['message'], name: "sachin"));
@@ -54,7 +60,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
 
   void _sendMessage(String message) {
     socket.emit('chatMessage', {
-      'communityId': 'community123',
+      'communityId': widget.communityEntity.id,
       'message': message,
     });
     _messageEditingController.clear();
@@ -67,7 +73,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
         leading: const BackButton(color: ColorPallete.whiteColor),
         centerTitle: true,
         title: Text(
-          widget.communityTitle,
+          widget.communityEntity.name,
           style: Theme.of(context)
               .textTheme
               .titleLarge!
@@ -78,12 +84,32 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
-              child: ListView.builder(
-                  itemCount: _messages.length,
-                  itemBuilder: (context, index) {
-                    return _communityPost(context, _messages[index]);
-                  }),
+            BlocConsumer<CommunityDetailBloc, CommunityDetailState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state.communityDetailStateStatus ==
+                    CommunityDetailStateStatus.loading) {
+                  return const Expanded(
+                      child: Center(
+                    child: SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: CircularProgressIndicator(),
+                    ),
+                  ));
+                } else if (state.communityDetailStateStatus ==
+                    CommunityDetailStateStatus.success) {
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: state.messages.length,
+                        itemBuilder: (context, index) {
+                          return CommunityPost(message: state.messages[index]!);
+                        }),
+                  );
+                } else {
+                  return const Expanded(child: SizedBox());
+                }
+              },
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -112,88 +138,6 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _communityPost(BuildContext context, FeedPostModelTemp message) {
-    return Column(
-      children: [
-        Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: ColorPallete.transparentColor,
-                  minRadius: 28,
-                  child: Image.network(
-                      height: 44,
-                      fit: BoxFit.cover,
-                      "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1"),
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: "Sachin Chavan",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(fontWeight: FontWeight.w400),
-                        children: [
-                          const TextSpan(text: " - "),
-                          TextSpan(
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelSmall!
-                                .copyWith(fontWeight: FontWeight.w300),
-                            text: "10-4-2023 12:00 Am",
-                          ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      "sachin@gmail.com",
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelSmall!
-                          .copyWith(fontWeight: FontWeight.w200),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            Row(
-              children: [
-                const SizedBox(width: 60),
-                Expanded(
-                  child: RichText(
-                    text: TextSpan(
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(fontWeight: FontWeight.w500),
-                      children: [
-                        TextSpan(
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium!
-                              .copyWith(fontWeight: FontWeight.w500),
-                          text: message.message,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
-        const SizedBox(height: 10),
-        const Divider(color: Color.fromARGB(110, 54, 67, 82)),
-      ],
     );
   }
 }

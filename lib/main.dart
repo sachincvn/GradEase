@@ -6,6 +6,7 @@ import 'package:grad_ease/core/theme/app_theme.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/auth/presentation/pages/student_login_screen.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_bloc/community_bloc.dart';
+import 'package:grad_ease/features/communities/presentation/bloc/community_detail/community_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/add_post_bloc/add_post_bloc_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
@@ -25,6 +26,7 @@ void main() async {
       BlocProvider(create: (_) => serviceLocator<FeedDetailBloc>()),
       BlocProvider(create: (_) => serviceLocator<AddPostBloc>()),
       BlocProvider(create: (_) => serviceLocator<CommunityBloc>()),
+      BlocProvider(create: (_) => serviceLocator<CommunityDetailBloc>()),
     ],
     child: const MyApp(),
   ));

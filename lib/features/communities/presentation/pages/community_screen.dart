@@ -30,7 +30,6 @@ class _CommunityScreenState extends State<CommunityScreen> {
             child: CircularProgressIndicator(),
           ));
         } else if (state.communityStateStatus == CommunityStateStatus.success) {
-          final communityList = state.communites;
           return Padding(
             padding: const EdgeInsets.only(left: 14, right: 14, bottom: 10),
             child: ListView.builder(
@@ -40,10 +39,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                   key: UniqueKey(),
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: CommunityCard(
-                    title: communityList[index]!.name,
-                    description: communityList[index]!.description,
-                    groupImageUrl: communityList[index]!.profileImage,
-                    groupMemebers: communityList[index]!.members.length,
+                    communityEntity: state.communites[index]!,
                   ),
                 );
               },
