@@ -1,5 +1,5 @@
 import 'package:grad_ease/core/constants/string_contants.dart';
-import 'package:grad_ease/features/feeds/data/models/author_model.dart';
+import 'package:grad_ease/core/common/models/author_model.dart';
 
 class AuthorEntity {
   final String id;

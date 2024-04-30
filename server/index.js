@@ -1,5 +1,8 @@
 import express from "express";
+import http from "http";
 const app = express();
+const server = http.createServer(app);
+
 import dotenv from "dotenv";
 dotenv.config();
 import "./config/dbConfig.js";
@@ -10,7 +13,9 @@ import timeTableRoute from "./routes/timeTableRoute.js";
 import notesRoute from "./routes/notesRoute.js";
 import postRoute from "./routes/postRoute.js";
 import communityRoutes from "./routes/communityRoute.js";
+import { initializeSocket } from "./socket.js";
 
+initializeSocket(server);
 app.use(express.json());
 
 const apiBasePath = "/api/v1/";
@@ -29,6 +34,6 @@ app.get("/", (req, res) => {
 app.use(errorMiddleware);
 const port = process.env.PORT || 8080;
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

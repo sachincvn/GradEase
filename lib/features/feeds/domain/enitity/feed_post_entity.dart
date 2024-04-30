@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:grad_ease/features/feeds/data/models/author_model.dart';
+import 'package:grad_ease/core/common/models/author_model.dart';
 import 'package:grad_ease/features/feeds/data/models/reply_model.dart';
 
 class FeedPostEntity {

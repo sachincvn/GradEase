@@ -1,5 +1,33 @@
 import CommunityModel from "../models/communityModel.js";
+import MessageModel from "../models/messageModel.js";
 import ResponseError from "../utils/RestResponseError.js";
+
+export const sendMessage = async (communityId, message, senderId) => {
+  const newMessage = await MessageModel.create({
+    communityId,
+    message,
+    sender: senderId,
+  });
+  await newMessage.populate("sender", "fullName email profileImage");
+  return newMessage;
+};
+
+export const getCommunityMessages = async (
+  communityId,
+  page = 1,
+  limit = 10
+) => {
+  const skip = (page - 1) * limit;
+
+  const messages = await MessageModel.find({ communityId })
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit)
+    .populate({ path: "sender", select: "fullName  email profileImage" })
+    .exec();
+
+  return messages;
+};
 
 export async function createCommunity(
   name,
@@ -19,9 +47,10 @@ export async function createCommunity(
 }
 
 export async function getCommunitiesByCourseYear(course, year) {
-  const communities = await CommunityModel.find({ course, year }).populate(
-    "members"
-  );
+  const communities = await CommunityModel.find({ course, year }).populate({
+    path: "members",
+    select: "fullName email profileImage",
+  });
   return communities;
 }
 

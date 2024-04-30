@@ -1,4 +1,4 @@
-import 'package:grad_ease/features/feeds/data/models/author_model.dart';
+import 'package:grad_ease/core/common/models/author_model.dart';
 import 'package:grad_ease/features/feeds/domain/enitity/feed_post_reply_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 

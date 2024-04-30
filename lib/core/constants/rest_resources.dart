@@ -1,4 +1,5 @@
 class RestResources {
+  static String baseUrl = "http://192.168.0.105:8080/";
   static String restApiBaseUrl(value) => value
       ? "https://gradease.onrender.com/api/v1/"
       : "http://192.168.0.105:8080/api/v1/";
@@ -16,4 +17,14 @@ class RestResources {
   static String addReply(String id) => "$feedPosts/$id/replies";
   static String deleteReply(String postId, String replyId) =>
       "$feedPosts/$postId/replies/$replyId";
+
+  //communites
+  static const String communites = "/communites";
+  static String getCommunites(String course, int year) =>
+      "$communites/$course/$year";
+
+  static String getCommunityMessages(String communityId,
+          {int page = 1, int pageLimit = 10}) =>
+      "$communites/$communityId/messages?page=$page&pageSize=$pageLimit";
+  static const String sendCommunityMessages = "$communites/send-message";
 }
