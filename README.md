@@ -21,7 +21,7 @@ GradEase simplifies academic management for students. It offers a centralized pl
 
 To use GradEase:
 
-1. Clone this repository `cd server` for the backend APIs to run the flutter app and run  `main.dart` in the lib folder.
+1. Clone this repository `cd server` for the backend APIs to run the flutter app and run `main.dart` in the lib folder.
 2. Install dependencies using `npm install`.
 3. Start the server using `npm start`.
 4. Access the application using a web browser or mobile device.
@@ -31,10 +31,6 @@ To use GradEase:
 - **Front-end:** Dart Language with Flutter framework.
 - **Back-end:** Node.js with Express.js for building RESTful APIs.
 - **Database:** MongoDB for storing and managing data.
-
-## Contributors
-
-- Nitin Gowda
 
 ## License
 
