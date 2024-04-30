@@ -11,6 +11,7 @@ import 'package:grad_ease/features/communities/data/repository/community_reposit
 import 'package:grad_ease/features/communities/domain/repository/communtiy_repository.dart';
 import 'package:grad_ease/features/communities/domain/usecase/get_community_messages_use_case.dart';
 import 'package:grad_ease/features/communities/domain/usecase/get_community_use_case.dart';
+import 'package:grad_ease/features/communities/domain/usecase/send_message_use_case.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_bloc/community_bloc.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_detail/community_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/data/data_sourse/feed_post_remote_data_source.dart';
@@ -83,7 +84,8 @@ void _registerUseCases() {
     ..registerFactory(() => DislikePostUseCase(serviceLocator()))
     ..registerFactory(() => DeletePostUseCase(serviceLocator()))
     ..registerFactory(() => GetCommunityUseCase(serviceLocator()))
-    ..registerFactory(() => GetCommunityMessagesUseCase(serviceLocator()));
+    ..registerFactory(() => GetCommunityMessagesUseCase(serviceLocator()))
+    ..registerFactory(() => SendMessageUseCase(serviceLocator()));
 }
 
 void _registerBlocs() {
@@ -107,5 +109,6 @@ void _registerBlocs() {
         ))
     ..registerLazySingleton(() => AddPostBloc(serviceLocator()))
     ..registerLazySingleton(() => CommunityBloc(serviceLocator()))
-    ..registerLazySingleton(() => CommunityDetailBloc(serviceLocator()));
+    ..registerLazySingleton(
+        () => CommunityDetailBloc(serviceLocator(), serviceLocator()));
 }

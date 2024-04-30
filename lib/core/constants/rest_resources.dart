@@ -23,6 +23,8 @@ class RestResources {
   static String getCommunites(String course, int year) =>
       "$communites/$course/$year";
 
-  static String getCommunityMessages(String communityId) =>
-      "$communites/$communityId/messages";
+  static String getCommunityMessages(String communityId,
+          {int page = 1, int pageLimit = 10}) =>
+      "$communites/$communityId/messages?page=$page&pageSize=$pageLimit";
+  static const String sendCommunityMessages = "$communites/send-message";
 }

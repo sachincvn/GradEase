@@ -33,9 +33,21 @@ class CommunityRepositoryImpl implements CommunityRepository {
   Future<Either<Failure, List<CommunityMessageEntity>>> getAllCommunityMessage(
       {String? communityId, int page = 1, int pageLimt = 10}) async {
     try {
-      final messages =
-          await _communityRemoteDataSource.getCommunityMessages(communityId!);
+      final messages = await _communityRemoteDataSource.getCommunityMessages(
+          communityId!, page, pageLimt);
       return right(messages.data.map((e) => e.toEntity()).toList());
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CommunityMessageEntity>> sendCommunityMessage(
+      String communityId, String message) async {
+    try {
+      final sentMessage = await _communityRemoteDataSource.sendCommunityMessage(
+          _localDetailsRepository.getUserId()!, communityId, message);
+      return right(sentMessage.data.toEntity());
     } catch (e) {
       return left(Failure(e.toString()));
     }

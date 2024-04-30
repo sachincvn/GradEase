@@ -5,16 +5,28 @@ import 'package:grad_ease/features/communities/domain/entity/community_message_e
 import 'package:grad_ease/features/communities/domain/repository/communtiy_repository.dart';
 
 class GetCommunityMessagesUseCase
-    implements UseCase<List<CommunityMessageEntity>, String> {
+    implements
+        UseCase<List<CommunityMessageEntity>, GetCommunityMessagesParams> {
   final CommunityRepository _communityRepository;
 
   GetCommunityMessagesUseCase(this._communityRepository);
 
   @override
   Future<Either<Failure, List<CommunityMessageEntity>>> call(
-      String communityId) async {
+      GetCommunityMessagesParams communityMessagesParams) async {
     return await _communityRepository.getAllCommunityMessage(
-      communityId: communityId,
+      communityId: communityMessagesParams.communityId,
+      page: communityMessagesParams.page,
+      pageLimt: communityMessagesParams.pageSize,
     );
   }
+}
+
+class GetCommunityMessagesParams {
+  final String communityId;
+  final int page;
+  final int pageSize;
+
+  GetCommunityMessagesParams(this.communityId,
+      [this.page = 1, this.pageSize = 10]);
 }

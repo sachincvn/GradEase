@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/features/communities/data/models/community_message_model.dart';
 import 'package:grad_ease/features/communities/domain/entity/community_entity.dart';
+import 'package:grad_ease/features/communities/domain/entity/community_message_entity.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_detail/community_detail_bloc.dart';
 import 'package:grad_ease/features/communities/presentation/widgets/community_post.dart';
-import 'package:grad_ease/features/feeds/data/feed_post_model.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class CommunityDetailScreen extends StatefulWidget {
@@ -20,34 +21,36 @@ class CommunityDetailScreen extends StatefulWidget {
 class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
   final IO.Socket socket = IO.io(RestResources.baseUrl, <String, dynamic>{
     'transports': ['websocket'],
-    'autoConnect': false,
+    'autoConnect': true,
   });
 
   final TextEditingController _messageEditingController =
       TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   initSocket() {
     socket.connect();
     socket.onConnect((_) {
-      socket.emit('joinCommunity', 'community123');
+      socket.emit('joinCommunity', widget.communityEntity.id);
     });
     socket.onDisconnect((_) => print("connection Disconnection"));
   }
 
-  List<FeedPostModelTemp> _messages = [];
+  List<CommunityMessageEntity?> messages = [];
 
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(_onScroll);
     context
         .read<CommunityDetailBloc>()
         .add(FetchAllCommunityMessages(widget.communityEntity.id));
     initSocket();
     socket.on('newMessage', (data) {
-      setState(() {
-        _messages
-            .add(FeedPostModelTemp(message: data['message'], name: "sachin"));
-      });
+      final recivedMessage = CommunityMessageModel.fromJson(data['message']);
+      context
+          .read<CommunityDetailBloc>()
+          .add(AddNewRecivedMessage(recivedMessage.toEntity()));
     });
   }
 
@@ -55,7 +58,25 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
   void dispose() {
     socket.dispose();
     _messageEditingController.dispose();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void _onScroll() {
+    final state = context.read<CommunityDetailBloc>().state;
+    if (_isScrollAtBottom && state.hasMoreData) {
+      context.read<CommunityDetailBloc>().add(
+            FetchMoreCommunityMessages(
+                communityId: widget.communityEntity.id,
+                page: (state.messages.length ~/ 10) + 1,
+                pageLimit: 10),
+          );
+    }
+  }
+
+  bool get _isScrollAtBottom {
+    return (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent);
   }
 
   void _sendMessage(String message) {
@@ -63,6 +84,11 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
       'communityId': widget.communityEntity.id,
       'message': message,
     });
+    context.read<CommunityDetailBloc>().add(SendCommunityMessage(
+          message: message,
+          communityId: widget.communityEntity.id,
+          messages: messages,
+        ));
     _messageEditingController.clear();
   }
 
@@ -99,11 +125,13 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
                   ));
                 } else if (state.communityDetailStateStatus ==
                     CommunityDetailStateStatus.success) {
+                  messages = state.messages;
                   return Expanded(
                     child: ListView.builder(
+                        controller: _scrollController,
                         itemCount: state.messages.length,
                         itemBuilder: (context, index) {
-                          return CommunityPost(message: state.messages[index]!);
+                          return CommunityPost(message: messages[index]!);
                         }),
                   );
                 } else {

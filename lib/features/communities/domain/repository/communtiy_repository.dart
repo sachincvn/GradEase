@@ -7,4 +7,6 @@ abstract interface class CommunityRepository {
   Future<Either<Failure, List<CommunityEntity>>> getAllCommunties();
   Future<Either<Failure, List<CommunityMessageEntity>>> getAllCommunityMessage(
       {String? communityId, int page = 1, int pageLimt = 10});
+  Future<Either<Failure, CommunityMessageEntity>> sendCommunityMessage(
+      String communityId, String message);
 }
