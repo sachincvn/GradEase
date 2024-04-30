@@ -16,9 +16,9 @@ export const sendMessageController = async (req, res) => {
     const newMessage = await sendMessage(communityId, message, senderId);
 
     const io = getSocketInstance();
-    io.emit("sendMessage", { communityId, message, senderId });
+    io.to(communityId).emit("newMessage", { message: newMessage });
 
-    return RestResponse(res, 200, newMessage);
+    return RestResponse(res, 200, null, newMessage);
   } catch (error) {
     return RestResponseError(res, error);
   }

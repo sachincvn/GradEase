@@ -11,7 +11,7 @@ const initializeSocket = (server) => {
     });
 
     socket.on("chatMessage", (data) => {
-      io.to(data.communityId).emit("newMessage", { message: data.message });
+      io.to(data.communityId).emit("newMessage", { message: data });
     });
   });
 };
