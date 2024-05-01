@@ -1,8 +1,9 @@
 class RestResources {
-  static String baseUrl = "http://192.168.0.105:8080/";
-  static String restApiBaseUrl(value) => value
-      ? "https://gradease.onrender.com/api/v1/"
-      : "http://192.168.0.105:8080/api/v1/";
+  static String hostelAddress = "http://192.168.0.40:8080/";
+  static String roomAddress = "http://192.168.0.105:8080/";
+  static String baseUrl = hostelAddress;
+  static String restApiBaseUrl(value) =>
+      value ? "https://gradease.onrender.com/api/v1/" : "$baseUrl/api/v1/";
   static const String studentLogin = "/auth/student";
   static const String adminLogin = "auth/admin";
   static String getStudentDetail(String email) => "student/$email";
