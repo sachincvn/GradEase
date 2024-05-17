@@ -18,7 +18,7 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
-  Future<Either<Failure, RestResponse<String>>> adminLogin(
+  Future<Either<Failure, String>> adminLogin(
       {required String email, required String password}) async {
     try {
       final response = await authRemoteDataSource.adminLogin(
@@ -27,7 +27,7 @@ class AuthRepositoryImpl implements AuthRepository {
         AuthLoginModel(email: email, password: password),
         response.data!,
       );
-      return right(response);
+      return right(response.data!);
     } catch (e) {
       authLocalDataSource.clearLoginCredientials();
       return left(Failure(e.toString()));

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/common/cubit/app_user_cubit.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/app_theme.dart';
+import 'package:grad_ease/features/admin/presentation/pages/admin_home_screen.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/auth/presentation/pages/student_login_screen.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_bloc/community_bloc.dart';
@@ -68,14 +69,33 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: StringConstants.appTitle,
       theme: AppTheme.darkThemeMode,
-      home: BlocSelector<AppUserCubit, AppUserState, bool>(
+      home: BlocSelector<AppUserCubit, AppUserState, LoggedIn>(
         selector: (state) {
-          return state is AppUserLoggedIn;
+          if (state is AppUserLoggedIn) {
+            return LoggedIn(isStudent: true, isAdmin: false);
+          } else if (state is AppAdminLogedIn) {
+            return LoggedIn(isStudent: false, isAdmin: true);
+          } else {
+            return LoggedIn(isStudent: false, isAdmin: false);
+          }
         },
         builder: (context, isLoggedIn) {
-          return isLoggedIn ? const LandingPage() : const StudentLoginScreen();
+          if (isLoggedIn.isAdmin) {
+            return const AdminHomeScreen();
+          } else if (isLoggedIn.isStudent) {
+            return const StudentLoginScreen();
+          } else {
+            return const LandingPage();
+          }
         },
       ),
     );
   }
+}
+
+class LoggedIn {
+  final bool isAdmin;
+  final bool isStudent;
+
+  LoggedIn({this.isAdmin = false, this.isStudent = false});
 }

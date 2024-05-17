@@ -22,9 +22,10 @@ class AuthRemoteDataSourceImpl extends GradEaseRestService
   @override
   Future<RestResponse<String>> adminLogin(
       {required String email, required String password}) async {
-    final restRequest = createPostRequest("", body: {});
+    final restRequest = createPostRequest(RestResources.adminLogin,
+        body: {"email": email, "password": password});
     final response = await executeRequest(restRequest);
-    return response.data;
+    return RestResponse.fromJson(response.data);
   }
 
   @override

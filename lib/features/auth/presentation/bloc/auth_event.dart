@@ -10,4 +10,11 @@ final class AuthSignIn extends AuthEvent {
   AuthSignIn({required this.email, required this.password});
 }
 
+final class AuthAdminSignIn extends AuthEvent {
+  final String email;
+  final String password;
+
+  AuthAdminSignIn({required this.email, required this.password});
+}
+
 final class AuthIsUserLoggedIn extends AuthEvent {}

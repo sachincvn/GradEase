@@ -8,7 +8,7 @@ abstract interface class AuthRepository {
     required String password,
   });
 
-  Future<Either<Failure, RestResponse<String>>> adminLogin({
+  Future<Either<Failure, String>> adminLogin({
     required String email,
     required String password,
   });

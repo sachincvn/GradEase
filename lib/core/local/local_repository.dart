@@ -11,6 +11,8 @@ abstract interface class LocalDetailsRepository {
   void clearLoginCredientials();
   void removeUUCMSCookie();
   void updateUUCMSLoginCookie(String cookie);
+  void updateAdminLogin(bool value);
+  void clearAllLocalData();
 
   AuthLoginEntity? getLoginDetail();
   String? getLoginAuthToken();
@@ -18,6 +20,7 @@ abstract interface class LocalDetailsRepository {
   StudentEntity? getStudentDetail();
   AuthorEntity? getAuthorEntity();
   String? getUUCMSLoginCookie();
+  bool? isAdminLogin();
 }
 
 class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
@@ -58,6 +61,9 @@ class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
   @override
   StudentEntity? getStudentDetail() {
     final studentDetail = box.get('studentDetail', defaultValue: null);
+    if (studentDetail == null) {
+      return null;
+    }
     return StudentModel.fromMap(studentDetail).toEntity();
   }
 
@@ -96,6 +102,26 @@ class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
 
   @override
   void removeUUCMSCookie() {
+    box.put('uucmslogincookie', null);
+  }
+
+  @override
+  void updateAdminLogin(bool value) {
+    box.put('isadmin', value);
+  }
+
+  @override
+  bool? isAdminLogin() {
+    return box.get('isadmin', defaultValue: null);
+  }
+
+  @override
+  void clearAllLocalData() {
+    box.put('authToken', null);
+    box.put('authLoginDetail', null);
+    box.put('userId', null);
+    box.put('studentDetail', null);
+    box.put('isadmin', null);
     box.put('uucmslogincookie', null);
   }
 }
