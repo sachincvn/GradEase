@@ -6,15 +6,19 @@ GradEase simplifies academic management for students. It offers a centralized pl
 
 ## Features
 
-- **Attendance Tracking:** Monitor attendance records and view attendance percentages for all classes.
+- **View Courses [UUCMS]:** Browse and manage your enrolled courses .
+- **Check Results [UUCMS]::** Access and review your academic results.
+- **Check Attendance [UUCMS]:** Monitor your attendance records for all courses.
+- **Check Internal Marks [UUCMS]:** Track your internal assessment scores.
+- **Discussion:** Participate in course-related discussions, ask questions, and engage with peers and instructors.
+- **Communities:** Interact with various student communities to collaborate, share ideas, and participate in group activities.
 - **Schedule Management:** Access personalized class schedules anytime, anywhere.
-- **Online Class Access:** Seamlessly join virtual classrooms and access lecture materials online.
-- **Internal Marks Monitoring:** Stay updated with internal assessment marks and performance feedback.
 - **Assignment Management:** Conveniently manage assignments and track submission deadlines.
-- **Chatbot:** Communicate with queries and details when required.
 - **Notes Organization:** Organize and access lecture notes and study materials in one place.
-- **Feedback Submission:** Provide feedback on courses and instructors effortlessly.
-- **Notifications/Announcements:** Receive notifications for upcoming updates from the college or faculty.
+- **Feedback:** Communicate with queries and details when required.
+
+faculty.
+
 - **ID Card:** Display student details conveniently.
 
 ## Usage
