@@ -11,6 +11,14 @@ import 'package:grad_ease/features/feeds/presentation/bloc/add_post_bloc/add_pos
 import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
+import 'package:grad_ease/features/notes/presentation/bloc/add_note_bloc/add_note_bloc_bloc.dart';
+import 'package:grad_ease/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:grad_ease/features/timetable/presentation/bloc/time_table_bloc/time_table_bloc.dart';
+import 'package:grad_ease/features/uucms/presentation/bloc/uucms_attendance_info_bloc/uucms_attendance_info_bloc.dart';
+import 'package:grad_ease/features/uucms/presentation/bloc/uucms_bloc/uucms_bloc.dart';
+import 'package:grad_ease/features/uucms/presentation/bloc/uucms_internal_info_bloc/uucms_internal_marks_bloc.dart';
+import 'package:grad_ease/features/uucms/presentation/bloc/uucms_registered_course_bloc/uucms_registered_course_bloc.dart';
+import 'package:grad_ease/features/uucms/presentation/bloc/uucms_result_info_bloc/uucms_result_bloc.dart';
 import 'package:grad_ease/init_dependencies.dart';
 import 'package:grad_ease/features/main/landing_page.dart';
 
@@ -27,6 +35,14 @@ void main() async {
       BlocProvider(create: (_) => serviceLocator<AddPostBloc>()),
       BlocProvider(create: (_) => serviceLocator<CommunityBloc>()),
       BlocProvider(create: (_) => serviceLocator<CommunityDetailBloc>()),
+      BlocProvider(create: (_) => serviceLocator<NotesBloc>()),
+      BlocProvider(create: (_) => serviceLocator<AddNoteBloc>()),
+      BlocProvider(create: (_) => serviceLocator<TimeTableBloc>()),
+      BlocProvider(create: (_) => serviceLocator<UUCMSBloc>()),
+      BlocProvider(create: (_) => serviceLocator<UUCMSInternalMarksBloc>()),
+      BlocProvider(create: (_) => serviceLocator<UUCMSAttendanceInfoBloc>()),
+      BlocProvider(create: (_) => serviceLocator<UUCMSRegisteredCourseBloc>()),
+      BlocProvider(create: (_) => serviceLocator<UUCMSExamResultBloc>()),
     ],
     child: const MyApp(),
   ));

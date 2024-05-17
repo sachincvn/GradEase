@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class QuickCards extends StatelessWidget {
   const QuickCards({
@@ -6,71 +7,46 @@ class QuickCards extends StatelessWidget {
     required this.context,
     required this.cardColor,
     required this.textColor,
-    required this.labelOne,
-    required this.labelTwo,
-    required this.labelThree,
-    required this.imageUrl,
+    required this.labelName,
+    required this.lottieAssest,
+    this.onTap,
   });
 
   final BuildContext context;
   final Color cardColor;
   final Color textColor;
-  final String labelOne;
-  final String labelTwo;
-  final String labelThree;
-  final String imageUrl;
+  final String labelName;
+  final String lottieAssest;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        height: 115,
-        margin: const EdgeInsets.only(left: 7, right: 7),
-        padding: const EdgeInsets.only(top: 10, left: 10),
-        decoration: BoxDecoration(
-          color: cardColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              labelOne,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: textColor,
-                  ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      labelTwo,
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: textColor,
-                          ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      labelThree,
-                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: textColor,
-                          ),
-                    ),
-                  ],
-                ),
-                Image.network(
-                  imageUrl,
-                  height: 80,
-                ),
-              ],
-            ),
-          ],
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: 125,
+          margin: const EdgeInsets.only(left: 7, right: 7),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Lottie.asset(lottieAssest,
+                  height: 80, width: 80, fit: BoxFit.contain),
+              Text(
+                labelName,
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge!
+                    .copyWith(fontWeight: FontWeight.bold, color: textColor),
+              )
+            ],
+          ),
         ),
       ),
     );

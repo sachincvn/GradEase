@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/features/feeds/presentation/pages/latest_feed_screen.dart';
 import 'package:grad_ease/features/home/presentation/pages/home_screen.dart';
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
+import 'package:grad_ease/features/notes/presentation/pages/notes_tab_screen.dart';
+import 'package:grad_ease/features/profile/presentation/pages/profile_screen.dart';
 
 List<BottomNavigationBarItem> bottomNavItems = const <BottomNavigationBarItem>[
   BottomNavigationBarItem(
@@ -11,12 +14,12 @@ List<BottomNavigationBarItem> bottomNavItems = const <BottomNavigationBarItem>[
     label: 'Home',
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.notes_rounded),
-    label: 'Notes',
+    icon: Icon(Icons.feed_outlined),
+    label: 'Discussion',
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.schedule_rounded),
-    label: 'Schedule',
+    icon: Icon(Icons.notes_outlined),
+    label: 'Notes',
   ),
   BottomNavigationBarItem(
     icon: Icon(CupertinoIcons.profile_circled),
@@ -26,9 +29,9 @@ List<BottomNavigationBarItem> bottomNavItems = const <BottomNavigationBarItem>[
 
 const List<Widget> bottomNavScreen = <Widget>[
   HomeScreen(),
-  Center(child: Text('Notes')),
-  Center(child: Text('Scedule')),
-  Center(child: Text('Profile')),
+  LatestFeedScreen(),
+  NotesTabScreen(),
+  ProfileScreen(),
 ];
 
 class LandingPage extends StatelessWidget {

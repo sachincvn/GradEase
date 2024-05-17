@@ -1,7 +1,8 @@
 class RestResources {
-  static String hostelAddress = "http://192.168.0.40:8080/";
-  static String roomAddress = "http://192.168.0.105:8080/";
-  static String baseUrl = hostelAddress;
+  static String hostelAddress = "http://192.168.0.32:8080";
+  static String roomAddress = "http://192.168.0.100:8080";
+  static String oneplusAdress = "http://192.168.148.242:8080";
+  static String baseUrl = roomAddress;
   static String restApiBaseUrl(value) =>
       value ? "https://gradease.onrender.com/api/v1/" : "$baseUrl/api/v1/";
   static const String studentLogin = "/auth/student";
@@ -28,4 +29,15 @@ class RestResources {
           {int page = 1, int pageLimit = 10}) =>
       "$communites/$communityId/messages?page=$page&pageSize=$pageLimit";
   static const String sendCommunityMessages = "$communites/send-message";
+
+  //notes
+  static const String notes = "/notes";
+  static const String uploadNote = "$notes/upload";
+
+  //timetable http://localhost:8080/api/v1/timetable/MCA/1/A
+  static const String timetable = "/timetable";
+  static String getTimeTable(String course, int year, String section) =>
+      "$timetable/$course/$year/$section";
+
+  static const String uucmsBaseUrl = "https://uucms.karnataka.gov.in/";
 }

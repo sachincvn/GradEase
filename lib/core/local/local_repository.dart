@@ -9,12 +9,15 @@ abstract interface class LocalDetailsRepository {
   void updateLoginDetail(AuthLoginModel authLoginModel, String authToken);
   void updateStudentDetails(StudentModel studentEntity);
   void clearLoginCredientials();
+  void removeUUCMSCookie();
+  void updateUUCMSLoginCookie(String cookie);
 
   AuthLoginEntity? getLoginDetail();
   String? getLoginAuthToken();
   String? getUserId();
   StudentEntity? getStudentDetail();
   AuthorEntity? getAuthorEntity();
+  String? getUUCMSLoginCookie();
 }
 
 class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
@@ -79,5 +82,20 @@ class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
   AuthorEntity? getAuthorEntity() {
     final loginDetail = box.get('authorDetail', defaultValue: null);
     return AuthorEntity.fromMap(loginDetail);
+  }
+
+  @override
+  String? getUUCMSLoginCookie() {
+    return box.get('uucmslogincookie', defaultValue: null);
+  }
+
+  @override
+  void updateUUCMSLoginCookie(String cookie) {
+    box.put('uucmslogincookie', cookie);
+  }
+
+  @override
+  void removeUUCMSCookie() {
+    box.put('uucmslogincookie', null);
   }
 }

@@ -3,7 +3,7 @@ import 'package:grad_ease/core/theme/color_pallete.dart';
 
 class GradEaseButton extends StatelessWidget {
   final String buttonText;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool isLoading;
   const GradEaseButton({
     super.key,

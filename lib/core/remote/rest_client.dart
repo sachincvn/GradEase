@@ -5,7 +5,9 @@ class RestClient {
   Dio dio = Dio();
 
   RestClient() {
-    dio.options.baseUrl = _getRestClientBaseUrl();
+    if (dio.options.baseUrl.isEmpty) {
+      dio.options.baseUrl = _getRestClientBaseUrl();
+    }
   }
 
   String _getRestClientBaseUrl() {
