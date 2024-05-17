@@ -20,6 +20,6 @@ notesRoute.post("/", AddNoteContoller);
 notesRoute.get("/", GetAllNotesController);
 notesRoute.get("/:id", GetNoteByIdContoller);
 notesRoute.put("/", UpdateNoteContoller);
-notesRoute.delete("/", DeleteNoteContoller);
+notesRoute.delete("/:id", DeleteNoteContoller);
 
 export default notesRoute;
