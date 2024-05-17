@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/core/constants/string_contants.dart';
+import 'package:lottie/lottie.dart';
 
 class ClockInCard extends StatelessWidget {
   const ClockInCard({
@@ -53,18 +54,10 @@ class ClockInCard extends StatelessWidget {
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: ColorPallete.whiteColor,
-            ),
-            child: Text(
-              "Clock In",
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: ColorPallete.backgroundColor,
-                  ),
-            ),
+          Lottie.asset(
+            LocalResourcesConstants.studyLottie,
+            height: 110,
+            width: 120,
           ),
         ],
       ),

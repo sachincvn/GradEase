@@ -20,6 +20,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
       TextEditingController();
   final TextEditingController descriptionTextEditingController =
       TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    titleTextEditingController.dispose();
+    descriptionTextEditingController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddPostBloc, AddPostBlocState>(

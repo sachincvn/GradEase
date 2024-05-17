@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 
 class HomeScreenHeader extends StatelessWidget {
@@ -21,9 +22,7 @@ class HomeScreenHeader extends StatelessWidget {
                 backgroundColor: ColorPallete.transparentColor,
                 minRadius: 28,
                 child: Image.network(
-                    height: 50,
-                    fit: BoxFit.cover,
-                    "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1"),
+                    height: 50, fit: BoxFit.cover, StringConstants.avtarImage),
               ),
               const SizedBox(width: 20),
               Column(

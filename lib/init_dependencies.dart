@@ -28,6 +28,27 @@ import 'package:grad_ease/features/feeds/presentation/bloc/add_post_bloc/add_pos
 import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
+import 'package:grad_ease/features/notes/data/data_source/notes_remote_data_source.dart';
+import 'package:grad_ease/features/notes/data/repository/notes_repository_impl.dart';
+import 'package:grad_ease/features/notes/domain/repository/notes_repository.dart';
+import 'package:grad_ease/features/notes/domain/usecase/add_note_use_case.dart';
+import 'package:grad_ease/features/notes/domain/usecase/delete_note_use_case.dart';
+import 'package:grad_ease/features/notes/domain/usecase/get_all_notes_use_case.dart';
+import 'package:grad_ease/features/notes/presentation/bloc/add_note_bloc/add_note_bloc_bloc.dart';
+import 'package:grad_ease/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:grad_ease/features/timetable/data/data_source/time_table_remote_data_source.dart';
+import 'package:grad_ease/features/timetable/data/repository/time_table_repository_impl.dart';
+import 'package:grad_ease/features/timetable/domain/repository/time_table_repository.dart';
+import 'package:grad_ease/features/timetable/domain/usecas/get_time_table_use_case.dart';
+import 'package:grad_ease/features/timetable/presentation/bloc/time_table_bloc/time_table_bloc.dart';
+import 'package:grad_ease/features/uucms/data/data_sourse/uccm_remote_data_source.dart';
+import 'package:grad_ease/features/uucms/data/repository/uucms_repository_impl.dart';
+import 'package:grad_ease/features/uucms/domain/repository/uucms_repository.dart';
+import 'package:grad_ease/features/uucms/presentation/bloc/uucms_attendance_info_bloc/uucms_attendance_info_bloc.dart';
+import 'package:grad_ease/features/uucms/presentation/bloc/uucms_bloc/uucms_bloc.dart';
+import 'package:grad_ease/features/uucms/presentation/bloc/uucms_internal_info_bloc/uucms_internal_marks_bloc.dart';
+import 'package:grad_ease/features/uucms/presentation/bloc/uucms_registered_course_bloc/uucms_registered_course_bloc.dart';
+import 'package:grad_ease/features/uucms/presentation/bloc/uucms_result_info_bloc/uucms_result_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -57,7 +78,11 @@ void _registerDataSources() {
     ..registerFactory<FeedPostRemoteDataSource>(
         () => FeedPostRemoteDataSourceImpl())
     ..registerFactory<CommunityRemoteDataSource>(
-        () => CommunityRemoteDataSourceImpl());
+        () => CommunityRemoteDataSourceImpl())
+    ..registerFactory<NoteRemoteDataSource>(() => NotesRemoteDataSourceImpl())
+    ..registerFactory<TimeTableRemoteDataSource>(
+        () => TimeTableRemoteDataSourceImpl())
+    ..registerFactory<UUCMSRemoteDataSource>(() => UUCMSRemoteDataSourceImpl());
 }
 
 void _registerRepositories() {
@@ -69,7 +94,13 @@ void _registerRepositories() {
     ..registerFactory<FeedPostRepository>(
         () => FeedPostRepositoryImpl(serviceLocator(), serviceLocator()))
     ..registerFactory<CommunityRepository>(
-        () => CommunityRepositoryImpl(serviceLocator(), serviceLocator()));
+        () => CommunityRepositoryImpl(serviceLocator(), serviceLocator()))
+    ..registerFactory<NotesRepository>(
+        () => NotesRepositoryImpl(serviceLocator(), serviceLocator()))
+    ..registerFactory<TimeTableRepository>(
+        () => TimeTableRepositortImpl(serviceLocator(), serviceLocator()))
+    ..registerFactory<UUCMSRepository>(
+        () => UUCMSRepositoryImpl(serviceLocator(), serviceLocator()));
 }
 
 void _registerUseCases() {
@@ -85,7 +116,11 @@ void _registerUseCases() {
     ..registerFactory(() => DeletePostUseCase(serviceLocator()))
     ..registerFactory(() => GetCommunityUseCase(serviceLocator()))
     ..registerFactory(() => GetCommunityMessagesUseCase(serviceLocator()))
-    ..registerFactory(() => SendMessageUseCase(serviceLocator()));
+    ..registerFactory(() => SendMessageUseCase(serviceLocator()))
+    ..registerFactory(() => GetAllNotesUseCase(serviceLocator()))
+    ..registerFactory(() => AddNewNoteUseCase(serviceLocator()))
+    ..registerFactory(() => DeleteNoteUseCase(serviceLocator()))
+    ..registerFactory(() => GetTimeTableUseCase(serviceLocator()));
 }
 
 void _registerBlocs() {
@@ -109,6 +144,17 @@ void _registerBlocs() {
         ))
     ..registerLazySingleton(() => AddPostBloc(serviceLocator()))
     ..registerLazySingleton(() => CommunityBloc(serviceLocator()))
+    ..registerLazySingleton(() => NotesBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(() => AddNoteBloc(serviceLocator()))
     ..registerLazySingleton(
-        () => CommunityDetailBloc(serviceLocator(), serviceLocator()));
+        () => CommunityDetailBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(() => TimeTableBloc(serviceLocator()))
+    ..registerLazySingleton(() => UUCMSBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(
+        () => UUCMSInternalMarksBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(
+        () => UUCMSRegisteredCourseBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(() => UUCMSAttendanceInfoBloc(serviceLocator()))
+    ..registerLazySingleton(
+        () => UUCMSExamResultBloc(serviceLocator(), serviceLocator()));
 }

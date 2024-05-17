@@ -27,6 +27,9 @@ class _LatestFeedScreenState extends State<LatestFeedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text("Discussion"),
+        ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: ColorPallete.greyColor,
           onPressed: () {
@@ -39,50 +42,52 @@ class _LatestFeedScreenState extends State<LatestFeedScreen> {
           },
           child: const Icon(CupertinoIcons.add),
         ),
-        body: BlocConsumer<FeedPostBloc, FeedPostState>(
-          listener: (context, state) {
-            if (state.feedPostStateStatus == FeedPostStateStatus.error) {
-              showSnackBar(context, state.errorMessage);
-            }
-          },
-          builder: (context, state) {
-            if (state.feedPostStateStatus == FeedPostStateStatus.loading) {
-              return const Center(
-                  child: SizedBox(
-                height: 40,
-                width: 40,
-                child: CircularProgressIndicator(),
-              ));
-            }
-            if (state.feedPostStateStatus == FeedPostStateStatus.success) {
-              final posts = state.posts;
-              if (posts.isEmpty) {
+        body: SafeArea(
+          child: BlocConsumer<FeedPostBloc, FeedPostState>(
+            listener: (context, state) {
+              if (state.feedPostStateStatus == FeedPostStateStatus.error) {
+                showSnackBar(context, state.errorMessage);
+              }
+            },
+            builder: (context, state) {
+              if (state.feedPostStateStatus == FeedPostStateStatus.loading) {
                 return const Center(
-                  child: Text("No post found"),
+                    child: SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: CircularProgressIndicator(),
+                ));
+              }
+              if (state.feedPostStateStatus == FeedPostStateStatus.success) {
+                final posts = state.posts;
+                if (posts.isEmpty) {
+                  return const Center(
+                    child: Text("No post found"),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: posts.length,
+                  itemBuilder: (context, index) {
+                    return FeedPost(
+                      post: posts[index]!,
+                      onTapCallback: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: PostDetailScreen(
+                              feedPost: posts[index]!,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                 );
               }
-              return ListView.builder(
-                itemCount: posts.length,
-                itemBuilder: (context, index) {
-                  return FeedPost(
-                    post: posts[index]!,
-                    onTapCallback: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.rightToLeft,
-                          child: PostDetailScreen(
-                            feedPost: posts[index]!,
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              );
-            }
-            return const SizedBox();
-          },
+              return const SizedBox();
+            },
+          ),
         ));
   }
 }

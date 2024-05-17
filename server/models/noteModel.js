@@ -18,7 +18,7 @@ const notesSchema = new Schema({
     default: Date.now,
   },
   uploadedBy: {
-    name: {
+    fullName: {
       type: String,
       required: true,
     },
@@ -26,6 +26,10 @@ const notesSchema = new Schema({
       type: String,
       required: true,
     },
+  },
+  year: {
+    type: Number,
+    required: true,
   },
 });
 

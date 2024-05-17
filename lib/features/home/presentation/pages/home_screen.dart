@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/communities/presentation/pages/community_screen.dart';
-import 'package:grad_ease/features/feeds/presentation/pages/latest_feed_screen.dart';
-import 'package:grad_ease/features/home/presentation/delegates/divider_delegate.dart';
-import 'package:grad_ease/features/home/presentation/delegates/tab_bar_delegate.dart';
 import 'package:grad_ease/features/home/presentation/widgets/clock_in_card.dart';
 import 'package:grad_ease/features/home/presentation/widgets/home_screen_header.dart';
 import 'package:grad_ease/features/home/presentation/widgets/quick_cards.dart';
+import 'package:grad_ease/features/timetable/presentation/pages/class_schedule_screen.dart';
+import 'package:grad_ease/features/uucms/presentation/pages/uucms_home_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,63 +16,31 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: DefaultTabController(
-          length: 2,
-          child: Column(
-            children: [
-              const HomeScreenHeader(),
-              Expanded(
-                child: NestedScrollView(
-                  headerSliverBuilder: (context, innerBoxIsScrolled) {
-                    return [
-                      _sliverToBoxAdapterSizedBox(10),
-                      const SliverToBoxAdapter(
-                        child: ClockInCard(),
-                      ),
-                      _sliverToBoxAdapterSizedBox(18),
-                      SliverToBoxAdapter(
-                        child: _homeQuickCards(context),
-                      ),
-                      _sliverToBoxAdapterSizedBox(20),
-                      SliverPersistentHeader(
-                        delegate: DividerDelegate(),
-                        pinned: true,
-                      ),
-                      SliverPersistentHeader(
-                        delegate: TabBarDelegate(
-                          tabBar: _buildTabBar(),
-                        ),
-                        pinned: true,
-                      ),
-                    ];
-                  },
-                  body: const TabBarView(
-                    children: [
-                      LatestFeedScreen(),
-                      CommunityScreen(),
-                    ],
-                  ),
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const HomeScreenHeader(),
+            const ClockInCard(),
+            const SizedBox(height: 15),
+            _homeQuickCards(context),
+            const SizedBox(height: 15),
+            const SizedBox(height: 5),
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 4, left: 14, right: 14, bottom: 10),
+              child: Text(
+                "Communities",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(fontWeight: FontWeight.w600),
               ),
-            ],
-          ),
+            ),
+            const Expanded(child: CommunityScreen()),
+          ],
         ),
       ),
-    );
-  }
-
-  TabBar _buildTabBar() {
-    return const TabBar(
-      tabs: [
-        Tab(text: 'Discussion'),
-        Tab(text: 'Communities'),
-      ],
-      tabAlignment: TabAlignment.fill,
-      dividerColor: ColorPallete.transparentColor,
-      indicatorColor: ColorPallete.whiteColor,
-      labelColor: ColorPallete.whiteColor,
-      unselectedLabelColor: ColorPallete.whiteColor,
-      indicatorSize: TabBarIndicatorSize.label,
     );
   }
 
@@ -81,36 +50,44 @@ class HomeScreen extends StatelessWidget {
       child: Row(
         children: [
           QuickCards(
-              context: context,
-              cardColor: const Color(0xFF0ba3de),
-              textColor: ColorPallete.whiteColor,
-              labelOne: "Semester",
-              labelTwo: "3",
-              labelThree: "MCA",
-              imageUrl:
-                  "https://cdn-icons-png.freepik.com/512/4735/4735829.png?filename=book_4735829.png&fd=1"),
+            context: context,
+            cardColor: const Color.fromARGB(228, 130, 149, 211),
+            textColor: ColorPallete.whiteColor,
+            labelName: "UUCMS Services",
+            lottieAssest: LocalResourcesConstants.universityLottie,
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  child: const UucmsHomeScreen(),
+                ),
+              );
+            },
+          ),
           QuickCards(
               context: context,
-              cardColor: const Color(0xFFead4ff),
-              textColor: ColorPallete.backgroundColor,
-              labelOne: "Performance",
-              labelTwo: "70%",
-              labelThree: "Average",
-              imageUrl:
-                  "https://cdn-icons-png.freepik.com/512/13434/13434630.png?filename=data-analytics_13434630.png&fd=1"),
+              cardColor: const Color.fromARGB(255, 120, 186, 212),
+              textColor: ColorPallete.whiteColor,
+              labelName: "Assignments",
+              lottieAssest: LocalResourcesConstants.assignmentLottie),
+          QuickCards(
+            context: context,
+            cardColor: const Color.fromARGB(209, 169, 231, 226),
+            textColor: ColorPallete.whiteColor,
+            labelName: "Timetable",
+            lottieAssest: LocalResourcesConstants.scheduleLottie,
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  child: const ClassScheduleScreen(),
+                ),
+              );
+            },
+          ),
         ],
-      ),
-    );
-  }
-
-  SliverToBoxAdapter _sliverToBoxAdapterSizedBox([
-    double? height = 0,
-    double? width = 0,
-  ]) {
-    return SliverToBoxAdapter(
-      child: SizedBox(
-        height: height,
-        width: width,
       ),
     );
   }

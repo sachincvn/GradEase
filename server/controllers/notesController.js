@@ -3,6 +3,7 @@ import {
   deleteNote,
   getAllNotes,
   getNote,
+  getNotesByYear,
   updateNote,
 } from "../services/notesServices.js";
 import { RestResponse, RestResponseError } from "../utils/RestResponse.js";
@@ -22,8 +23,13 @@ export async function UploadNoteController(req, res) {
 
 export async function GetAllNotesController(req, res) {
   try {
-    const response = await getAllNotes();
-    return RestResponse(res, 200, null, response);
+    if (req.headers["year"]) {
+      const response = await getNotesByYear(req.headers["year"]);
+      return RestResponse(res, 200, null, response);
+    } else {
+      const response = await getAllNotes();
+      return RestResponse(res, 200, null, response);
+    }
   } catch (error) {
     return RestResponseError(res, error);
   }
@@ -41,16 +47,18 @@ export async function GetNoteByIdContoller(req, res) {
 
 export async function AddNoteContoller(req, res) {
   try {
-    const { title, description, filepath, createdDate, uploadedBy } = req.body;
+    const { title, description, filepath, createdDate, uploadedBy, year } =
+      req.body;
     const noteData = {
       title,
       description,
       filepath,
       createdDate,
       uploadedBy,
+      year,
     };
     const response = await addNote(noteData);
-    return RestResponse(res, 200, null, response);
+    return res.status(200).json(response);
   } catch (error) {
     return RestResponseError(res, error);
   }
@@ -72,7 +80,7 @@ export async function DeleteNoteContoller(req, res) {
   try {
     const { id } = req.params;
     const response = await deleteNote(id);
-    return RestResponse(res, 200, null, response);
+    return res.status(200).json(response);
   } catch (error) {
     return RestResponseError(res, error);
   }
