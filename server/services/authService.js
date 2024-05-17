@@ -23,6 +23,13 @@ export async function loginStudent(email, password) {
     );
   }
 
+  if (!existingStudent.isApproved) {
+    throw new ResponseError(
+      404,
+      "Account is not verified, please contact college admin"
+    );
+  }
+
   const tokenObject = {
     _id: existingStudent._id,
     fullName: existingStudent.fullName,

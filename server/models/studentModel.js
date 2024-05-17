@@ -49,6 +49,14 @@ const studentSchema = new Schema({
     type: String,
     required: false,
   },
+  section: {
+    type: String,
+    default: "A",
+  },
+  isApproved: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const StudentModel = model("Student", studentSchema);

@@ -39,7 +39,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(const AuthFailure(message: "Unable to login !"));
             return;
           }
-          _emitAuthSuccess(data, emit);
+          if (data.isApproved!) {
+            _emitAuthSuccess(data, emit);
+          }
         },
       );
     } catch (e) {

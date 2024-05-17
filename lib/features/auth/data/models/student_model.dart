@@ -18,6 +18,8 @@ class StudentModel {
   final String? studentPhone;
   final String? parentPhone;
   final String? profileImage;
+  final String? section;
+  final bool? isApproved;
 
   StudentModel({
     required this.id,
@@ -31,6 +33,8 @@ class StudentModel {
     required this.studentPhone,
     required this.parentPhone,
     required this.profileImage,
+    required this.isApproved,
+    required this.section,
   });
 
   factory StudentModel.fromMap(Map<String, dynamic> json) {
@@ -47,6 +51,8 @@ class StudentModel {
       parentPhone: json['parentPhone'],
       profileImage: json['profileImage'] ??
           "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1",
+      section: json['section'],
+      isApproved: json['isApproved'],
     );
   }
 
@@ -63,6 +69,8 @@ class StudentModel {
       'studentPhone': studentPhone,
       'parentPhone': parentPhone,
       'profileImage': profileImage,
+      'isApproved': isApproved,
+      'section': section,
     };
   }
 
@@ -92,16 +100,19 @@ class StudentModel {
 
   StudentEntity toEntity() {
     return StudentEntity(
-        id: id,
-        fullName: fullName,
-        fatherName: fatherName,
-        dob: dob,
-        gender: gender,
-        course: course,
-        courseYear: courseYear,
-        email: email,
-        studentPhone: studentPhone,
-        parentPhone: parentPhone,
-        profileImage: profileImage);
+      id: id,
+      fullName: fullName,
+      fatherName: fatherName,
+      dob: dob,
+      gender: gender,
+      course: course,
+      courseYear: courseYear,
+      email: email,
+      studentPhone: studentPhone,
+      parentPhone: parentPhone,
+      profileImage: profileImage,
+      isApproved: isApproved,
+      section: section,
+    );
   }
 }

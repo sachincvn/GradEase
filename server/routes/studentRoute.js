@@ -12,7 +12,6 @@ const studentRoute = Router();
 
 studentRoute.post(
   "/register",
-  AuthAdminMiddleware,
   StudentRegistrationValidation,
   RegisterNewStudentController
 );
