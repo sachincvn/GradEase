@@ -14,6 +14,7 @@ import notesRoute from "./routes/notesRoute.js";
 import postRoute from "./routes/postRoute.js";
 import communityRoutes from "./routes/communityRoute.js";
 import { initializeSocket } from "./socket.js";
+import feedbackRoute from "./routes/feedbackRoute.js";
 
 initializeSocket(server);
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use(`${apiBasePath}auth/`, authRoute);
 app.use(`${apiBasePath}timetable/`, timeTableRoute);
 app.use(`${apiBasePath}notes/`, notesRoute);
 app.use(`${apiBasePath}post/`, postRoute);
+app.use(`${apiBasePath}feedback/`, feedbackRoute);
 app.use(`${apiBasePath}communites/`, communityRoutes);
 
 app.get("/", (req, res) => {
