@@ -5,7 +5,7 @@ part 'time_table_entry_model.g.dart';
 @JsonSerializable()
 class TimetableEntry {
   @JsonKey(name: "_id")
-  final String id;
+  final String? id;
 
   @JsonKey(name: "SubjectName")
   final String subjectName;
@@ -27,4 +27,12 @@ class TimetableEntry {
       _$TimetableEntryFromJson(json);
 
   Map<String, dynamic> toJson() => _$TimetableEntryToJson(this);
+
+  Map<String, dynamic> toPostJson() {
+    return {
+      'SubjectName': subjectName,
+      'TeacherName': teacherName,
+      'Time': time,
+    };
+  }
 }

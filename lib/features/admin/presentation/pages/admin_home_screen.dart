@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/admin/presentation/pages/manage_studends_screen.dart';
+import 'package:grad_ease/features/admin/presentation/pages/time_table_screen.dart';
 import 'package:grad_ease/features/uucms/presentation/pages/course_registered_info_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -57,7 +58,7 @@ class AdminHomeScreen extends StatelessWidget {
                       context,
                       PageTransition(
                         type: PageTransitionType.rightToLeft,
-                        child: const CourseRegisteredInfoScreen(),
+                        child: const TimeTableScreen(),
                       ),
                     );
                   },
