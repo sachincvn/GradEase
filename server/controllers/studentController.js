@@ -1,4 +1,5 @@
 import {
+  deleteStudentDetail,
   getAllStudentsDetails,
   getStudentByEmail,
   registerStudent,
@@ -51,6 +52,23 @@ export async function UpdateStudentDetailController(req, res) {
       200,
       "Student details updated successfully",
       updatedStudent
+    );
+  } catch (error) {
+    return RestResponseError(res, error);
+  }
+}
+
+//delete student by email
+export async function DeleteStudentDetailController(req, res) {
+  try {
+    const { email } = req.params;
+    const deletedStudent = await deleteStudentDetail(email);
+    deletedStudent.password = undefined;
+    return RestResponse(
+      res,
+      200,
+      "Student details updated successfully",
+      deletedStudent
     );
   } catch (error) {
     return RestResponseError(res, error);

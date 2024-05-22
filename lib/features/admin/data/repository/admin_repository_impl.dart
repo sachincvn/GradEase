@@ -22,6 +22,29 @@ class AdminRepositoryIml implements AdminRepository {
   }
 
   @override
+  Future<Either<Failure, StudentDetail>> approveStudents(
+      String studentEmail) async {
+    try {
+      final updatedDetail =
+          await adminRemoteDataSource.approveStudent(studentEmail);
+      return right(updatedDetail);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, StudentDetail>> deleteStudents(
+      String studentEmail) async {
+    try {
+      final response = await adminRemoteDataSource.deleteStudent(studentEmail);
+      return right(response);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<TimeTableModel>>> getAllTimeTable() async {
     try {
       final timeTables = await adminRemoteDataSource.getAllTimeTables();

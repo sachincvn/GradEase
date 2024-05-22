@@ -1,5 +1,6 @@
 import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/remote/gradease_rest_service.dart';
+import 'package:grad_ease/features/admin/data/models/student_detail.dart';
 import 'package:grad_ease/features/admin/data/models/students_response_model.dart';
 import 'package:grad_ease/features/admin/data/models/time_table_response_model.dart';
 import 'package:grad_ease/features/timetable/data/models/time_table_respose_model.dart'
@@ -9,6 +10,8 @@ import 'package:grad_ease/features/timetable/data/models/time_table_model.dart'
 
 abstract interface class AdminRemoteDataSource {
   Future<StudentsResponseModel> getAllStudents();
+  Future<StudentDetail> approveStudent(String studentEmail);
+  Future<StudentDetail> deleteStudent(String studentEmail);
   Future<TimeTableResponseModel> getAllTimeTables();
   Future<tt.TimeTableResponseModel> addTimeTable(
       ttdto.TimeTableModel timeTable);
@@ -25,6 +28,24 @@ class AdminRemoteDataSourceImpl extends GradEaseRestService
     final restRequest = createGetRequest(RestResources.getAllStudents);
     final response = await executeRequest(restRequest);
     return StudentsResponseModel.fromJson(response.data);
+  }
+
+  @override
+  Future<StudentDetail> approveStudent(String studentEmail) async {
+    final restRequest =
+        createPutRequest(RestResources.studentByEmail(studentEmail), body: {
+      "isApproved": true,
+    });
+    final response = await executeRequest(restRequest);
+    return StudentDetail.fromJson(response.data['data']);
+  }
+
+  @override
+  Future<StudentDetail> deleteStudent(String studentEmail) async {
+    final restRequest =
+        createDeleteRequest(RestResources.studentByEmail(studentEmail));
+    final response = await executeRequest(restRequest);
+    return StudentDetail.fromJson(response.data['data']);
   }
 
   @override

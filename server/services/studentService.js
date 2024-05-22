@@ -50,3 +50,13 @@ export async function updateStudentDetail(email, updatedData) {
 
   return updatedStudent;
 }
+
+export async function deleteStudentDetail(email, updatedData) {
+  const deleteStudent = await StudentModel.findOneAndDelete({ email });
+
+  if (!deleteStudent) {
+    throw new ResponseError(404, "Invalid email, Student not found");
+  }
+
+  return deleteStudent;
+}

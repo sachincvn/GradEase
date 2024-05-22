@@ -1,6 +1,6 @@
 class RestResources {
   static String hostelAddress = "http://192.168.0.32:8080";
-  static String roomAddress = "http://192.168.33.13:8080";
+  static String roomAddress = "http://192.168.33.37:8080";
   static String oneplusAdress = "http://192.168.148.242:8080";
   static String baseUrl = roomAddress;
   static String restApiBaseUrl(value) =>
@@ -44,4 +44,6 @@ class RestResources {
   //http://localhost:8080/api/v1/student/getAllStudents
   static const String students = "student";
   static const String getAllStudents = "$students/getAllStudents";
+  static String studentByEmail(String studentEmail) =>
+      "$students/$studentEmail";
 }

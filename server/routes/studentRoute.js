@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  DeleteStudentDetailController,
   GetAllStudentsController,
   GetStudentByEmailController,
   RegisterNewStudentController,
@@ -27,6 +28,12 @@ studentRoute.put(
   "/:email",
   AuthStudentMiddleware,
   UpdateStudentDetailController
+);
+
+studentRoute.delete(
+  "/:email",
+  AuthStudentMiddleware,
+  DeleteStudentDetailController
 );
 
 export default studentRoute;
