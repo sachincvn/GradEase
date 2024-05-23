@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/extensions/string_extension.dart';
-import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/communities/domain/entity/community_message_entity.dart';
 
 class CommunityPost extends StatelessWidget {
