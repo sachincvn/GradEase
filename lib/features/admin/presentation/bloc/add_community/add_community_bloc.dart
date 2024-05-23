@@ -34,11 +34,26 @@ class AddCommunityBloc extends Bloc<AddCommunityEvent, AddCommunityState> {
             event.course);
         createPost.fold(
             (l) => emit(AddCommunityFailureState("Something went wrong")),
-            (r) => AddCommunitySuccessState(r));
+            (r) => emit(AddCommunitySuccessState(r)));
       },
     );
   }
 
   FutureOr<void> _onUpdateTimeTableEvent(
-      UpdateCommunityEvent event, Emitter<AddCommunityState> emit) async {}
+      UpdateCommunityEvent event, Emitter<AddCommunityState> emit) async {
+    if(event.profilePath != event.profilePath){
+      //add new image and update
+      final updateImage = await _adminRepository.uploadCommunityImage(event.profileName, event.profilePath);
+      updateImage.fold((l) => emit(AddCommunityFailureState("Failed while uploading image")), (r) {
+        updateCommunity(r.filePath, event, emit);
+      });
+      return;
+    }
+    updateCommunity(event.profilePath, event, emit);
+  }
+
+  Future<void> updateCommunity(String profilePath,UpdateCommunityEvent event, Emitter<AddCommunityState> emit) async{
+    final updateCommunity = await _adminRepository.updateCommunity(event.communityId, event.communityName, event.communityDescription, event.profilePath, event.year, event.course);
+    updateCommunity.fold((l) => emit(AddCommunityFailureState("Unable to update")), (r) => emit(AddCommunitySuccessState(r)));
+  }
 }

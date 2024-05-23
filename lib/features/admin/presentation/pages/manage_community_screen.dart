@@ -37,7 +37,7 @@ class _ManageCommunityScreenState extends State<ManageCommunityScreen> {
         child: const Icon(CupertinoIcons.add),
       ),
       appBar: AppBar(
-        title: const Text("Manage Comunnites"),
+        title: const Text("Manage Communities"),
       ),
       body: SafeArea(
           child: BlocConsumer<CommunitesBloc, CommunitesState>(
@@ -109,7 +109,15 @@ class _ManageCommunityScreenState extends State<ManageCommunityScreen> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              // Implement your button action here
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type:
+                                    PageTransitionType.rightToLeft,
+                                    child: UpsertCommunityScreen(
+                                      communityEntity: community,
+                                    ),
+                                  ));
                             },
                             child: Text(
                               'Edit',

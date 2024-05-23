@@ -1,6 +1,6 @@
 class RestResources {
   static String hostelAddress = "http://192.168.0.32:8080";
-  static String roomAddress = "http://192.168.33.199:8080";
+  static String roomAddress = "http://192.168.33.157:8080";
   static String oneplusAdress = "http://192.168.148.242:8080";
   static String baseUrl = roomAddress;
   static String imageBaseUrl = "$baseUrl/upload";
@@ -28,6 +28,7 @@ class RestResources {
 
   static const String getAllCommunites = "$communites/getAllCommunites";
   static const String uploadCommunityImage = "$communites/uploadImage";
+  static  String updateCommunity(String id) => "$communites/id";
 
   static String getCommunityMessages(String communityId,
           {int page = 1, int pageLimit = 10}) =>

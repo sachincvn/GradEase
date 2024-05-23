@@ -129,4 +129,15 @@ class AdminRepositoryIml implements AdminRepository {
       return left(Failure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, CommunityEntity>> updateCommunity(String id,String communityName, String communityDescription, String profilePath, int year, String course)
+  async {
+    try {
+      final response = await adminRemoteDataSource.updateCommunity(id,communityName, communityDescription, profilePath, year, course);
+      return right(response.toEntity());
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
 }

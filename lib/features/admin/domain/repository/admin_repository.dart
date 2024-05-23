@@ -32,4 +32,12 @@ abstract interface class AdminRepository {
     int year,
     String course,
   );
+  Future<Either<Failure, CommunityEntity>> updateCommunity(
+      String id,
+      String communityName,
+      String communityDescription,
+      String profilePath,
+      int year,
+      String course,
+      );
 }

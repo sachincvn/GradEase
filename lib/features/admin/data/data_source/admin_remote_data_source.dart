@@ -27,6 +27,9 @@ abstract interface class AdminRemoteDataSource {
   Future<UploadFileResponseModel> uploadImage(String fileName, String filePath);
   Future<CommunityModel> addCommunity(String communityName,
       String communityDescription, String profilePath, int year, String course);
+  Future<CommunityModel> updateCommunity(String id,String communityName,
+      String communityDescription, String profilePath, int year, String course);
+
 }
 
 class AdminRemoteDataSourceImpl extends GradEaseRestService
@@ -136,5 +139,19 @@ class AdminRemoteDataSourceImpl extends GradEaseRestService
         createPostRequest(RestResources.uploadCommunityImage, body: formData);
     final response = await executeRequest(restRequest);
     return UploadFileResponseModel.fromJson(response.data);
+  }
+
+  @override
+  Future<CommunityModel> updateCommunity(String id,String communityName, String communityDescription, String profilePath, int year, String course) async {
+    final restRequest =
+    createPutRequest(RestResources.updateCommunity(id), body: {
+      "name": communityName,
+      'description': communityDescription,
+      "profileImage": profilePath,
+      "course": course,
+      "year": year,
+    });
+    final response = await executeRequest(restRequest);
+    return CommunityModel.fromJson(response.data);
   }
 }
