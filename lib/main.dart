@@ -5,6 +5,7 @@ import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/app_theme.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/add_community/add_community_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/add_timetable/add_timetable_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/communites_bloc/communites_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/timetable_bloc/timetable_bloc.dart';
@@ -54,6 +55,7 @@ void main() async {
       BlocProvider(create: (_) => serviceLocator<AddTimetableBloc>()),
       BlocProvider(create: (_) => serviceLocator<CommunitesBloc>()),
       BlocProvider(create: (_) => serviceLocator<AddCommunityBloc>()),
+      BlocProvider(create: (_) => serviceLocator<AdminBloc>()),
     ],
     child: const MyApp(),
   ));
@@ -93,9 +95,9 @@ class _MyAppState extends State<MyApp> {
           if (isLoggedIn.isAdmin) {
             return const AdminHomeScreen();
           } else if (isLoggedIn.isStudent) {
-            return const StudentLoginScreen();
-          } else {
             return const LandingPage();
+          } else {
+            return const StudentLoginScreen();
           }
         },
       ),
