@@ -1,6 +1,6 @@
 class RestResources {
   static String hostelAddress = "http://192.168.0.32:8080";
-  static String roomAddress = "http://192.168.33.210:8080";
+  static String roomAddress = "http://192.168.33.130:8080";
   static String oneplusAdress = "http://192.168.148.242:8080";
   static String baseUrl = roomAddress;
   static String imageBaseUrl = "$baseUrl/upload";
@@ -51,4 +51,6 @@ class RestResources {
   static const String getAllStudents = "$students/getAllStudents";
   static String studentByEmail(String studentEmail) =>
       "$students/$studentEmail";
+  static const String uploadStudentProfile = "$students/uploadProfile";
+  static const String studentRegister = "$students/register";
 }

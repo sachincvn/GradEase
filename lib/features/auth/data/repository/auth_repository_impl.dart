@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:fpdart/fpdart.dart';
 import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/models/upload_file_response_model.dart';
 import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
 import 'package:grad_ease/core/remote/rest_exception.dart';
@@ -74,6 +75,53 @@ class AuthRepositoryImpl implements AuthRepository {
       return right(studentEntity!.toEntity());
     } catch (e) {
       return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, StudentEntity?>> registerStudent(
+    String fullName,
+    String fatherName,
+    DateTime dob,
+    String gender,
+    String course,
+    String email,
+    String studentPhone,
+    String parentPhone,
+    String password,
+    String profileImage,
+  ) async {
+    try {
+      final response = await authRemoteDataSource.registerStudent(
+        fullName,
+        fatherName,
+        dob,
+        gender,
+        course,
+        email,
+        studentPhone,
+        parentPhone,
+        password,
+        profileImage,
+      );
+      return right(response.toEntity());
+    } on RestResponseException catch (e) {
+      return left(Failure(e.message));
+    } catch (e) {
+      authLocalDataSource.clearLoginCredientials();
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<UploadFileResponseModel> uploadStudentProfile(
+      String fileName, String filePath) async {
+    try {
+      final response =
+          await authRemoteDataSource.uploadImage(fileName, filePath);
+      return response;
+    } catch (e) {
+      rethrow;
     }
   }
 }

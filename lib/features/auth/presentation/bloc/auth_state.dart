@@ -21,3 +21,17 @@ final class AuthFailure extends AuthState {
 
   const AuthFailure({required this.message});
 }
+
+final class AuthRegisterLoading extends AuthState {}
+
+final class AuthRegisteredSuccessState extends AuthState {
+  final String? message;
+
+  const AuthRegisteredSuccessState(this.message);
+}
+
+final class AuthRegisteredFailureState extends AuthState {
+  final String? message;
+
+  const AuthRegisteredFailureState(this.message);
+}

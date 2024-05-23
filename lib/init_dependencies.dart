@@ -14,6 +14,7 @@ import 'package:grad_ease/features/auth/data/data_source/auth_remote_data_source
 import 'package:grad_ease/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
 import 'package:grad_ease/features/auth/domain/usecase/admin_login_usecase.dart';
+import 'package:grad_ease/features/auth/domain/usecase/register_student_use_case.dart';
 import 'package:grad_ease/features/auth/domain/usecase/student_login_usecase.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/communities/data/data_source/community_remote_data_source.dart';
@@ -135,6 +136,7 @@ void _registerUseCases() {
     ..registerFactory(() => AddNewNoteUseCase(serviceLocator()))
     ..registerFactory(() => DeleteNoteUseCase(serviceLocator()))
     ..registerFactory(() => GetTimeTableUseCase(serviceLocator()))
+    ..registerFactory(() => RegisterStudentUseCase(serviceLocator()))
     ..registerFactory(
         () => AdminLoginUseCase(serviceLocator(), serviceLocator()));
 }
@@ -145,6 +147,7 @@ void _registerBlocs() {
           studentLoginUseCase: serviceLocator(),
           appUserCubit: serviceLocator(),
           adminLoginUseCase: serviceLocator(),
+          registerStudentUseCase: serviceLocator(),
         ))
     ..registerLazySingleton(() => LandingPageBloc())
     ..registerLazySingleton(() => FeedPostBloc(
