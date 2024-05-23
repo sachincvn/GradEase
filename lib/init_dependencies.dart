@@ -56,7 +56,7 @@ import 'package:grad_ease/features/profile/presentation/bloc/profile_bloc/profil
 import 'package:grad_ease/features/timetable/data/data_source/time_table_remote_data_source.dart';
 import 'package:grad_ease/features/timetable/data/repository/time_table_repository_impl.dart';
 import 'package:grad_ease/features/timetable/domain/repository/time_table_repository.dart';
-import 'package:grad_ease/features/timetable/domain/usecas/get_time_table_use_case.dart';
+import 'package:grad_ease/features/timetable/domain/usecase/get_time_table_use_case.dart';
 import 'package:grad_ease/features/timetable/presentation/bloc/time_table_bloc/time_table_bloc.dart';
 import 'package:grad_ease/features/uucms/data/data_sourse/uccm_remote_data_source.dart';
 import 'package:grad_ease/features/uucms/data/repository/uucms_repository_impl.dart';
