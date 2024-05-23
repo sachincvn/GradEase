@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/features/timetable/domain/entity/time_table_entity.dart';
-import 'package:grad_ease/features/timetable/domain/usecas/get_time_table_use_case.dart';
+import 'package:grad_ease/features/timetable/domain/usecase/get_time_table_use_case.dart';
 import 'package:intl/intl.dart';
 
 part 'time_table_event.dart';
@@ -14,9 +14,7 @@ class TimeTableBloc extends Bloc<TimeTableEvent, TimeTableState> {
 
   String currentDate = DateTime.now().day.toString();
   String currentDay = DateFormat('EEEE').format(DateTime.now());
-  String currentMonthYear =
-      DateFormat('MMMM yyyy').format(DateTime.now());
-
+  String currentMonthYear = DateFormat('MMMM yyyy').format(DateTime.now());
 
   TimeTableBloc(this._getTimeTableUseCase) : super(const TimeTableState()) {
     on<FetchTimeTable>(_onFetchTimeTable);

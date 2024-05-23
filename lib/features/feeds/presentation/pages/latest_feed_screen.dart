@@ -28,7 +28,14 @@ class _LatestFeedScreenState extends State<LatestFeedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Discussion"),
+          title: const Text("Discussion"),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<FeedPostBloc>().add(RefreshLatestFeed());
+                },
+                icon: const Icon(CupertinoIcons.refresh))
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: ColorPallete.greyColor,

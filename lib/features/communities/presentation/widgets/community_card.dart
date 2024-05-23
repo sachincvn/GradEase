@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/constants/rest_resources.dart';
-import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/communities/domain/entity/community_entity.dart';
 import 'package:grad_ease/features/communities/presentation/pages/community_detail_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -39,13 +38,9 @@ class CommunityCard extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: ColorPallete.grey400,
-                  maxRadius: 35,
-                  child: Image.network(
-                    fit: BoxFit.cover,
-                    height: 50,
-                    "${RestResources.imageBaseUrl}${communityEntity.profileImage}",
-                  ),
+                  radius: 32,
+                  backgroundImage: NetworkImage(
+                      "${RestResources.imageBaseUrl}${communityEntity.profileImage}"),
                 ),
                 const SizedBox(width: 10),
                 Expanded(

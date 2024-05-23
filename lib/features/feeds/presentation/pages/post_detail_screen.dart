@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grad_ease/core/constants/string_contants.dart';
+import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
@@ -122,11 +122,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                         itemBuilder: (context, index) {
                           return ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(state
-                                      .feedPostReplies![index]
-                                      .author
-                                      .profileImage ??
-                                  StringConstants.avtarImage),
+                              radius: 28,
+                              backgroundImage: NetworkImage(
+                                "${RestResources.imageBaseUrl}${state.feedPostReplies![index].author.profileImage}",
+                              ),
                             ),
                             title: Text(
                                 state.feedPostReplies![index].author.fullName!),
