@@ -1,5 +1,5 @@
 class RestResources {
-  static String roomAddress = "http://192.168.33.2:8080";
+  static String roomAddress = "http://192.168.33.250:8080";
   static String baseUrl = roomAddress;
   static String imageBaseUrl = "$baseUrl/upload";
   static String restApiBaseUrl(value) =>

@@ -1,44 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/communities/presentation/pages/community_screen.dart';
-import 'package:grad_ease/features/home/presentation/widgets/ongoin_class_widget.dart';
+import 'package:grad_ease/features/home/presentation/bloc/student_home/student_home_bloc.dart';
+import 'package:grad_ease/features/home/presentation/widgets/ongoing_class_widget.dart';
 import 'package:grad_ease/features/home/presentation/widgets/home_screen_header.dart';
 import 'package:grad_ease/features/home/presentation/widgets/quick_cards.dart';
 import 'package:grad_ease/features/timetable/presentation/pages/class_schedule_screen.dart';
 import 'package:grad_ease/features/uucms/presentation/pages/uucms_home_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<StudentHomeBloc>().add(FetchInitalDataEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const HomeScreenHeader(),
-            const OnGoingClassWidget(),
-            const SizedBox(height: 15),
-            _homeQuickCards(context),
-            const SizedBox(height: 15),
-            const SizedBox(height: 5),
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 4, left: 14, right: 14, bottom: 10),
-              child: Text(
-                "Communities",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(fontWeight: FontWeight.w600),
-              ),
-            ),
-            const Expanded(child: CommunityScreen()),
-          ],
+        child: BlocBuilder<StudentHomeBloc, StudentHomeState>(
+          builder: (context, state) {
+            if (state is StudentHomeLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is StudentHomeErrorState) {
+              return const Center(child: Text("Error loading student data"));
+            } else if (state is StudentHomeSuccessState) {
+              final studentEntity = state.studentEntity;
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  HomeScreenHeader(
+                    studentName: studentEntity.fullName,
+                    profileImageUrl: studentEntity.profileImage,
+                  ),
+                  const OnGoingClassWidget(),
+                  const SizedBox(height: 15),
+                  _homeQuickCards(context),
+                  const SizedBox(height: 15),
+                  const SizedBox(height: 5),
+                  const Divider(),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 4, left: 14, right: 14, bottom: 10),
+                    child: Text(
+                      "Communities",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  const Expanded(child: CommunityScreen()),
+                ],
+              );
+            } else {
+              return Container();
+            }
+          },
         ),
       ),
     );

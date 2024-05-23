@@ -27,7 +27,7 @@ class OnGoingClassWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    "Good Morning",
+                    _getGreetingMessage(),
                     style: Theme.of(context)
                         .textTheme
                         .labelLarge!
@@ -62,5 +62,16 @@ class OnGoingClassWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _getGreetingMessage() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) {
+      return "Good Morning";
+    } else if (hour < 17) {
+      return "Good Afternoon";
+    } else {
+      return "Good Evening";
+    }
   }
 }

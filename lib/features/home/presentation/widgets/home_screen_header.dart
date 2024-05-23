@@ -1,12 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 
 class HomeScreenHeader extends StatelessWidget {
+  final String studentName;
+  final String? profileImageUrl;
+
   const HomeScreenHeader({
-    super.key,
-  });
+    Key? key,
+    required this.studentName,
+    this.profileImageUrl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +27,25 @@ class HomeScreenHeader extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: ColorPallete.transparentColor,
                 minRadius: 28,
-                child: Image.network(
-                    height: 50, fit: BoxFit.cover, StringConstants.avtarImage),
+                backgroundImage: profileImageUrl != null
+                    ? NetworkImage(
+                        "${RestResources.imageBaseUrl}$profileImageUrl")
+                    : NetworkImage(
+                        "${RestResources.imageBaseUrl}${StringConstants.defaultAvatar}"),
               ),
               const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Hello Sachin !",
+                    "Hello ${getFirstName(studentName)} !",
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall!
                         .copyWith(fontWeight: FontWeight.w500),
                   ),
                   Text(
-                    "welcome to gradeease",
+                    "Welcome to GradeEase",
                     style: Theme.of(context)
                         .textTheme
                         .titleSmall!
@@ -46,9 +55,17 @@ class HomeScreenHeader extends StatelessWidget {
               )
             ],
           ),
-          IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.bell))
+          IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.refresh))
         ],
       ),
     );
+  }
+
+  String getFirstName(String fullName) {
+    try {
+      return fullName.split(' ').first;
+    } catch (e) {
+      return fullName;
+    }
   }
 }

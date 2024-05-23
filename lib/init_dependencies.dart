@@ -38,6 +38,7 @@ import 'package:grad_ease/features/feeds/domain/usecase/like_post_use_case.dart'
 import 'package:grad_ease/features/feeds/presentation/bloc/add_post_bloc/add_post_bloc_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
+import 'package:grad_ease/features/home/presentation/bloc/student_home/student_home_bloc.dart';
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:grad_ease/features/notes/data/data_source/notes_remote_data_source.dart';
 import 'package:grad_ease/features/notes/data/repository/notes_repository_impl.dart';
@@ -192,6 +193,7 @@ void _registerBlocs() {
     ..registerLazySingleton(() => AddCommunityBloc(serviceLocator()))
     ..registerLazySingleton(() => AdminBloc(serviceLocator()))
     ..registerLazySingleton(() => ProfileBloc(serviceLocator()))
+    ..registerLazySingleton(() => StudentHomeBloc(serviceLocator()))
     ..registerLazySingleton(
         () => EditProfileBloc(serviceLocator(), serviceLocator()));
 }
