@@ -83,3 +83,16 @@ export async function joinCommunity(communityId, userId) {
 
   return community;
 }
+
+export async function updateCommunity(id, updatedData) {
+  const updatedCommunity = await CommunityModel.findOneAndUpdate(
+    { _id: id },
+    updatedData,
+    { new: true }
+  );
+
+  if (!updatedCommunity) {
+    throw new ResponseError(404, "Community not found");
+  }
+  return updatedCommunity;
+}

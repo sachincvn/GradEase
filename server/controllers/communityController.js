@@ -5,6 +5,7 @@ import {
   getCommunityMessages,
   joinCommunity,
   sendMessage,
+  updateCommunity,
 } from "../services/communityService.js";
 import { RestResponse, RestResponseError } from "../utils/RestResponse.js";
 
@@ -106,5 +107,16 @@ export async function UploadImageController(req, res) {
     res.status(404).json({
       message: "Uploading Failed",
     });
+  }
+}
+
+export async function updateCommunityCntroller(req, res) {
+  try {
+    const { id } = req.params;
+    const updatedData = req.body;
+    const timetable = await updateCommunity(id, updatedData);
+    return RestResponse(res, 200, null, timetable);
+  } catch (error) {
+    return RestResponseError(res, error);
   }
 }

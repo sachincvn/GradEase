@@ -8,6 +8,7 @@ import {
   getAllCommunitiesController,
   UploadImageController,
   deleteCommunityController,
+  updateCommunityCntroller,
 } from "../controllers/communityController.js";
 import { FileUploader } from "../utils/fileUploader.js";
 
@@ -25,4 +26,5 @@ communityRoutes.get("/:communityId/messages", getCommunityMessagesController);
 communityRoutes.get("/:course/:year", getCommunitiesByCourseYearController);
 communityRoutes.get("/getAllCommunites", getAllCommunitiesController);
 communityRoutes.delete("/:id", deleteCommunityController);
+communityRoutes.put("/:id", updateCommunityCntroller);
 export default communityRoutes;
