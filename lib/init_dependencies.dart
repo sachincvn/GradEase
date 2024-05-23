@@ -1,9 +1,19 @@
 import 'package:get_it/get_it.dart';
 import 'package:grad_ease/core/common/cubit/app_user_cubit.dart';
 import 'package:grad_ease/core/local/local_repository.dart';
+import 'package:grad_ease/features/admin/data/data_source/admin_remote_data_source.dart';
+import 'package:grad_ease/features/admin/data/repository/admin_repository_impl.dart';
+import 'package:grad_ease/features/admin/domain/repository/admin_repository.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/add_community/add_community_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/add_timetable/add_timetable_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/admin_bloc/admin_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/communites_bloc/communites_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/timetable_bloc/timetable_bloc.dart';
 import 'package:grad_ease/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:grad_ease/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
+import 'package:grad_ease/features/auth/domain/usecase/admin_login_usecase.dart';
 import 'package:grad_ease/features/auth/domain/usecase/student_login_usecase.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/communities/data/data_source/community_remote_data_source.dart';
@@ -82,7 +92,8 @@ void _registerDataSources() {
     ..registerFactory<NoteRemoteDataSource>(() => NotesRemoteDataSourceImpl())
     ..registerFactory<TimeTableRemoteDataSource>(
         () => TimeTableRemoteDataSourceImpl())
-    ..registerFactory<UUCMSRemoteDataSource>(() => UUCMSRemoteDataSourceImpl());
+    ..registerFactory<UUCMSRemoteDataSource>(() => UUCMSRemoteDataSourceImpl())
+    ..registerFactory<AdminRemoteDataSource>(() => AdminRemoteDataSourceImpl());
 }
 
 void _registerRepositories() {
@@ -100,7 +111,9 @@ void _registerRepositories() {
     ..registerFactory<TimeTableRepository>(
         () => TimeTableRepositortImpl(serviceLocator(), serviceLocator()))
     ..registerFactory<UUCMSRepository>(
-        () => UUCMSRepositoryImpl(serviceLocator(), serviceLocator()));
+        () => UUCMSRepositoryImpl(serviceLocator(), serviceLocator()))
+    ..registerFactory<AdminRepository>(
+        () => AdminRepositoryIml(serviceLocator()));
 }
 
 void _registerUseCases() {
@@ -120,7 +133,9 @@ void _registerUseCases() {
     ..registerFactory(() => GetAllNotesUseCase(serviceLocator()))
     ..registerFactory(() => AddNewNoteUseCase(serviceLocator()))
     ..registerFactory(() => DeleteNoteUseCase(serviceLocator()))
-    ..registerFactory(() => GetTimeTableUseCase(serviceLocator()));
+    ..registerFactory(() => GetTimeTableUseCase(serviceLocator()))
+    ..registerFactory(
+        () => AdminLoginUseCase(serviceLocator(), serviceLocator()));
 }
 
 void _registerBlocs() {
@@ -128,6 +143,7 @@ void _registerBlocs() {
     ..registerLazySingleton(() => AuthBloc(
           studentLoginUseCase: serviceLocator(),
           appUserCubit: serviceLocator(),
+          adminLoginUseCase: serviceLocator(),
         ))
     ..registerLazySingleton(() => LandingPageBloc())
     ..registerLazySingleton(() => FeedPostBloc(
@@ -142,6 +158,7 @@ void _registerBlocs() {
           serviceLocator(),
           serviceLocator(),
         ))
+    ..registerLazySingleton(() => StudentsBloc(serviceLocator()))
     ..registerLazySingleton(() => AddPostBloc(serviceLocator()))
     ..registerLazySingleton(() => CommunityBloc(serviceLocator()))
     ..registerLazySingleton(() => NotesBloc(serviceLocator(), serviceLocator()))
@@ -156,5 +173,10 @@ void _registerBlocs() {
         () => UUCMSRegisteredCourseBloc(serviceLocator(), serviceLocator()))
     ..registerLazySingleton(() => UUCMSAttendanceInfoBloc(serviceLocator()))
     ..registerLazySingleton(
-        () => UUCMSExamResultBloc(serviceLocator(), serviceLocator()));
+        () => UUCMSExamResultBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(() => TimetableBloc(serviceLocator()))
+    ..registerLazySingleton(() => AddTimetableBloc(serviceLocator()))
+    ..registerLazySingleton(() => CommunitesBloc(serviceLocator()))
+    ..registerLazySingleton(() => AddCommunityBloc(serviceLocator()))
+    ..registerLazySingleton(() => AdminBloc(serviceLocator()));
 }

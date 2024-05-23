@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/communities/domain/entity/community_entity.dart';
 import 'package:grad_ease/features/communities/presentation/pages/community_detail_screen.dart';
@@ -43,7 +44,7 @@ class CommunityCard extends StatelessWidget {
                   child: Image.network(
                     fit: BoxFit.cover,
                     height: 50,
-                    communityEntity.profileImage,
+                    "${RestResources.imageBaseUrl}${communityEntity.profileImage}",
                   ),
                 ),
                 const SizedBox(width: 10),

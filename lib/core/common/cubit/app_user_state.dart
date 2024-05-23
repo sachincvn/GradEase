@@ -9,3 +9,5 @@ final class AppUserLoggedIn extends AppUserState {
   final StudentEntity studentEntity;
   AppUserLoggedIn(this.studentEntity);
 }
+
+final class AppAdminLogedIn extends AppUserState {}

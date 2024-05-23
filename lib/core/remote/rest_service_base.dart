@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:grad_ease/core/remote/rest_client.dart';
+import 'package:grad_ease/core/remote/rest_exception.dart';
 
 abstract class RestServiceBase extends RestClient {
   Future<Response> executeRequest(RestRequest restRequest) async {
@@ -20,7 +21,8 @@ abstract class RestServiceBase extends RestClient {
       }
     } catch (error) {
       if (error is DioException) {
-        throw Exception(error.response?.data['message'] ?? error.message);
+        throw RestResponseException(
+            message: error.response?.data['message'] ?? error);
       }
       rethrow;
     }

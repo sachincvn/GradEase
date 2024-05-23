@@ -7,6 +7,10 @@ part 'app_user_state.dart';
 class AppUserCubit extends Cubit<AppUserState> {
   AppUserCubit() : super(AppUserInitial());
 
+  void adminLogin() {
+    emit(AppAdminLogedIn());
+  }
+
   void updateUser(StudentEntity? studentEntity) {
     if (studentEntity == null) {
       emit(AppUserInitial());

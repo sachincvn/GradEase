@@ -3,6 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/common/cubit/app_user_cubit.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/app_theme.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/add_community/add_community_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/add_timetable/add_timetable_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/admin_bloc/admin_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/communites_bloc/communites_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/timetable_bloc/timetable_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/pages/admin_home_screen.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/auth/presentation/pages/student_login_screen.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_bloc/community_bloc.dart';
@@ -43,6 +50,12 @@ void main() async {
       BlocProvider(create: (_) => serviceLocator<UUCMSAttendanceInfoBloc>()),
       BlocProvider(create: (_) => serviceLocator<UUCMSRegisteredCourseBloc>()),
       BlocProvider(create: (_) => serviceLocator<UUCMSExamResultBloc>()),
+      BlocProvider(create: (_) => serviceLocator<StudentsBloc>()),
+      BlocProvider(create: (_) => serviceLocator<TimetableBloc>()),
+      BlocProvider(create: (_) => serviceLocator<AddTimetableBloc>()),
+      BlocProvider(create: (_) => serviceLocator<CommunitesBloc>()),
+      BlocProvider(create: (_) => serviceLocator<AddCommunityBloc>()),
+      BlocProvider(create: (_) => serviceLocator<AdminBloc>()),
     ],
     child: const MyApp(),
   ));
@@ -68,14 +81,33 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: StringConstants.appTitle,
       theme: AppTheme.darkThemeMode,
-      home: BlocSelector<AppUserCubit, AppUserState, bool>(
+      home: BlocSelector<AppUserCubit, AppUserState, LoggedIn>(
         selector: (state) {
-          return state is AppUserLoggedIn;
+          if (state is AppUserLoggedIn) {
+            return LoggedIn(isStudent: true, isAdmin: false);
+          } else if (state is AppAdminLogedIn) {
+            return LoggedIn(isStudent: false, isAdmin: true);
+          } else {
+            return LoggedIn(isStudent: false, isAdmin: false);
+          }
         },
         builder: (context, isLoggedIn) {
-          return isLoggedIn ? const LandingPage() : const StudentLoginScreen();
+          if (isLoggedIn.isAdmin) {
+            return const AdminHomeScreen();
+          } else if (isLoggedIn.isStudent) {
+            return const LandingPage();
+          } else {
+            return const StudentLoginScreen();
+          }
         },
       ),
     );
   }
+}
+
+class LoggedIn {
+  final bool isAdmin;
+  final bool isStudent;
+
+  LoggedIn({this.isAdmin = false, this.isStudent = false});
 }

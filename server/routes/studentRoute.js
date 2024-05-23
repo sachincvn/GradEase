@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  DeleteStudentDetailController,
   GetAllStudentsController,
   GetStudentByEmailController,
   RegisterNewStudentController,
@@ -12,7 +13,6 @@ const studentRoute = Router();
 
 studentRoute.post(
   "/register",
-  AuthAdminMiddleware,
   StudentRegistrationValidation,
   RegisterNewStudentController
 );
@@ -28,6 +28,12 @@ studentRoute.put(
   "/:email",
   AuthStudentMiddleware,
   UpdateStudentDetailController
+);
+
+studentRoute.delete(
+  "/:email",
+  AuthStudentMiddleware,
+  DeleteStudentDetailController
 );
 
 export default studentRoute;

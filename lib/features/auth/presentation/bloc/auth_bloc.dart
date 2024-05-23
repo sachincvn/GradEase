@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/common/cubit/app_user_cubit.dart';
 import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/features/auth/domain/usecase/admin_login_usecase.dart';
 import 'package:grad_ease/features/auth/domain/usecase/student_login_usecase.dart';
 
 part 'auth_event.dart';
@@ -11,16 +12,20 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final StudentLoginUseCase _studentLoginUseCase;
+  final AdminLoginUseCase _adminLoginUseCase;
   final AppUserCubit _appUserCubit;
 
-  AuthBloc({
-    required StudentLoginUseCase studentLoginUseCase,
-    required AppUserCubit appUserCubit,
-  })  : _studentLoginUseCase = studentLoginUseCase,
+  AuthBloc(
+      {required StudentLoginUseCase studentLoginUseCase,
+      required AppUserCubit appUserCubit,
+      required AdminLoginUseCase adminLoginUseCase})
+      : _studentLoginUseCase = studentLoginUseCase,
         _appUserCubit = appUserCubit,
+        _adminLoginUseCase = adminLoginUseCase,
         super(AuthInitial()) {
     on<AuthEvent>((_, emit) => emit(AuthLoading()));
     on<AuthSignIn>(onAuthSignIn);
+    on<AuthAdminSignIn>(_onAdminSignIn);
     on<AuthIsUserLoggedIn>(_isUserLoggedIn);
   }
 
@@ -29,9 +34,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     try {
       final response = await _studentLoginUseCase(
-        StudentLoginParams(email: event.email, password: event.password),
+        LoginParams(email: event.email, password: event.password),
       );
-
       response.fold(
         (failure) => emit(AuthFailure(message: failure.message!)),
         (data) async {
@@ -39,7 +43,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(const AuthFailure(message: "Unable to login !"));
             return;
           }
-          _emitAuthSuccess(data, emit);
+          if (data.isApproved!) {
+            _emitAuthSuccess(data, emit);
+          }
         },
       );
     } catch (e) {
@@ -49,11 +55,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _isUserLoggedIn(
       AuthIsUserLoggedIn event, Emitter<AuthState> emit) {
-    if (_studentLoginUseCase.loginAuthToken() != null) {
-      final studentDetail = _studentLoginUseCase.studentDetail();
-      _emitAuthSuccess(studentDetail!, emit);
+    try {
+      if (_studentLoginUseCase.loginAuthToken() == null &&
+          _adminLoginUseCase.adminAuthToken() == null) {
+        emit(AuthInitial());
+      } else if (_adminLoginUseCase.isAdminLogedIn() != null &&
+          (_adminLoginUseCase.isAdminLogedIn() ?? false)) {
+        _appUserCubit.adminLogin();
+        emit(AdminAuthSuccess());
+      } else if (_studentLoginUseCase.studentDetail() != null) {
+        final studentDetail = _studentLoginUseCase.studentDetail();
+        _emitAuthSuccess(studentDetail!, emit);
+      }
+    } catch (e) {
+      emit(AuthInitial());
     }
-    emit(AuthInitial());
   }
 
   void _emitAuthSuccess(
@@ -62,5 +78,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) {
     _appUserCubit.updateUser(student);
     emit(StudentAuthSuccess(studentEntity: student));
+  }
+
+  FutureOr<void> _onAdminSignIn(
+      AuthAdminSignIn event, Emitter<AuthState> emit) async {
+    try {
+      final response = await _adminLoginUseCase(
+          LoginParams(email: event.email, password: event.password));
+      response.fold((l) => emit(AuthFailure(message: l.message!)), (r) {
+        _adminLoginUseCase.updateLocalAdminLogin();
+        emit(AdminAuthSuccess());
+        _appUserCubit.adminLogin();
+      });
+    } catch (e) {
+      emit(AuthFailure(message: e.toString()));
+    }
   }
 }

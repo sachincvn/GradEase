@@ -12,6 +12,8 @@ class StudentEntity {
   final String? studentPhone;
   final String? parentPhone;
   final String? profileImage;
+  final String? section;
+  final bool? isApproved;
 
   StudentEntity({
     required this.id,
@@ -25,5 +27,7 @@ class StudentEntity {
     required this.studentPhone,
     required this.parentPhone,
     required this.profileImage,
+    required this.section,
+    required this.isApproved,
   });
 }

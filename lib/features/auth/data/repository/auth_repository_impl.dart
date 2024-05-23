@@ -3,6 +3,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:grad_ease/core/common/entities/student_enity.dart';
 import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
+import 'package:grad_ease/core/remote/rest_exception.dart';
 import 'package:grad_ease/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:grad_ease/features/auth/data/models/auth_login_model.dart';
 import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
@@ -17,7 +18,7 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
-  Future<Either<Failure, RestResponse<String>>> adminLogin(
+  Future<Either<Failure, String>> adminLogin(
       {required String email, required String password}) async {
     try {
       final response = await authRemoteDataSource.adminLogin(
@@ -26,7 +27,7 @@ class AuthRepositoryImpl implements AuthRepository {
         AuthLoginModel(email: email, password: password),
         response.data!,
       );
-      return right(response);
+      return right(response.data!);
     } catch (e) {
       authLocalDataSource.clearLoginCredientials();
       return left(Failure(e.toString()));
@@ -49,6 +50,8 @@ class AuthRepositoryImpl implements AuthRepository {
         return right(response);
       }
       return left(Failure("Error while logging in!"));
+    } on RestResponseException catch (e) {
+      return left(Failure(e.message));
     } catch (e) {
       authLocalDataSource.clearLoginCredientials();
       return left(Failure(e.toString()));
@@ -60,7 +63,13 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final studentEntity = await authRemoteDataSource.getStudentDetail(email);
       if (studentEntity != null) {
-        authLocalDataSource.updateStudentDetails(studentEntity);
+        if (studentEntity.isApproved!) {
+          authLocalDataSource.updateStudentDetails(studentEntity);
+        } else {
+          authLocalDataSource.clearLoginCredientials();
+          return left(Failure(
+              "Your account is not approvred, please contact college admin"));
+        }
       }
       return right(studentEntity!.toEntity());
     } catch (e) {

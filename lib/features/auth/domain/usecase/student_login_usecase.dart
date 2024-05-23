@@ -4,17 +4,16 @@ import 'package:grad_ease/core/common/entities/student_enity.dart';
 import 'package:grad_ease/core/common/usecase/usecase.dart';
 import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
+import 'package:grad_ease/core/remote/rest_exception.dart';
 import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
 
-class StudentLoginUseCase
-    implements UseCase<StudentEntity?, StudentLoginParams> {
+class StudentLoginUseCase implements UseCase<StudentEntity?, LoginParams> {
   final AuthRepository authRepository;
   final LocalDetailsRepository localDetailsRepository;
   const StudentLoginUseCase(this.authRepository, this.localDetailsRepository);
 
   @override
-  Future<Either<Failure, StudentEntity?>> call(
-      StudentLoginParams params) async {
+  Future<Either<Failure, StudentEntity?>> call(LoginParams params) async {
     try {
       final result = await authRepository.studentLogin(
         email: params.email,
@@ -28,8 +27,10 @@ class StudentLoginUseCase
       } else {
         result.getLeft().match(
             () => throw Exception("Unexpected error occurred!"),
-            (failure) => throw Exception(failure.message));
+            (failure) => throw RestResponseException(message: failure.message));
       }
+    } on RestResponseException catch (e) {
+      return left(Failure(e.message));
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -40,9 +41,9 @@ class StudentLoginUseCase
   StudentEntity? studentDetail() => localDetailsRepository.getStudentDetail();
 }
 
-class StudentLoginParams {
+class LoginParams {
   final String email;
   final String password;
 
-  StudentLoginParams({required this.email, required this.password});
+  LoginParams({required this.email, required this.password});
 }
