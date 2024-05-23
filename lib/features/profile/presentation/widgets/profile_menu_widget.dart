@@ -6,17 +6,20 @@ class ProfileMenuWidget extends StatelessWidget {
   final Icon? trailingIcon;
   final Color? textColor;
   final String title;
+  final VoidCallback? onTap;
   const ProfileMenuWidget({
     super.key,
     required this.leadingIcon,
     required this.title,
     this.trailingIcon = const Icon(Icons.chevron_right_outlined),
     this.textColor,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       leading: Container(
         width: 40,
         height: 40,

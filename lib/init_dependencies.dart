@@ -46,6 +46,7 @@ import 'package:grad_ease/features/notes/domain/usecase/delete_note_use_case.dar
 import 'package:grad_ease/features/notes/domain/usecase/get_all_notes_use_case.dart';
 import 'package:grad_ease/features/notes/presentation/bloc/add_note_bloc/add_note_bloc_bloc.dart';
 import 'package:grad_ease/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:grad_ease/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:grad_ease/features/timetable/data/data_source/time_table_remote_data_source.dart';
 import 'package:grad_ease/features/timetable/data/repository/time_table_repository_impl.dart';
 import 'package:grad_ease/features/timetable/domain/repository/time_table_repository.dart';
@@ -178,5 +179,6 @@ void _registerBlocs() {
     ..registerLazySingleton(() => AddTimetableBloc(serviceLocator()))
     ..registerLazySingleton(() => CommunitesBloc(serviceLocator()))
     ..registerLazySingleton(() => AddCommunityBloc(serviceLocator()))
-    ..registerLazySingleton(() => AdminBloc(serviceLocator()));
+    ..registerLazySingleton(() => AdminBloc(serviceLocator()))
+    ..registerLazySingleton(() => ProfileBloc(serviceLocator()));
 }
