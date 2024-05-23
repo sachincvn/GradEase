@@ -29,6 +29,7 @@ class FeedPostBloc extends Bloc<FeedPostEvent, FeedPostState> {
     on<DislikePostEvent>(_onDislikePost);
     on<InsertNewPostEvent>(_onInsertPost);
     on<RemovePostEvent>(_onRemovePost);
+    on<RefreshLatestFeed>(_onRefreshLatestFeed);
   }
 
   FutureOr<void> _onFetchAllPost(
@@ -128,5 +129,10 @@ class FeedPostBloc extends Bloc<FeedPostEvent, FeedPostState> {
       errorMessage: null,
       posts: state.posts..removeWhere((element) => element!.id == event.id),
     ));
+  }
+
+  FutureOr<void> _onRefreshLatestFeed(
+      RefreshLatestFeed event, Emitter<FeedPostState> emit) {
+    add(FetchAllPosts());
   }
 }

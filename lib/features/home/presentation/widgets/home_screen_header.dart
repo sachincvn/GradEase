@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/features/home/presentation/bloc/student_home/student_home_bloc.dart';
 
 class HomeScreenHeader extends StatelessWidget {
   final String studentName;
@@ -55,7 +57,11 @@ class HomeScreenHeader extends StatelessWidget {
               )
             ],
           ),
-          IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.refresh))
+          IconButton(
+              onPressed: () {
+                context.read<StudentHomeBloc>().add(RefreshHomeData());
+              },
+              icon: const Icon(CupertinoIcons.refresh))
         ],
       ),
     );

@@ -28,3 +28,5 @@ final class RemovePostEvent extends FeedPostEvent {
 
   RemovePostEvent(this.id);
 }
+
+final class RefreshLatestFeed extends FeedPostEvent {}

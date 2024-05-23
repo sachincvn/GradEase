@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     studentName: studentEntity.fullName,
                     profileImageUrl: studentEntity.profileImage,
                   ),
-                  const OnGoingClassWidget(),
+                  OnGoingClassWidget(),
                   const SizedBox(height: 15),
                   _homeQuickCards(context),
                   const SizedBox(height: 15),
