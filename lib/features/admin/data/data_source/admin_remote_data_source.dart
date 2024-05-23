@@ -1,8 +1,12 @@
+import 'package:dio/dio.dart';
+import 'package:grad_ease/core/common/models/upload_file_response_model.dart';
 import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/remote/gradease_rest_service.dart';
 import 'package:grad_ease/features/admin/data/models/student_detail.dart';
 import 'package:grad_ease/features/admin/data/models/students_response_model.dart';
 import 'package:grad_ease/features/admin/data/models/time_table_response_model.dart';
+import 'package:grad_ease/features/communities/data/models/communites_reponse_model.dart';
+import 'package:grad_ease/features/communities/data/models/communtiy_model.dart';
 import 'package:grad_ease/features/timetable/data/models/time_table_respose_model.dart'
     as tt;
 import 'package:grad_ease/features/timetable/data/models/time_table_model.dart'
@@ -19,6 +23,10 @@ abstract interface class AdminRemoteDataSource {
       ttdto.TimeTableModel timeTable);
   Future<tt.TimeTableResponseModel> deleteTimeTable(
       ttdto.TimeTableModel timeTable);
+  Future<CommunityRespnseModel> getCommunites();
+  Future<UploadFileResponseModel> uploadImage(String fileName, String filePath);
+  Future<CommunityModel> addCommunity(String communityName,
+      String communityDescription, String profilePath, int year, String course);
 }
 
 class AdminRemoteDataSourceImpl extends GradEaseRestService
@@ -88,5 +96,45 @@ class AdminRemoteDataSourceImpl extends GradEaseRestService
         body: timeTable.toPostJson());
     final response = await executeRequest(restRequest);
     return tt.TimeTableResponseModel.fromJson(response.data);
+  }
+
+  @override
+  Future<CommunityRespnseModel> getCommunites() async {
+    final restRequest = createGetRequest(RestResources.getAllCommunites);
+    final response = await executeRequest(restRequest);
+    return CommunityRespnseModel.fromJson(response.data);
+  }
+
+  @override
+  Future<CommunityModel> addCommunity(
+      String communityName,
+      String communityDescription,
+      String profilePath,
+      int year,
+      String course) async {
+    final restRequest = createPostRequest(RestResources.communites, body: {
+      "name": communityName,
+      'description': communityDescription,
+      "profileImage": profilePath,
+      "course": course,
+      "year": year,
+    });
+    final response = await executeRequest(restRequest);
+    return CommunityModel.fromJson(response.data['data']);
+  }
+
+  @override
+  Future<UploadFileResponseModel> uploadImage(
+      String fileName, String filePath) async {
+    FormData formData = FormData.fromMap({
+      "file": await MultipartFile.fromFile(
+        filePath,
+        filename: fileName,
+      ),
+    });
+    final restRequest =
+        createPostRequest(RestResources.uploadCommunityImage, body: formData);
+    final response = await executeRequest(restRequest);
+    return UploadFileResponseModel.fromJson(response.data);
   }
 }

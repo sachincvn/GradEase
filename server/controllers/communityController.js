@@ -1,5 +1,6 @@
 import {
   createCommunity,
+  getAllCommunities,
   getCommunitiesByCourseYear,
   getCommunityMessages,
   joinCommunity,
@@ -51,11 +52,29 @@ export const createCommunityController = async (req, res) => {
     return RestResponseError(res, error);
   }
 };
+export const deleteCommunityController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const community = await createCommunity(id);
+    return RestResponse(res, 200, "Community created successfully", community);
+  } catch (error) {
+    return RestResponseError(res, error);
+  }
+};
 
 export const getCommunitiesByCourseYearController = async (req, res) => {
   try {
     const { course, year } = req.params;
     const communities = await getCommunitiesByCourseYear(course, year);
+    return RestResponse(res, 200, null, communities);
+  } catch (error) {
+    return RestResponseError(res, error);
+  }
+};
+
+export const getAllCommunitiesController = async (req, res) => {
+  try {
+    const communities = await getAllCommunities();
     return RestResponse(res, 200, null, communities);
   } catch (error) {
     return RestResponseError(res, error);
@@ -76,3 +95,16 @@ export const joinCommunityController = async (req, res) => {
 };
 
 //community controller
+
+export async function UploadImageController(req, res) {
+  try {
+    res.status(200).json({
+      message: "Uploaded successfully",
+      filePath: `/communityImages/${req.file.filename}`,
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: "Uploading Failed",
+    });
+  }
+}

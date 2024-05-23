@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/common/cubit/app_user_cubit.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/app_theme.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/add_community/add_community_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/add_timetable/add_timetable_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/communites_bloc/communites_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/timetable_bloc/timetable_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/pages/admin_home_screen.dart';
@@ -50,6 +52,8 @@ void main() async {
       BlocProvider(create: (_) => serviceLocator<StudentsBloc>()),
       BlocProvider(create: (_) => serviceLocator<TimetableBloc>()),
       BlocProvider(create: (_) => serviceLocator<AddTimetableBloc>()),
+      BlocProvider(create: (_) => serviceLocator<CommunitesBloc>()),
+      BlocProvider(create: (_) => serviceLocator<AddCommunityBloc>()),
     ],
     child: const MyApp(),
   ));

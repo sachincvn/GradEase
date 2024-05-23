@@ -46,8 +46,21 @@ export async function createCommunity(
   return community;
 }
 
+export async function deleteCommunity(id) {
+  const response = await CommunityModel.findByIdAndDelete(id);
+  return response;
+}
+
 export async function getCommunitiesByCourseYear(course, year) {
   const communities = await CommunityModel.find({ course, year }).populate({
+    path: "members",
+    select: "fullName email profileImage",
+  });
+  return communities;
+}
+
+export async function getAllCommunities() {
+  const communities = await CommunityModel.find().populate({
     path: "members",
     select: "fullName email profileImage",
   });

@@ -1,8 +1,9 @@
 class RestResources {
   static String hostelAddress = "http://192.168.0.32:8080";
-  static String roomAddress = "http://192.168.33.37:8080";
+  static String roomAddress = "http://192.168.33.199:8080";
   static String oneplusAdress = "http://192.168.148.242:8080";
   static String baseUrl = roomAddress;
+  static String imageBaseUrl = "$baseUrl/upload";
   static String restApiBaseUrl(value) =>
       value ? "https://gradease.onrender.com/api/v1/" : "$baseUrl/api/v1/";
   static const String studentLogin = "/auth/student";
@@ -24,6 +25,9 @@ class RestResources {
   static const String communites = "/communites";
   static String getCommunites(String course, int year) =>
       "$communites/$course/$year";
+
+  static const String getAllCommunites = "$communites/getAllCommunites";
+  static const String uploadCommunityImage = "$communites/uploadImage";
 
   static String getCommunityMessages(String communityId,
           {int page = 1, int pageLimit = 10}) =>

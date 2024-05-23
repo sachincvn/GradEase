@@ -1,6 +1,10 @@
 import express from "express";
 import http from "http";
+import path from "path";
+import { fileURLToPath } from "url";
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const server = http.createServer(app);
 
 import dotenv from "dotenv";
@@ -17,6 +21,9 @@ import { initializeSocket } from "./socket.js";
 
 initializeSocket(server);
 app.use(express.json());
+
+// Serve static files from the 'upload' directory
+app.use("/upload", express.static(path.join(__dirname, "upload")));
 
 const apiBasePath = "/api/v1/";
 

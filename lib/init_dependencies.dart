@@ -4,7 +4,9 @@ import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/features/admin/data/data_source/admin_remote_data_source.dart';
 import 'package:grad_ease/features/admin/data/repository/admin_repository_impl.dart';
 import 'package:grad_ease/features/admin/domain/repository/admin_repository.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/add_community/add_community_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/add_timetable/add_timetable_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/communites_bloc/communites_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/timetable_bloc/timetable_bloc.dart';
 import 'package:grad_ease/features/auth/data/data_source/auth_remote_data_source.dart';
@@ -172,5 +174,7 @@ void _registerBlocs() {
     ..registerLazySingleton(
         () => UUCMSExamResultBloc(serviceLocator(), serviceLocator()))
     ..registerLazySingleton(() => TimetableBloc(serviceLocator()))
-    ..registerLazySingleton(() => AddTimetableBloc(serviceLocator()));
+    ..registerLazySingleton(() => AddTimetableBloc(serviceLocator()))
+    ..registerLazySingleton(() => CommunitesBloc(serviceLocator()))
+    ..registerLazySingleton(() => AddCommunityBloc(serviceLocator()));
 }
