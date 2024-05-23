@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grad_ease/core/theme/color_pallete.dart';
+import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/pages/post_detail_screen.dart';
@@ -32,14 +32,13 @@ class FeedPost extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: ColorPallete.transparentColor,
-                  minRadius: 28,
-                  child: Image.network(
-                    post.author?.profileImage ??
-                        "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1",
-                    height: 40,
-                    fit: BoxFit.cover,
+                Padding(
+                  padding: const EdgeInsets.only(left: 4, top: 8, right: 4),
+                  child: CircleAvatar(
+                    radius: 28,
+                    backgroundImage: NetworkImage(
+                      "${RestResources.imageBaseUrl}${post.author!.profileImage}",
+                    ),
                   ),
                 ),
                 const SizedBox(width: 5),
