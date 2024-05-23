@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grad_ease/core/constants/string_contants.dart';
+import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/extensions/string_extension.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/communities/domain/entity/community_message_entity.dart';
@@ -21,14 +21,13 @@ class CommunityPost extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  backgroundColor: ColorPallete.transparentColor,
-                  minRadius: 28,
-                  child: Image.network(
-                      height: 44,
-                      fit: BoxFit.cover,
-                      message.sender.profileImage ??
-                          StringConstants.avtarImage),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: CircleAvatar(
+                    radius: 28,
+                    backgroundImage: NetworkImage(
+                        "${RestResources.imageBaseUrl}${message.sender.profileImage}"),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Column(

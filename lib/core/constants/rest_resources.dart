@@ -1,7 +1,5 @@
 class RestResources {
-  static String hostelAddress = "http://192.168.0.32:8080";
-  static String roomAddress = "http://192.168.33.130:8080";
-  static String oneplusAdress = "http://192.168.148.242:8080";
+  static String roomAddress = "http://192.168.33.2:8080";
   static String baseUrl = roomAddress;
   static String imageBaseUrl = "$baseUrl/upload";
   static String restApiBaseUrl(value) =>
