@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:grad_ease/core/constants/string_contants.dart';
+import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/extensions/string_extension.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/notes/domain/entity/note_entity.dart';
@@ -37,7 +37,7 @@ class NoteCard extends StatelessWidget {
                   backgroundColor: ColorPallete.transparentColor,
                   minRadius: 28,
                   child: Image.network(
-                    note.uploadedBy.profileImage ?? StringConstants.avtarImage,
+                    "${RestResources.imageBaseUrl}${note.uploadedBy.profileImage}",
                     height: 40,
                     fit: BoxFit.cover,
                   ),

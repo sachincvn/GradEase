@@ -20,6 +20,7 @@ import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:grad_ease/features/notes/presentation/bloc/add_note_bloc/add_note_bloc_bloc.dart';
 import 'package:grad_ease/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:grad_ease/features/profile/presentation/bloc/edit_profile_bloc/edit_profile_bloc.dart';
 import 'package:grad_ease/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:grad_ease/features/timetable/presentation/bloc/time_table_bloc/time_table_bloc.dart';
 import 'package:grad_ease/features/uucms/presentation/bloc/uucms_attendance_info_bloc/uucms_attendance_info_bloc.dart';
@@ -58,6 +59,7 @@ void main() async {
       BlocProvider(create: (_) => serviceLocator<AddCommunityBloc>()),
       BlocProvider(create: (_) => serviceLocator<AdminBloc>()),
       BlocProvider(create: (_) => serviceLocator<ProfileBloc>()),
+      BlocProvider(create: (_) => serviceLocator<EditProfileBloc>()),
     ],
     child: const MyApp(),
   ));

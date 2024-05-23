@@ -47,6 +47,10 @@ import 'package:grad_ease/features/notes/domain/usecase/delete_note_use_case.dar
 import 'package:grad_ease/features/notes/domain/usecase/get_all_notes_use_case.dart';
 import 'package:grad_ease/features/notes/presentation/bloc/add_note_bloc/add_note_bloc_bloc.dart';
 import 'package:grad_ease/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:grad_ease/features/profile/data/data_source/profile_remote_repository.dart';
+import 'package:grad_ease/features/profile/data/repository/profile_repository_impl.dart';
+import 'package:grad_ease/features/profile/domain/repository/profile_repository.dart';
+import 'package:grad_ease/features/profile/presentation/bloc/edit_profile_bloc/edit_profile_bloc.dart';
 import 'package:grad_ease/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:grad_ease/features/timetable/data/data_source/time_table_remote_data_source.dart';
 import 'package:grad_ease/features/timetable/data/repository/time_table_repository_impl.dart';
@@ -95,6 +99,8 @@ void _registerDataSources() {
     ..registerFactory<TimeTableRemoteDataSource>(
         () => TimeTableRemoteDataSourceImpl())
     ..registerFactory<UUCMSRemoteDataSource>(() => UUCMSRemoteDataSourceImpl())
+    ..registerFactory<ProfileRemoteDataSource>(
+        () => ProfileRemoteDataSourceImpl())
     ..registerFactory<AdminRemoteDataSource>(() => AdminRemoteDataSourceImpl());
 }
 
@@ -115,7 +121,9 @@ void _registerRepositories() {
     ..registerFactory<UUCMSRepository>(
         () => UUCMSRepositoryImpl(serviceLocator(), serviceLocator()))
     ..registerFactory<AdminRepository>(
-        () => AdminRepositoryIml(serviceLocator()));
+        () => AdminRepositoryIml(serviceLocator()))
+    ..registerFactory<ProfileRepository>(
+        () => ProfileRepositoryIml(serviceLocator(), serviceLocator()));
 }
 
 void _registerUseCases() {
@@ -183,5 +191,7 @@ void _registerBlocs() {
     ..registerLazySingleton(() => CommunitesBloc(serviceLocator()))
     ..registerLazySingleton(() => AddCommunityBloc(serviceLocator()))
     ..registerLazySingleton(() => AdminBloc(serviceLocator()))
-    ..registerLazySingleton(() => ProfileBloc(serviceLocator()));
+    ..registerLazySingleton(() => ProfileBloc(serviceLocator()))
+    ..registerLazySingleton(
+        () => EditProfileBloc(serviceLocator(), serviceLocator()));
 }
