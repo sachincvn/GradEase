@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:lottie/lottie.dart';
 
-class ClockInCard extends StatelessWidget {
-  const ClockInCard({
+class OnGoingClassWidget extends StatelessWidget {
+  const OnGoingClassWidget({
     Key? key,
   }) : super(key: key);
 

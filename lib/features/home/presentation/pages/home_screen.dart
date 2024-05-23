@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/communities/presentation/pages/community_screen.dart';
-import 'package:grad_ease/features/home/presentation/widgets/clock_in_card.dart';
+import 'package:grad_ease/features/home/presentation/widgets/ongoin_class_widget.dart';
 import 'package:grad_ease/features/home/presentation/widgets/home_screen_header.dart';
 import 'package:grad_ease/features/home/presentation/widgets/quick_cards.dart';
 import 'package:grad_ease/features/timetable/presentation/pages/class_schedule_screen.dart';
@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const HomeScreenHeader(),
-            const ClockInCard(),
+            const OnGoingClassWidget(),
             const SizedBox(height: 15),
             _homeQuickCards(context),
             const SizedBox(height: 15),
