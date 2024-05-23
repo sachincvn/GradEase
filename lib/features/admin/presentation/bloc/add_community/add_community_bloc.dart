@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/features/admin/domain/repository/admin_repository.dart';
 import 'package:grad_ease/features/communities/domain/entity/community_entity.dart';
-import 'package:grad_ease/features/timetable/data/models/time_table_model.dart';
-
 part 'add_community_event.dart';
 part 'add_community_state.dart';
 
@@ -15,6 +13,7 @@ class AddCommunityBloc extends Bloc<AddCommunityEvent, AddCommunityState> {
   AddCommunityBloc(this._adminRepository) : super(AddCommunityInitial()) {
     on<SaveCommunityEvent>(_onSaveTimeTableEvent);
     on<UpdateCommunityEvent>(_onUpdateTimeTableEvent);
+    on<UpdateCommunityDataEvent>(_onUpdaCommunityData);
   }
 
   FutureOr<void> _onSaveTimeTableEvent(
@@ -41,19 +40,42 @@ class AddCommunityBloc extends Bloc<AddCommunityEvent, AddCommunityState> {
 
   FutureOr<void> _onUpdateTimeTableEvent(
       UpdateCommunityEvent event, Emitter<AddCommunityState> emit) async {
-    if(event.profilePath != event.profilePath){
-      //add new image and update
-      final updateImage = await _adminRepository.uploadCommunityImage(event.profileName, event.profilePath);
-      updateImage.fold((l) => emit(AddCommunityFailureState("Failed while uploading image")), (r) {
-        updateCommunity(r.filePath, event, emit);
-      });
+    if (event.communityEntity.profileImage != event.profilePath) {
+      final updateImage = await _adminRepository.uploadCommunityImage(
+          event.profileName, event.profilePath);
+      updateImage.fold(
+          (l) => emit(AddCommunityFailureState("Failed while uploading image")),
+          (r) => add(UpdateCommunityDataEvent(
+              communityEntity: event.communityEntity,
+              communityName: event.communityName,
+              communityDescription: event.communityDescription,
+              profilePath: r.filePath,
+              profileName: event.profileName,
+              year: event.year,
+              course: event.course)));
       return;
     }
-    updateCommunity(event.profilePath, event, emit);
+    add(UpdateCommunityDataEvent(
+        communityEntity: event.communityEntity,
+        communityName: event.communityName,
+        communityDescription: event.communityDescription,
+        profilePath: event.profilePath,
+        profileName: event.profileName,
+        year: event.year,
+        course: event.course));
   }
 
-  Future<void> updateCommunity(String profilePath,UpdateCommunityEvent event, Emitter<AddCommunityState> emit) async{
-    final updateCommunity = await _adminRepository.updateCommunity(event.communityId, event.communityName, event.communityDescription, event.profilePath, event.year, event.course);
-    updateCommunity.fold((l) => emit(AddCommunityFailureState("Unable to update")), (r) => emit(AddCommunitySuccessState(r)));
+  FutureOr<void> _onUpdaCommunityData(
+      UpdateCommunityDataEvent event, Emitter<AddCommunityState> emit) async {
+    final updateCommunity = await _adminRepository.updateCommunity(
+        event.communityEntity.id,
+        event.communityName,
+        event.communityDescription,
+        event.profilePath,
+        event.year,
+        event.course);
+    updateCommunity.fold(
+        (l) => emit(AddCommunityFailureState("Unable to update")),
+        (r) => emit(AddCommunitySuccessState(r)));
   }
 }

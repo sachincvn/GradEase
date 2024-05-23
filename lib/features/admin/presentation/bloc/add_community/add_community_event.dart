@@ -21,7 +21,7 @@ final class SaveCommunityEvent extends AddCommunityEvent {
 }
 
 final class UpdateCommunityEvent extends AddCommunityEvent {
-  final String communityId;
+  final CommunityEntity communityEntity;
   final String communityName;
   final String communityDescription;
   final String profilePath;
@@ -29,5 +29,31 @@ final class UpdateCommunityEvent extends AddCommunityEvent {
   final int year;
   final String course;
 
-  UpdateCommunityEvent({required this.communityId,required this.communityName, required this.communityDescription, required this.profilePath, required this.profileName, required this.year, required this.course});
+  UpdateCommunityEvent(
+      {required this.communityEntity,
+      required this.communityName,
+      required this.communityDescription,
+      required this.profilePath,
+      required this.profileName,
+      required this.year,
+      required this.course});
+}
+
+final class UpdateCommunityDataEvent extends AddCommunityEvent {
+  final CommunityEntity communityEntity;
+  final String communityName;
+  final String communityDescription;
+  final String profilePath;
+  final String profileName;
+  final int year;
+  final String course;
+
+  UpdateCommunityDataEvent(
+      {required this.communityEntity,
+      required this.communityName,
+      required this.communityDescription,
+      required this.profilePath,
+      required this.profileName,
+      required this.year,
+      required this.course});
 }

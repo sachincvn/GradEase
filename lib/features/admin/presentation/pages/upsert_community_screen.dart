@@ -26,9 +26,9 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final SingleValueDropDownController _yearController =
-  SingleValueDropDownController();
+      SingleValueDropDownController();
   final SingleValueDropDownController _courseController =
-  SingleValueDropDownController();
+      SingleValueDropDownController();
   File? _imageFile;
   final formKey = GlobalKey<FormState>();
   late CommunityEntity? _communityEntity;
@@ -37,7 +37,7 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
   @override
   void initState() {
     super.initState();
-    _communityEntity = widget.communityEntity!;
+    _communityEntity = widget.communityEntity;
     isEditing = (_communityEntity != null);
     if (isEditing) _updateExistingData();
   }
@@ -92,11 +92,11 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
         title: Text(isEditing ? "Edit Community" : "Add Community"),
         actions: isEditing
             ? [
-          IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: deleteCommunity,
-          ),
-        ]
+                IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: deleteCommunity,
+                ),
+              ]
             : null,
       ),
       body: SafeArea(
@@ -128,19 +128,19 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
                                 onTap: pickImage,
                                 child: _imageFile != null
                                     ? CircleAvatar(
-                                  radius: 50,
-                                  backgroundImage: FileImage(_imageFile!),
-                                )
+                                        radius: 50,
+                                        backgroundImage: FileImage(_imageFile!),
+                                      )
                                     : isEditing
-                                    ? CircleAvatar(
-                                  radius: 50,
-                                  backgroundImage: NetworkImage(
-                                      "${RestResources.imageBaseUrl}/${_communityEntity!.profileImage}"),
-                                )
-                                    : const CircleAvatar(
-                                  radius: 50,
-                                  child: Icon(Icons.add_a_photo),
-                                ),
+                                        ? CircleAvatar(
+                                            radius: 50,
+                                            backgroundImage: NetworkImage(
+                                                "${RestResources.imageBaseUrl}/${_communityEntity!.profileImage}"),
+                                          )
+                                        : const CircleAvatar(
+                                            radius: 50,
+                                            child: Icon(Icons.add_a_photo),
+                                          ),
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -163,9 +163,9 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
-                                fontWeight: FontWeight.w500,
-                                color: ColorPallete.backgroundColor,
-                              ),
+                                    fontWeight: FontWeight.w500,
+                                    color: ColorPallete.backgroundColor,
+                                  ),
                               dropDownList: const [
                                 DropDownValueModel(name: "1", value: 1),
                                 DropDownValueModel(name: "2", value: 2),
@@ -185,9 +185,9 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
-                                fontWeight: FontWeight.w500,
-                                color: ColorPallete.backgroundColor,
-                              ),
+                                    fontWeight: FontWeight.w500,
+                                    color: ColorPallete.backgroundColor,
+                                  ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please select a course';
@@ -224,20 +224,38 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           if (isEditing) {
-                            context.read<AddCommunityBloc>().add(UpdateCommunityEvent(communityId: _communityEntity!.id, communityName: _communityEntity!.name, communityDescription: _communityEntity!.description, profilePath: _communityEntity!.profileImage, profileName: "", year: _communityEntity!.year, course: _communityEntity!.course));
+                            final String profilePath = _imageFile == null
+                                ? _communityEntity!.profileImage
+                                : _imageFile!.path;
+                            final String profileName = _imageFile == null
+                                ? _communityEntity!.profileImage
+                                : _imageFile!.path;
+                            context
+                                .read<AddCommunityBloc>()
+                                .add(UpdateCommunityEvent(
+                                  communityEntity: _communityEntity!,
+                                  communityName: _nameController.text,
+                                  communityDescription:
+                                      _descriptionController.text,
+                                  profilePath: profilePath,
+                                  profileName: profileName,
+                                  year: _yearController.dropDownValue!.value,
+                                  course:
+                                      _courseController.dropDownValue!.value,
+                                ));
                           } else {
                             context.read<AddCommunityBloc>().add(
-                              SaveCommunityEvent(
-                                communityName: _nameController.text,
-                                communityDescription:
-                                _descriptionController.text,
-                                profilePath: _imageFile!.path,
-                                profileName: _imageFile!.path,
-                                year: _yearController.dropDownValue!.value,
-                                course:
-                                _courseController.dropDownValue!.value,
-                              ),
-                            );
+                                  SaveCommunityEvent(
+                                    communityName: _nameController.text,
+                                    communityDescription:
+                                        _descriptionController.text,
+                                    profilePath: _imageFile!.path,
+                                    profileName: _imageFile!.path,
+                                    year: _yearController.dropDownValue!.value,
+                                    course:
+                                        _courseController.dropDownValue!.value,
+                                  ),
+                                );
                           }
                         }
                       },
@@ -253,4 +271,3 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
     );
   }
 }
-
