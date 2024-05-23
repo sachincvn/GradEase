@@ -17,10 +17,6 @@ GradEase simplifies academic management for students. It offers a centralized pl
 - **Notes Organization:** Organize and access lecture notes and study materials in one place.
 - **Feedback:** Communicate with queries and details when required.
 
-faculty.
-
-- **ID Card:** Display student details conveniently.
-
 ## Usage
 
 To use GradEase:
