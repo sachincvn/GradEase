@@ -28,7 +28,7 @@ class RestResources {
 
   static const String getAllCommunites = "$communites/getAllCommunites";
   static const String uploadCommunityImage = "$communites/uploadImage";
-  static String updateCommunity(String id) => "$communites/$id";
+  static String communityById(String id) => "$communites/$id";
 
   static String getCommunityMessages(String communityId,
           {int page = 1, int pageLimit = 10}) =>

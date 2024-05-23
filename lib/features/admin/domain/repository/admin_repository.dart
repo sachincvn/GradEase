@@ -33,11 +33,12 @@ abstract interface class AdminRepository {
     String course,
   );
   Future<Either<Failure, CommunityEntity>> updateCommunity(
-      String id,
-      String communityName,
-      String communityDescription,
-      String profilePath,
-      int year,
-      String course,
-      );
+    String id,
+    String communityName,
+    String communityDescription,
+    String profilePath,
+    int year,
+    String course,
+  );
+  Future<Either<Failure, CommunityEntity>> deleteCommunity(String id);
 }

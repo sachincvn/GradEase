@@ -72,8 +72,9 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
   }
 
   void deleteCommunity() {
-    // Implement the delete functionality
-    // You might want to call a delete method from your BLoC
+    context
+        .read<AddCommunityBloc>()
+        .add(DeleteCommunityEvent(communityId: _communityEntity!.id));
   }
 
   @override
@@ -244,6 +245,11 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
                                       _courseController.dropDownValue!.value,
                                 ));
                           } else {
+                            if (_imageFile == null) {
+                              showErrorSnackBar(context,
+                                  "Select the community profile image is required");
+                              return;
+                            }
                             context.read<AddCommunityBloc>().add(
                                   SaveCommunityEvent(
                                     communityName: _nameController.text,

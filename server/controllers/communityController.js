@@ -1,5 +1,6 @@
 import {
   createCommunity,
+  deleteCommunity,
   getAllCommunities,
   getCommunitiesByCourseYear,
   getCommunityMessages,
@@ -56,7 +57,7 @@ export const createCommunityController = async (req, res) => {
 export const deleteCommunityController = async (req, res) => {
   try {
     const { id } = req.params;
-    const community = await createCommunity(id);
+    const community = await deleteCommunity(id);
     return RestResponse(res, 200, "Community created successfully", community);
   } catch (error) {
     return RestResponseError(res, error);

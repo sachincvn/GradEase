@@ -29,6 +29,7 @@ abstract interface class AdminRemoteDataSource {
       String communityDescription, String profilePath, int year, String course);
   Future<CommunityModel> updateCommunity(String id, String communityName,
       String communityDescription, String profilePath, int year, String course);
+  Future<CommunityModel> deleteCommunity(String id);
 }
 
 class AdminRemoteDataSourceImpl extends GradEaseRestService
@@ -149,13 +150,20 @@ class AdminRemoteDataSourceImpl extends GradEaseRestService
       int year,
       String course) async {
     final restRequest =
-        createPutRequest(RestResources.updateCommunity(id), body: {
+        createPutRequest(RestResources.communityById(id), body: {
       "name": communityName,
       'description': communityDescription,
       "profileImage": profilePath,
       "course": course,
       "year": year,
     });
+    final response = await executeRequest(restRequest);
+    return CommunityModel.fromJson(response.data['data']);
+  }
+
+  @override
+  Future<CommunityModel> deleteCommunity(String id) async {
+    final restRequest = createDeleteRequest(RestResources.communityById(id));
     final response = await executeRequest(restRequest);
     return CommunityModel.fromJson(response.data['data']);
   }
