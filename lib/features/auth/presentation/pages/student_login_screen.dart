@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/common/widgets/grad_ease_button.dart';
@@ -8,8 +9,8 @@ import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/auth/presentation/pages/admin_login_screen.dart';
+import 'package:grad_ease/features/auth/presentation/pages/register_student_screen.dart';
 import 'package:grad_ease/features/main/landing_page.dart';
-import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:page_transition/page_transition.dart';
 
 class StudentLoginScreen extends StatefulWidget {
@@ -94,42 +95,40 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                       return null;
                     },
                   ),
+                  const SizedBox(height: 15),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: true,
-                            onChanged: (value) {},
-                            activeColor: ColorPallete.blue500,
-                          ),
-                          Text(
-                            "Remember me",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ],
-                      ),
-                      GradientText(
-                        'Forget password',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.w500,
-                              color: ColorPallete.blue500,
+                      RichText(
+                        text: TextSpan(
+                          text: "New User ?",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontWeight: FontWeight.w500),
+                          children: [
+                            const TextSpan(text: " "),
+                            TextSpan(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: const RegisterStudentScreen(),
+                                    ),
+                                  );
+                                },
+                              style:
+                                  const TextStyle(color: ColorPallete.blue500),
+                              text: "Sign UP",
                             ),
-                        colors: const [
-                          ColorPallete.green500,
-                          ColorPallete.blue500,
-                          ColorPallete.blue700,
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   GradEaseButton(
                     buttonText: "Sign In",
                     isLoading: isLoading,

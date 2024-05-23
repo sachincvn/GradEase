@@ -74,3 +74,16 @@ export async function DeleteStudentDetailController(req, res) {
     return RestResponseError(res, error);
   }
 }
+
+export async function UploadStudentProfileController(req, res) {
+  try {
+    res.status(200).json({
+      message: "Uploaded successfully",
+      filePath: `/studentProfiles/${req.file.filename}`,
+    });
+  } catch (error) {
+    res.status(404).json({
+      message: "Uploading Failed",
+    });
+  }
+}

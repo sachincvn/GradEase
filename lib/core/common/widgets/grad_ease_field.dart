@@ -4,12 +4,16 @@ import 'package:grad_ease/core/theme/color_pallete.dart';
 class GradEaseInputField extends StatelessWidget {
   final String labelText;
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
   final String? errorMessage;
   final bool isObscureText;
   final int maxLines;
   final int? maxLength;
+  final TextInputType? keyboardType;
+  final bool readOnly;
+  final VoidCallback? onTap;
+
   const GradEaseInputField({
     super.key,
     required this.labelText,
@@ -20,6 +24,9 @@ class GradEaseInputField extends StatelessWidget {
     this.isObscureText = false,
     this.maxLines = 1,
     this.maxLength,
+    this.keyboardType,
+    this.readOnly = false,
+    this.onTap,
   });
 
   @override
@@ -36,6 +43,7 @@ class GradEaseInputField extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         TextFormField(
+          keyboardType: keyboardType,
           controller: controller,
           decoration: InputDecoration(
             hintText: hintText,
@@ -51,6 +59,8 @@ class GradEaseInputField extends StatelessWidget {
           ),
           maxLines: maxLines,
           maxLength: maxLength,
+          readOnly: readOnly,
+          onTap: onTap,
         ),
       ],
     );
