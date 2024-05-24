@@ -11,14 +11,25 @@ const assignmentSchema = new Schema({
   },
   filepath: {
     type: String,
-    required: true,
   },
   createdDate: {
     type: Date,
     default: Date.now,
   },
+  submittionDate: {
+    type: Date,
+    required: true,
+  },
+  year: {
+    type: Number,
+    required: true,
+  },
+  course: {
+    type: String,
+    required: true,
+  },
   uploadedBy: {
-    name: {
+    fullName: {
       type: String,
       required: true,
     },

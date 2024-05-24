@@ -6,21 +6,23 @@ import {
   AddAssignmentContoller,
   UpdateAssignmentContoller,
   DeleteAssignmentContoller,
+  GetAssignmentsByYearCourseController,
 } from "../controllers/assignmentController.js";
 import { FileUploader } from "../utils/fileUploader.js";
 
-const AssignmentsRoute = Router();
+const assignmentsRoute = Router();
 
-AssignmentsRoute.post(
+assignmentsRoute.post(
   "/upload",
-  FileUploader("upload/Assignments", "file"),
+  FileUploader("upload/assignments", "file"),
   UploadAssignmentController
 );
 
-AssignmentsRoute.post("/", AddAssignmentContoller);
-AssignmentsRoute.get("/", GetAllAssignmentsController);
-AssignmentsRoute.get("/:id", GetAssignmentByIdContoller);
-AssignmentsRoute.put("/", UpdateAssignmentContoller);
-AssignmentsRoute.delete("/", DeleteAssignmentContoller);
+assignmentsRoute.get("/:course/:year/", GetAssignmentsByYearCourseController);
+assignmentsRoute.post("/", AddAssignmentContoller);
+assignmentsRoute.get("/", GetAllAssignmentsController);
+assignmentsRoute.get("/:id", GetAssignmentByIdContoller);
+assignmentsRoute.put("/", UpdateAssignmentContoller);
+assignmentsRoute.delete("/", DeleteAssignmentContoller);
 
-export default AssignmentsRoute;
+export default assignmentsRoute;

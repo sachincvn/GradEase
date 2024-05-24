@@ -53,4 +53,9 @@ class RestResources {
       "$students/$studentEmail";
   static const String uploadStudentProfile = "$students/uploadProfile";
   static const String studentRegister = "$students/register";
+
+  //assignments http://localhost:8080/api/v1/assignment/Mba/1
+  static const String assignment = "assignment";
+  static String getAssingmentByCourseYear(String course, int year) =>
+      "$assignment/$course/$year";
 }

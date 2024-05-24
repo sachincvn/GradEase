@@ -11,6 +11,10 @@ import 'package:grad_ease/features/admin/presentation/bloc/communites_bloc/commu
 import 'package:grad_ease/features/admin/presentation/bloc/edit_user_bloc/edit_user_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/timetable_bloc/timetable_bloc.dart';
+import 'package:grad_ease/features/assignment/data/data_source/assignmnet_remote_data_source.dart';
+import 'package:grad_ease/features/assignment/data/repository/assignment_repository_impl.dart';
+import 'package:grad_ease/features/assignment/domain/repository/assignment_repository.dart';
+import 'package:grad_ease/features/assignment/presentation/bloc/assignment_bloc/assignment_bloc.dart';
 import 'package:grad_ease/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:grad_ease/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
@@ -103,7 +107,9 @@ void _registerDataSources() {
     ..registerFactory<UUCMSRemoteDataSource>(() => UUCMSRemoteDataSourceImpl())
     ..registerFactory<ProfileRemoteDataSource>(
         () => ProfileRemoteDataSourceImpl())
-    ..registerFactory<AdminRemoteDataSource>(() => AdminRemoteDataSourceImpl());
+    ..registerFactory<AdminRemoteDataSource>(() => AdminRemoteDataSourceImpl())
+    ..registerFactory<AssignmentRemoteDataSource>(
+        () => AssignmentRemoteDataSourceImpl());
 }
 
 void _registerRepositories() {
@@ -125,7 +131,9 @@ void _registerRepositories() {
     ..registerFactory<AdminRepository>(
         () => AdminRepositoryIml(serviceLocator()))
     ..registerFactory<ProfileRepository>(
-        () => ProfileRepositoryIml(serviceLocator(), serviceLocator()));
+        () => ProfileRepositoryIml(serviceLocator(), serviceLocator()))
+    ..registerFactory<AssignmentRepository>(
+        () => AssignmentRepositoryImpl(serviceLocator(), serviceLocator()));
 }
 
 void _registerUseCases() {
@@ -198,5 +206,6 @@ void _registerBlocs() {
     ..registerLazySingleton(
         () => StudentHomeBloc(serviceLocator(), serviceLocator()))
     ..registerLazySingleton(
-        () => EditProfileBloc(serviceLocator(), serviceLocator()));
+        () => EditProfileBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(() => AssignmentBloc(serviceLocator()));
 }
