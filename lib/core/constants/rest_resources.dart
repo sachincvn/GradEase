@@ -1,6 +1,6 @@
 class RestResources {
   static String gradeEaseBaseUrl = "https://gradease.onrender.com";
-  static String localAddress = "http://192.168.33.176:8080";
+  static String localAddress = "http://192.168.33.105:8080";
   static String ngRockUrl = "https://f862-49-205-149-62.ngrok-free.app";
   static String baseUrl = localAddress;
   static String fileBaseUrl = "$baseUrl/upload";
@@ -58,4 +58,5 @@ class RestResources {
   static const String assignment = "assignment";
   static String getAssingmentByCourseYear(String course, int year) =>
       "$assignment/$course/$year";
+  static String getAssingmentById(String id) => "$assignment/$id";
 }

@@ -22,7 +22,7 @@ assignmentsRoute.get("/:course/:year/", GetAssignmentsByYearCourseController);
 assignmentsRoute.post("/", AddAssignmentContoller);
 assignmentsRoute.get("/", GetAllAssignmentsController);
 assignmentsRoute.get("/:id", GetAssignmentByIdContoller);
-assignmentsRoute.put("/", UpdateAssignmentContoller);
-assignmentsRoute.delete("/", DeleteAssignmentContoller);
+assignmentsRoute.put("/:id", UpdateAssignmentContoller);
+assignmentsRoute.delete("/:id", DeleteAssignmentContoller);
 
 export default assignmentsRoute;
