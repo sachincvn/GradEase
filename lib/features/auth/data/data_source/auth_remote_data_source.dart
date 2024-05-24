@@ -16,8 +16,8 @@ abstract interface class AuthRemoteDataSource {
     required String password,
   });
 
-  Future<StudentModel?> getStudentDetail(String email);
-  Future<StudentModel> registerStudent(
+  Future<AuthLoginModel?> getStudentDetail(String email);
+  Future<AuthLoginModel> registerStudent(
     String fullName,
     String fatherName,
     DateTime dob,
@@ -53,17 +53,17 @@ class AuthRemoteDataSourceImpl extends GradEaseRestService
   }
 
   @override
-  Future<StudentModel?> getStudentDetail(String email) async {
+  Future<AuthLoginModel?> getStudentDetail(String email) async {
     final restRequest = createGetRequest(RestResources.getStudentDetail(email));
     final response = await executeRequest(restRequest);
-    return RestResponse<StudentModel>.fromJson(
+    return RestResponse<AuthLoginModel>.fromJson(
       response.data,
-      fromJson: (data) => StudentModel.fromMap(data),
+      fromJson: (data) => AuthLoginModel.fromMap(data),
     ).data;
   }
 
   @override
-  Future<StudentModel> registerStudent(
+  Future<AuthLoginModel> registerStudent(
     String fullName,
     String fatherName,
     DateTime dob,
@@ -89,7 +89,7 @@ class AuthRemoteDataSourceImpl extends GradEaseRestService
       "profileImage": profileImage,
     });
     final response = await executeRequest(restRequest);
-    return StudentModel.fromMap(response.data['data']);
+    return AuthLoginModel.fromMap(response.data['data']);
   }
 
   @override

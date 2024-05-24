@@ -7,7 +7,7 @@ import 'package:hive/hive.dart';
 
 abstract interface class LocalDetailsRepository {
   void updateLoginDetail(AuthLoginModel authLoginModel, String authToken);
-  void updateStudentDetails(StudentModel studentEntity);
+  void updateStudentDetails(AuthLoginModel studentEntity);
   void clearLoginCredientials();
   void removeUUCMSCookie();
   void updateUUCMSLoginCookie(String cookie);
@@ -35,7 +35,7 @@ class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
   }
 
   @override
-  void updateStudentDetails(StudentModel studentModel) {
+  void updateStudentDetails(AuthLoginModel studentModel) {
     _updateUserId(studentModel.id);
     _updateAuthorDetail(AuthorEntity(
         id: studentModel.id,
@@ -64,7 +64,7 @@ class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
     if (studentDetail == null) {
       return null;
     }
-    return StudentModel.fromMap(studentDetail).toEntity();
+    return AuthLoginModel.fromMap(studentDetail).toEntity();
   }
 
   @override

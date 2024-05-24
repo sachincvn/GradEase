@@ -57,6 +57,11 @@ const studentSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  role: {
+    type: String,
+    enum: RoleEnum,
+    default: "Student",
+  },
 });
 
 const StudentModel = model("Student", studentSchema);
