@@ -14,7 +14,7 @@ class ProfileRepositoryIml implements ProfileRepository {
       this._profileRemoteDataSource, this._localDetailsRepository);
 
   @override
-  Future<Either<Failure, StudentEntity?>> updateStudentData(
+  Future<Either<Failure, AuthDetailEntity?>> updateStudentData(
       String fullName,
       String fatherName,
       DateTime dob,

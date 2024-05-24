@@ -14,8 +14,8 @@ abstract interface class AuthRepository {
     required String password,
   });
 
-  Future<Either<Failure, StudentEntity?>> getStudentDetail(String email);
-  Future<Either<Failure, StudentEntity?>> registerStudent(
+  Future<Either<Failure, AuthDetailEntity?>> getStudentDetail(String email);
+  Future<Either<Failure, AuthDetailEntity?>> registerStudent(
     String fullName,
     String fatherName,
     DateTime dob,

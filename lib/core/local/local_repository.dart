@@ -7,7 +7,7 @@ import 'package:hive/hive.dart';
 
 abstract interface class LocalDetailsRepository {
   void updateLoginDetail(AuthLoginModel authLoginModel, String authToken);
-  void updateStudentDetails(AuthLoginModel studentEntity);
+  void updateStudentDetails(AuthLoginDetailModel studentEntity);
   void clearLoginCredientials();
   void removeUUCMSCookie();
   void updateUUCMSLoginCookie(String cookie);
@@ -17,7 +17,7 @@ abstract interface class LocalDetailsRepository {
   AuthLoginEntity? getLoginDetail();
   String? getLoginAuthToken();
   String? getUserId();
-  StudentEntity? getStudentDetail();
+  AuthDetailEntity? getStudentDetail();
   AuthorEntity? getAuthorEntity();
   String? getUUCMSLoginCookie();
   bool? isAdminLogin();
@@ -35,7 +35,7 @@ class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
   }
 
   @override
-  void updateStudentDetails(AuthLoginModel studentModel) {
+  void updateStudentDetails(AuthLoginDetailModel studentModel) {
     _updateUserId(studentModel.id);
     _updateAuthorDetail(AuthorEntity(
         id: studentModel.id,
@@ -59,12 +59,12 @@ class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
   }
 
   @override
-  StudentEntity? getStudentDetail() {
+  AuthDetailEntity? getStudentDetail() {
     final studentDetail = box.get('studentDetail', defaultValue: null);
     if (studentDetail == null) {
       return null;
     }
-    return AuthLoginModel.fromMap(studentDetail).toEntity();
+    return AuthLoginDetailModel.fromMap(studentDetail).toEntity();
   }
 
   @override

@@ -60,7 +60,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, StudentEntity?>> getStudentDetail(String email) async {
+  Future<Either<Failure, AuthDetailEntity?>> getStudentDetail(
+      String email) async {
     try {
       final studentEntity = await authRemoteDataSource.getStudentDetail(email);
       if (studentEntity != null) {
@@ -79,7 +80,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, StudentEntity?>> registerStudent(
+  Future<Either<Failure, AuthDetailEntity?>> registerStudent(
     String fullName,
     String fatherName,
     DateTime dob,

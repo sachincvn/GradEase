@@ -1,6 +1,6 @@
 import 'package:grad_ease/features/auth/data/models/student_model.dart';
 
-class StudentEntity {
+class AuthDetailEntity {
   final String id;
   final String fullName;
   final String? fatherName;
@@ -15,7 +15,7 @@ class StudentEntity {
   final String? section;
   final bool? isApproved;
 
-  StudentEntity({
+  AuthDetailEntity({
     required this.id,
     required this.fullName,
     required this.fatherName,

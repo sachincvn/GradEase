@@ -41,7 +41,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   File? _imageFile;
   DateTime? _selectedDate;
-  StudentEntity? studentEntity;
+  AuthDetailEntity? studentEntity;
   String? profileImagePath = StringConstants.defaultAvatar;
 
   @override

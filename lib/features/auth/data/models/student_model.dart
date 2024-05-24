@@ -6,7 +6,7 @@ enum GenderEnum { MALE, FEMALE, OTHER }
 
 enum CourseEnum { MCA, MBA } // Define your CourseEnum
 
-class AuthLoginModel {
+class AuthLoginDetailModel {
   final String id;
   final String fullName;
   final String? fatherName;
@@ -21,7 +21,7 @@ class AuthLoginModel {
   final String? section;
   final bool? isApproved;
 
-  AuthLoginModel({
+  AuthLoginDetailModel({
     required this.id,
     required this.fullName,
     required this.fatherName,
@@ -37,8 +37,8 @@ class AuthLoginModel {
     required this.section,
   });
 
-  factory AuthLoginModel.fromMap(Map<String, dynamic> json) {
-    return AuthLoginModel(
+  factory AuthLoginDetailModel.fromMap(Map<String, dynamic> json) {
+    return AuthLoginDetailModel(
       id: json['_id'],
       fullName: json['fullName'],
       fatherName: json['fatherName'],
@@ -98,8 +98,8 @@ class AuthLoginModel {
     }
   }
 
-  StudentEntity toEntity() {
-    return StudentEntity(
+  AuthDetailEntity toEntity() {
+    return AuthDetailEntity(
       id: id,
       fullName: fullName,
       fatherName: fatherName,

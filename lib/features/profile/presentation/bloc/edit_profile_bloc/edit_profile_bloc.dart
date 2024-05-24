@@ -13,7 +13,7 @@ part 'edit_profile_state.dart';
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   final LocalDetailsRepository _localDetailsRepository;
   final ProfileRepository _profileRepository;
-  StudentEntity? studentEntity;
+  AuthDetailEntity? studentEntity;
   EditProfileBloc(this._localDetailsRepository, this._profileRepository)
       : super(EditProfileInitial()) {
     on<UpdateStudentEvent>(_onUpdateStudentEvent);

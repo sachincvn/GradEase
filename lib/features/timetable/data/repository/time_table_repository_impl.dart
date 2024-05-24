@@ -9,7 +9,7 @@ import 'package:grad_ease/features/timetable/domain/repository/time_table_reposi
 class TimeTableRepositortImpl implements TimeTableRepository {
   final LocalDetailsRepository _localDetailsRepository;
   final TimeTableRemoteDataSource _timeTableRemoteDataSource;
-  late StudentEntity? _studentEntity;
+  late AuthDetailEntity? _studentEntity;
 
   TimeTableRepositortImpl(
     this._localDetailsRepository,

@@ -15,7 +15,7 @@ part 'student_home_state.dart';
 class StudentHomeBloc extends Bloc<StudentHomeEvent, StudentHomeState> {
   final LocalDetailsRepository _localDetailsRepository;
   final GetTimeTableUseCase _getTimeTableUseCase;
-  StudentEntity? studentEntity;
+  AuthDetailEntity? studentEntity;
   TimeTableEntity? timetable;
   final CommunityBloc communityBloc = serviceLocator<CommunityBloc>();
 

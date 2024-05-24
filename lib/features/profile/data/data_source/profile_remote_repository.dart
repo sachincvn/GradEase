@@ -5,7 +5,7 @@ import 'package:grad_ease/core/remote/gradease_rest_service.dart';
 import 'package:grad_ease/features/auth/data/models/student_model.dart';
 
 abstract interface class ProfileRemoteDataSource {
-  Future<AuthLoginModel> updateStudentData(
+  Future<AuthLoginDetailModel> updateStudentData(
     String fullName,
     String fatherName,
     DateTime dob,
@@ -24,7 +24,7 @@ abstract interface class ProfileRemoteDataSource {
 class ProfileRemoteDataSourceImpl extends GradEaseRestService
     implements ProfileRemoteDataSource {
   @override
-  Future<AuthLoginModel> updateStudentData(
+  Future<AuthLoginDetailModel> updateStudentData(
     String fullName,
     String fatherName,
     DateTime dob,
@@ -52,7 +52,7 @@ class ProfileRemoteDataSourceImpl extends GradEaseRestService
       "section": section,
     });
     final response = await executeRequest(restRequest);
-    return AuthLoginModel.fromMap(response.data['data']);
+    return AuthLoginDetailModel.fromMap(response.data['data']);
   }
 
   @override

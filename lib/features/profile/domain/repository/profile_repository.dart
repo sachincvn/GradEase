@@ -4,7 +4,7 @@ import 'package:grad_ease/core/common/models/upload_file_response_model.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
 
 abstract interface class ProfileRepository {
-  Future<Either<Failure, StudentEntity?>> updateStudentData(
+  Future<Either<Failure, AuthDetailEntity?>> updateStudentData(
     String fullName,
     String fatherName,
     DateTime dob,

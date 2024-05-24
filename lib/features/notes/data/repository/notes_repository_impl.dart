@@ -10,7 +10,7 @@ import 'package:grad_ease/features/notes/domain/repository/notes_repository.dart
 class NotesRepositoryImpl implements NotesRepository {
   final NoteRemoteDataSource _noteRemoteDataSource;
   final LocalDetailsRepository _localDetailsRepository;
-  late StudentEntity? _studentEntity;
+  late AuthDetailEntity? _studentEntity;
   NotesRepositoryImpl(
       this._noteRemoteDataSource, this._localDetailsRepository) {
     _studentEntity = _localDetailsRepository.getStudentDetail();

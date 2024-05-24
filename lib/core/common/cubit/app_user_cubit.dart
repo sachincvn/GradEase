@@ -11,7 +11,7 @@ class AppUserCubit extends Cubit<AppUserState> {
     emit(AppAdminLogedIn());
   }
 
-  void updateUser(StudentEntity? studentEntity) {
+  void updateUser(AuthDetailEntity? studentEntity) {
     if (studentEntity == null) {
       emit(AppUserInitial());
     } else {
