@@ -1,6 +1,6 @@
 import 'package:grad_ease/core/common/entities/auth_login_entity.dart';
 import 'package:grad_ease/core/common/entities/author_entity.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/features/auth/data/models/auth_login_model.dart';
 import 'package:grad_ease/features/auth/data/models/student_model.dart';
 import 'package:hive/hive.dart';

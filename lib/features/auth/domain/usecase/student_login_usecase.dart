@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:grad_ease/core/common/entities/auth_login_entity.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/common/usecase/usecase.dart';
 import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';

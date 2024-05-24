@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/common/widgets/dropdown_textfield.dart';
 import 'package:grad_ease/core/common/widgets/grad_ease_button.dart';
 import 'package:grad_ease/core/common/widgets/grad_ease_field.dart';

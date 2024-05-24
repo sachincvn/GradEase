@@ -1,10 +1,12 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 
 enum GenderEnum { MALE, FEMALE, OTHER }
 
-enum CourseEnum { MCA, MBA } // Define your CourseEnum
+enum CourseEnum { MCA, MBA }
+
+enum RoleEnum { Student, Admin, Teacher }
 
 class AuthLoginDetailModel {
   final String id;
@@ -20,6 +22,7 @@ class AuthLoginDetailModel {
   final String? profileImage;
   final String? section;
   final bool? isApproved;
+  final RoleEnum? role;
 
   AuthLoginDetailModel({
     required this.id,
@@ -35,6 +38,7 @@ class AuthLoginDetailModel {
     required this.profileImage,
     required this.isApproved,
     required this.section,
+    required this.role,
   });
 
   factory AuthLoginDetailModel.fromMap(Map<String, dynamic> json) {
@@ -53,6 +57,7 @@ class AuthLoginDetailModel {
           "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1",
       section: json['section'],
       isApproved: json['isApproved'],
+      role: _parseRole(json['role']),
     );
   }
 
@@ -71,6 +76,7 @@ class AuthLoginDetailModel {
       'profileImage': profileImage,
       'isApproved': isApproved,
       'section': section,
+      'role': role?.name
     };
   }
 
@@ -98,6 +104,19 @@ class AuthLoginDetailModel {
     }
   }
 
+  static RoleEnum _parseRole(String course) {
+    switch (course) {
+      case 'Student':
+        return RoleEnum.Student;
+      case 'Admin':
+        return RoleEnum.Admin;
+      case 'Teacher':
+        return RoleEnum.Teacher;
+      default:
+        throw Exception('Invalid course value: $course');
+    }
+  }
+
   AuthDetailEntity toEntity() {
     return AuthDetailEntity(
       id: id,
@@ -113,6 +132,7 @@ class AuthLoginDetailModel {
       profileImage: profileImage,
       isApproved: isApproved,
       section: section,
+      role: role,
     );
   }
 }

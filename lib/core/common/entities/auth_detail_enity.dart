@@ -14,6 +14,7 @@ class AuthDetailEntity {
   final String? profileImage;
   final String? section;
   final bool? isApproved;
+  final RoleEnum? role;
 
   AuthDetailEntity({
     required this.id,
@@ -29,5 +30,6 @@ class AuthDetailEntity {
     required this.profileImage,
     required this.section,
     required this.isApproved,
+    required this.role,
   });
 }

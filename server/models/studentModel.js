@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { CourseEnum, GenderEnum } from "../utils/enum.js";
+import { CourseEnum, GenderEnum, RoleEnum } from "../utils/enum.js";
 
 const studentSchema = new Schema({
   fullName: {
