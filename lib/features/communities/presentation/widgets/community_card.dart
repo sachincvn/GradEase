@@ -40,7 +40,7 @@ class CommunityCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 32,
                   backgroundImage: NetworkImage(
-                      "${RestResources.imageBaseUrl}${communityEntity.profileImage}"),
+                      "${RestResources.fileBaseUrl}${communityEntity.profileImage}"),
                 ),
                 const SizedBox(width: 10),
                 Expanded(

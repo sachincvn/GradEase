@@ -16,3 +16,9 @@ final class RemoveNoteEvent extends NotesEvent {
 
   RemoveNoteEvent(this.id);
 }
+
+final class OpenUrlEvent extends NotesEvent {
+  final String url;
+
+  OpenUrlEvent(this.url);
+}

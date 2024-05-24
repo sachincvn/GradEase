@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
-import 'package:grad_ease/features/communities/presentation/pages/community_screen.dart';
+import 'package:grad_ease/features/assignment/presentation/pages/assignment_screen.dart';
 import 'package:grad_ease/features/notes/presentation/pages/notes_screen.dart';
 
 class NotesTabScreen extends StatelessWidget {
@@ -26,7 +26,7 @@ class NotesTabScreen extends StatelessWidget {
         body: const TabBarView(
           children: [
             NotesScreen(),
-            CommunityScreen(),
+            AssignmentScreen(),
           ],
         ),
       ),

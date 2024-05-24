@@ -64,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     CircleAvatar(
                       radius: 60,
                       backgroundImage: NetworkImage(
-                          "${RestResources.imageBaseUrl}${state.studentProfile}"),
+                          "${RestResources.fileBaseUrl}${state.studentProfile}"),
                     ),
                     const SizedBox(height: 10),
                     Text(

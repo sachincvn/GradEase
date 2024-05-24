@@ -25,7 +25,7 @@ class CommunityPost extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 28,
                     backgroundImage: NetworkImage(
-                        "${RestResources.imageBaseUrl}${message.sender.profileImage}"),
+                        "${RestResources.fileBaseUrl}${message.sender.profileImage}"),
                   ),
                 ),
                 const SizedBox(width: 10),

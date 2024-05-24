@@ -136,7 +136,7 @@ class _UpsertCommunityScreenState extends State<UpsertCommunityScreen> {
                                         ? CircleAvatar(
                                             radius: 50,
                                             backgroundImage: NetworkImage(
-                                                "${RestResources.imageBaseUrl}/${_communityEntity!.profileImage}"),
+                                                "${RestResources.fileBaseUrl}/${_communityEntity!.profileImage}"),
                                           )
                                         : const CircleAvatar(
                                             radius: 50,
