@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/common/models/upload_file_response_model.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
 
@@ -14,8 +14,8 @@ abstract interface class AuthRepository {
     required String password,
   });
 
-  Future<Either<Failure, StudentEntity?>> getStudentDetail(String email);
-  Future<Either<Failure, StudentEntity?>> registerStudent(
+  Future<Either<Failure, AuthDetailEntity?>> getStudentDetail(String email);
+  Future<Either<Failure, AuthDetailEntity?>> registerStudent(
     String fullName,
     String fatherName,
     DateTime dob,

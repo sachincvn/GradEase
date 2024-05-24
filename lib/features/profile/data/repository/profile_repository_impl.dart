@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/common/models/upload_file_response_model.dart';
 import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
@@ -14,7 +14,7 @@ class ProfileRepositoryIml implements ProfileRepository {
       this._profileRemoteDataSource, this._localDetailsRepository);
 
   @override
-  Future<Either<Failure, StudentEntity?>> updateStudentData(
+  Future<Either<Failure, AuthDetailEntity?>> updateStudentData(
       String fullName,
       String fatherName,
       DateTime dob,

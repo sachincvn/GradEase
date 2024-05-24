@@ -11,7 +11,7 @@ TimetableEntry _$TimetableEntryFromJson(Map<String, dynamic> json) =>
       subjectName: json['SubjectName'] as String,
       teacherName: json['TeacherName'] as String,
       time: json['Time'] as String,
-      id: json['_id'] as String,
+      id: json['_id'] as String?,
     );
 
 Map<String, dynamic> _$TimetableEntryToJson(TimetableEntry instance) =>

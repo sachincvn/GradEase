@@ -7,6 +7,7 @@ import 'package:grad_ease/features/admin/presentation/bloc/add_community/add_com
 import 'package:grad_ease/features/admin/presentation/bloc/add_timetable/add_timetable_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/communites_bloc/communites_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/edit_user_bloc/edit_user_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/timetable_bloc/timetable_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/pages/admin_home_screen.dart';
@@ -62,6 +63,7 @@ void main() async {
       BlocProvider(create: (_) => serviceLocator<ProfileBloc>()),
       BlocProvider(create: (_) => serviceLocator<EditProfileBloc>()),
       BlocProvider(create: (_) => serviceLocator<StudentHomeBloc>()),
+      BlocProvider(create: (_) => serviceLocator<EditUserBloc>()),
     ],
     child: const MyApp(),
   ));

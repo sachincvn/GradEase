@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/features/profile/domain/repository/profile_repository.dart';
@@ -13,7 +13,7 @@ part 'edit_profile_state.dart';
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   final LocalDetailsRepository _localDetailsRepository;
   final ProfileRepository _profileRepository;
-  StudentEntity? studentEntity;
+  AuthDetailEntity? studentEntity;
   EditProfileBloc(this._localDetailsRepository, this._profileRepository)
       : super(EditProfileInitial()) {
     on<UpdateStudentEvent>(_onUpdateStudentEvent);
@@ -24,6 +24,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       UpdateStudentEvent event, Emitter<EditProfileState> emit) async {
     try {
       String profileImage;
+      emit(UpdatingProfileState());
 
       if (_localDetailsRepository.getStudentDetail()!.profileImage ==
           event.profileImage) {

@@ -1,13 +1,13 @@
 import 'package:grad_ease/core/common/entities/auth_login_entity.dart';
 import 'package:grad_ease/core/common/entities/author_entity.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/features/auth/data/models/auth_login_model.dart';
 import 'package:grad_ease/features/auth/data/models/student_model.dart';
 import 'package:hive/hive.dart';
 
 abstract interface class LocalDetailsRepository {
   void updateLoginDetail(AuthLoginModel authLoginModel, String authToken);
-  void updateStudentDetails(StudentModel studentEntity);
+  void updateStudentDetails(AuthLoginDetailModel studentEntity);
   void clearLoginCredientials();
   void removeUUCMSCookie();
   void updateUUCMSLoginCookie(String cookie);
@@ -17,7 +17,7 @@ abstract interface class LocalDetailsRepository {
   AuthLoginEntity? getLoginDetail();
   String? getLoginAuthToken();
   String? getUserId();
-  StudentEntity? getStudentDetail();
+  AuthDetailEntity? getStudentDetail();
   AuthorEntity? getAuthorEntity();
   String? getUUCMSLoginCookie();
   bool? isAdminLogin();
@@ -35,7 +35,7 @@ class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
   }
 
   @override
-  void updateStudentDetails(StudentModel studentModel) {
+  void updateStudentDetails(AuthLoginDetailModel studentModel) {
     _updateUserId(studentModel.id);
     _updateAuthorDetail(AuthorEntity(
         id: studentModel.id,
@@ -59,12 +59,12 @@ class LocalDetailsRepositoryImpl implements LocalDetailsRepository {
   }
 
   @override
-  StudentEntity? getStudentDetail() {
+  AuthDetailEntity? getStudentDetail() {
     final studentDetail = box.get('studentDetail', defaultValue: null);
     if (studentDetail == null) {
       return null;
     }
-    return StudentModel.fromMap(studentDetail).toEntity();
+    return AuthLoginDetailModel.fromMap(studentDetail).toEntity();
   }
 
   @override

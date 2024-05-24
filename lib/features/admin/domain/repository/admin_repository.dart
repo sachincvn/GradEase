@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/common/models/upload_file_response_model.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
 import 'package:grad_ease/features/admin/data/models/student_detail.dart';
@@ -14,6 +15,20 @@ abstract interface class AdminRepository {
   Future<Either<Failure, StudentDetail>> approveStudents(String studentEmail);
   Future<Either<Failure, StudentDetail>> deleteStudents(String studentEmail);
   Future<Either<Failure, List<TimeTableModel>>> getAllTimeTable();
+  Future<Either<Failure, AuthDetailEntity>> updateStudentData(
+    String fullName,
+    String fatherName,
+    DateTime dob,
+    String gender,
+    String course,
+    int year,
+    String section,
+    String email,
+    String studentPhone,
+    String parentPhone,
+    String profileImage,
+    String role,
+  );
   Future<Either<Failure, tt.TimeTableEntity>> addTimeTable(
       ttdto.TimeTableModel timeTable);
 

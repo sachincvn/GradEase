@@ -1,12 +1,14 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 
 enum GenderEnum { MALE, FEMALE, OTHER }
 
-enum CourseEnum { MCA, MBA } // Define your CourseEnum
+enum CourseEnum { MCA, MBA }
 
-class StudentModel {
+enum RoleEnum { Student, Admin, Teacher }
+
+class AuthLoginDetailModel {
   final String id;
   final String fullName;
   final String? fatherName;
@@ -20,8 +22,9 @@ class StudentModel {
   final String? profileImage;
   final String? section;
   final bool? isApproved;
+  final RoleEnum? role;
 
-  StudentModel({
+  AuthLoginDetailModel({
     required this.id,
     required this.fullName,
     required this.fatherName,
@@ -35,10 +38,11 @@ class StudentModel {
     required this.profileImage,
     required this.isApproved,
     required this.section,
+    required this.role,
   });
 
-  factory StudentModel.fromMap(Map<String, dynamic> json) {
-    return StudentModel(
+  factory AuthLoginDetailModel.fromMap(Map<String, dynamic> json) {
+    return AuthLoginDetailModel(
       id: json['_id'],
       fullName: json['fullName'],
       fatherName: json['fatherName'],
@@ -53,6 +57,7 @@ class StudentModel {
           "https://cdn-icons-png.freepik.com/512/7088/7088431.png?filename=teen_7088431.png&fd=1",
       section: json['section'],
       isApproved: json['isApproved'],
+      role: _parseRole(json['role']),
     );
   }
 
@@ -71,6 +76,7 @@ class StudentModel {
       'profileImage': profileImage,
       'isApproved': isApproved,
       'section': section,
+      'role': role?.name
     };
   }
 
@@ -98,8 +104,21 @@ class StudentModel {
     }
   }
 
-  StudentEntity toEntity() {
-    return StudentEntity(
+  static RoleEnum _parseRole(String course) {
+    switch (course) {
+      case 'Student':
+        return RoleEnum.Student;
+      case 'Admin':
+        return RoleEnum.Admin;
+      case 'Teacher':
+        return RoleEnum.Teacher;
+      default:
+        throw Exception('Invalid course value: $course');
+    }
+  }
+
+  AuthDetailEntity toEntity() {
+    return AuthDetailEntity(
       id: id,
       fullName: fullName,
       fatherName: fatherName,
@@ -113,6 +132,7 @@ class StudentModel {
       profileImage: profileImage,
       isApproved: isApproved,
       section: section,
+      role: role,
     );
   }
 }

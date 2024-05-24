@@ -13,6 +13,8 @@ final class EditProfileFailureSate extends EditProfileState {
   EditProfileFailureSate(this.message);
 }
 
+final class UpdatingProfileState extends EditProfileState {}
+
 final class EditProfileSuccessState extends EditProfileState {}
 
 final class StudentDataSuccessState extends EditProfileState {}

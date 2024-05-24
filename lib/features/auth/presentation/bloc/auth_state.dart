@@ -10,7 +10,7 @@ final class AuthInitial extends AuthState {}
 final class AuthLoading extends AuthState {}
 
 final class StudentAuthSuccess extends AuthState {
-  final StudentEntity studentEntity;
+  final AuthDetailEntity studentEntity;
   const StudentAuthSuccess({required this.studentEntity});
 }
 

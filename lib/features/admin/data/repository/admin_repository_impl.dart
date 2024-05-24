@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/common/models/upload_file_response_model.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
 import 'package:grad_ease/features/admin/data/data_source/admin_remote_data_source.dart';
@@ -151,6 +152,40 @@ class AdminRepositoryIml implements AdminRepository {
   Future<Either<Failure, CommunityEntity>> deleteCommunity(String id) async {
     try {
       final response = await adminRemoteDataSource.deleteCommunity(id);
+      return right(response.toEntity());
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AuthDetailEntity>> updateStudentData(
+      String fullName,
+      String fatherName,
+      DateTime dob,
+      String gender,
+      String course,
+      int year,
+      String section,
+      String email,
+      String studentPhone,
+      String parentPhone,
+      String profileImage,
+      String role) async {
+    try {
+      final response = await adminRemoteDataSource.updateStudentData(
+          fullName,
+          fatherName,
+          dob,
+          gender,
+          course,
+          year,
+          section,
+          email,
+          studentPhone,
+          parentPhone,
+          profileImage,
+          role);
       return right(response.toEntity());
     } catch (e) {
       return left(Failure(e.toString()));

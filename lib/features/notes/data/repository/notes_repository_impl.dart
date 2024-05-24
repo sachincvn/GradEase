@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/common/models/upload_file_response_model.dart';
 import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
@@ -10,7 +10,7 @@ import 'package:grad_ease/features/notes/domain/repository/notes_repository.dart
 class NotesRepositoryImpl implements NotesRepository {
   final NoteRemoteDataSource _noteRemoteDataSource;
   final LocalDetailsRepository _localDetailsRepository;
-  late StudentEntity? _studentEntity;
+  late AuthDetailEntity? _studentEntity;
   NotesRepositoryImpl(
       this._noteRemoteDataSource, this._localDetailsRepository) {
     _studentEntity = _localDetailsRepository.getStudentDetail();

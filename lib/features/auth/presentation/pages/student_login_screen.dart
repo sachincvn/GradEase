@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/common/widgets/grad_ease_button.dart';
@@ -8,7 +7,6 @@ import 'package:grad_ease/core/extensions/string_validation_extension.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:grad_ease/features/auth/presentation/pages/admin_login_screen.dart';
 import 'package:grad_ease/features/auth/presentation/pages/register_student_screen.dart';
 import 'package:grad_ease/features/main/landing_page.dart';
 import 'package:page_transition/page_transition.dart';
@@ -96,38 +94,38 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                     },
                   ),
                   const SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          text: "New User ?",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(fontWeight: FontWeight.w500),
-                          children: [
-                            const TextSpan(text: " "),
-                            TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.rightToLeft,
-                                      child: const RegisterStudentScreen(),
-                                    ),
-                                  );
-                                },
-                              style:
-                                  const TextStyle(color: ColorPallete.blue500),
-                              text: "Sign UP",
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   children: [
+                  //     RichText(
+                  //       text: TextSpan(
+                  //         text: "New User ?",
+                  //         style: Theme.of(context)
+                  //             .textTheme
+                  //             .bodyMedium!
+                  //             .copyWith(fontWeight: FontWeight.w500),
+                  //         children: [
+                  //           const TextSpan(text: " "),
+                  //           TextSpan(
+                  //             recognizer: TapGestureRecognizer()
+                  //               ..onTap = () {
+                  //                 Navigator.push(
+                  //                   context,
+                  //                   PageTransition(
+                  //                     type: PageTransitionType.rightToLeft,
+                  //                     child: const RegisterStudentScreen(),
+                  //                   ),
+                  //                 );
+                  //               },
+                  //             style:
+                  //                 const TextStyle(color: ColorPallete.blue500),
+                  //             text: "Sign UP",
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(height: 20),
                   GradEaseButton(
                     buttonText: "Sign In",
@@ -147,17 +145,17 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                   Center(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           PageTransition(
                             type: PageTransitionType.rightToLeft,
-                            child: const AdminLoginScreen(),
+                            child: const RegisterStudentScreen(),
                           ),
                         );
                       },
                       child: RichText(
                         text: TextSpan(
-                          text: "Login to admin account?",
+                          text: "Don't have an account?",
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -166,7 +164,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                             TextSpan(text: " "),
                             TextSpan(
                               style: TextStyle(color: ColorPallete.blue500),
-                              text: "Click here",
+                              text: "Register",
                             ),
                           ],
                         ),

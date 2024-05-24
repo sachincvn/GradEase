@@ -253,7 +253,8 @@ class _ClassScheduleScreenState extends State<ClassScheduleScreen> {
                                                                       .w500,
                                                               color: ColorPallete
                                                                   .whiteColor),
-                                                      text: "08:30",
+                                                      text: timetableEntry.time
+                                                          .split('-')[0],
                                                     ),
                                                     TextSpan(
                                                       style: Theme.of(context)
@@ -277,7 +278,8 @@ class _ClassScheduleScreenState extends State<ClassScheduleScreen> {
                                                                       .w500,
                                                               color: ColorPallete
                                                                   .whiteColor),
-                                                      text: "09:30",
+                                                      text: timetableEntry.time
+                                                          .split('-')[1],
                                                     ),
                                                   ],
                                                 ),

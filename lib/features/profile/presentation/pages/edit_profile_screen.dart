@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/common/widgets/dropdown_textfield.dart';
 import 'package:grad_ease/core/common/widgets/grad_ease_button.dart';
 import 'package:grad_ease/core/common/widgets/grad_ease_field.dart';
@@ -41,7 +41,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   File? _imageFile;
   DateTime? _selectedDate;
-  StudentEntity? studentEntity;
+  AuthDetailEntity? studentEntity;
   String? profileImagePath = StringConstants.defaultAvatar;
 
   @override
@@ -139,6 +139,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           if (state is EditProfileLoading) {
             return const Center(child: CircularProgressIndicator());
           }
+          final isLoading = state is UpdatingProfileState;
           return SafeArea(
             child: Column(
               children: [
@@ -371,6 +372,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                   child: GradEaseButton(
                     buttonText: "Update",
+                    isLoading: isLoading,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         final currentStudentEntity = studentEntity;

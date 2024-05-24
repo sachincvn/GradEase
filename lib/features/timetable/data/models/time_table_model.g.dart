@@ -8,7 +8,7 @@ part of 'time_table_model.dart';
 
 TimeTableModel _$TimeTableModelFromJson(Map<String, dynamic> json) =>
     TimeTableModel(
-      id: json['_id'] as String,
+      id: json['_id'] as String?,
       course: json['course'] as String,
       section: json['section'] as String,
       year: json['year'] as int,

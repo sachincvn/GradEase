@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { CourseEnum, GenderEnum } from "../utils/enum.js";
+import { CourseEnum, GenderEnum, RoleEnum } from "../utils/enum.js";
 
 const studentSchema = new Schema({
   fullName: {
@@ -56,6 +56,11 @@ const studentSchema = new Schema({
   isApproved: {
     type: Boolean,
     default: false,
+  },
+  role: {
+    type: String,
+    enum: RoleEnum,
+    default: "Student",
   },
 });
 

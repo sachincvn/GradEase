@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/local/local_repository.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
 import 'package:grad_ease/features/timetable/data/data_source/time_table_remote_data_source.dart';
@@ -9,7 +9,7 @@ import 'package:grad_ease/features/timetable/domain/repository/time_table_reposi
 class TimeTableRepositortImpl implements TimeTableRepository {
   final LocalDetailsRepository _localDetailsRepository;
   final TimeTableRemoteDataSource _timeTableRemoteDataSource;
-  late StudentEntity? _studentEntity;
+  late AuthDetailEntity? _studentEntity;
 
   TimeTableRepositortImpl(
     this._localDetailsRepository,

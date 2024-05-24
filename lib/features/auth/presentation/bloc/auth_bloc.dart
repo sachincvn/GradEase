@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/common/cubit/app_user_cubit.dart';
-import 'package:grad_ease/core/common/entities/student_enity.dart';
+import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/features/auth/domain/usecase/admin_login_usecase.dart';
 import 'package:grad_ease/features/auth/domain/usecase/register_student_use_case.dart';
 import 'package:grad_ease/features/auth/domain/usecase/student_login_usecase.dart';
@@ -78,7 +78,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _emitAuthSuccess(
-    StudentEntity student,
+    AuthDetailEntity student,
     Emitter<AuthState> emit,
   ) {
     _appUserCubit.updateUser(student);

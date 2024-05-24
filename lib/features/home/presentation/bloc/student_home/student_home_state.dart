@@ -8,7 +8,7 @@ class StudentHomeInitial extends StudentHomeState {}
 class StudentHomeLoadingState extends StudentHomeState {}
 
 class StudentHomeSuccessState extends StudentHomeState {
-  final StudentEntity studentEntity;
+  final AuthDetailEntity studentEntity;
   final TimeTableEntity? timeTableEntity;
 
   StudentHomeSuccessState({required this.studentEntity, this.timeTableEntity});

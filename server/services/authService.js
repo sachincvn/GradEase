@@ -36,7 +36,12 @@ export async function loginStudent(email, password) {
     email: existingStudent.email,
   };
 
-  const jwtToken = jwt.sign(tokenObject, process.env.JWT_STUDENT_SECRET);
+  let jwtToken;
+  if (existingStudent.role === "Admin" || existingStudent.role === "Teacher") {
+    jwtToken = jwt.sign(tokenObject, process.env.JWT_ADMIN_SECRET);
+  } else {
+    jwtToken = jwt.sign(tokenObject, process.env.JWT_STUDENT_SECRET);
+  }
 
   return jwtToken;
 }
