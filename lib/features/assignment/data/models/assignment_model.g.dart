@@ -12,7 +12,7 @@ AssignmentModel _$AssignmentModelFromJson(Map<String, dynamic> json) =>
       id: json['_id'] as String,
       title: json['title'] as String,
       description: json['description'] as String?,
-      filepath: json['filepath'] as String,
+      filepath: json['filepath'] as String?,
       createdDate: json['createdDate'] as String,
       submittionDate: json['submittionDate'] as String,
       year: json['year'] as int,

@@ -139,7 +139,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                 ),
                               ],
                             ),
-                            trailing: assignment.filepath.isNotEmpty
+                            trailing: assignment.filepath != null
                                 ? IconButton(
                                     icon: const Icon(
                                       Icons.download_for_offline,
@@ -147,7 +147,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                     ),
                                     onPressed: () {
                                       context.read<AssignmentBloc>().add(
-                                          OpenUrlEvent(assignment.filepath));
+                                          OpenUrlEvent(assignment.filepath!));
                                     },
                                   )
                                 : null,

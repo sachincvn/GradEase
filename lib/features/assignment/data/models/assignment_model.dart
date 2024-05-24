@@ -11,7 +11,7 @@ class AssignmentModel {
   final Author uploadedBy;
   final String title;
   final String? description;
-  final String filepath;
+  final String? filepath;
   final String createdDate;
   final String submittionDate;
   final String course;
