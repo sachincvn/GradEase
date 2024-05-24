@@ -139,6 +139,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           if (state is EditProfileLoading) {
             return const Center(child: CircularProgressIndicator());
           }
+          final isLoading = state is UpdatingProfileState;
           return SafeArea(
             child: Column(
               children: [
@@ -371,6 +372,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                   child: GradEaseButton(
                     buttonText: "Update",
+                    isLoading: isLoading,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         final currentStudentEntity = studentEntity;

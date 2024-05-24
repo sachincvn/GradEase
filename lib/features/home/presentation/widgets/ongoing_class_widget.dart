@@ -108,11 +108,19 @@ class OnGoingClassWidget extends StatelessWidget {
   }
 
   String _formatTimeAsString(String time) {
-    final parts = time.split(':');
-    final hour = _formatTime(int.parse(parts[0]));
-    final minute = _formatTime(int.parse(parts[1].split(' ')[0]));
-    final meridian = parts[1].split(' ')[1];
-    return '$hour:$minute $meridian';
+    final timeParts = time.split(' ');
+    final meridian = timeParts[1];
+    final hourMinute = timeParts[0].split(':');
+    int hour = int.parse(hourMinute[0]);
+    final minute = hourMinute[1];
+
+    if (meridian == 'PM' && hour != 12) {
+      hour += 12;
+    } else if (meridian == 'AM' && hour == 12) {
+      hour = 0;
+    }
+
+    return '${_formatTime(hour)}:$minute';
   }
 
   String _getDayOfWeek(int weekday) {

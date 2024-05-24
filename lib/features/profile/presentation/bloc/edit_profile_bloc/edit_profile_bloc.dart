@@ -24,6 +24,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       UpdateStudentEvent event, Emitter<EditProfileState> emit) async {
     try {
       String profileImage;
+      emit(UpdatingProfileState());
 
       if (_localDetailsRepository.getStudentDetail()!.profileImage ==
           event.profileImage) {

@@ -1,6 +1,8 @@
 class RestResources {
-  static String roomAddress = "http://192.168.33.250:8080";
-  static String baseUrl = roomAddress;
+  static String gradeEaseBaseUrl = "https://gradease.onrender.com";
+  static String localAddress = "http://192.168.180.242:8080";
+  static String ngRockUrl = "https://45be-49-205-149-62.ngrok-free.app";
+  static String baseUrl = ngRockUrl;
   static String imageBaseUrl = "$baseUrl/upload";
   static String restApiBaseUrl(value) =>
       value ? "https://gradease.onrender.com/api/v1/" : "$baseUrl/api/v1/";
