@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/admin/data/models/student_detail.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/pages/edit_user_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ManageStudendsScreen extends StatefulWidget {
   const ManageStudendsScreen({Key? key}) : super(key: key);
@@ -195,24 +197,52 @@ class _ManageStudendsScreenState extends State<ManageStudendsScreen> {
                     ),
                   ],
                 )
-              : ElevatedButton(
-                  onPressed: () {
-                    context
-                        .read<StudentsBloc>()
-                        .add(DeleteStudent(studentDetail: studentDetail));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorPallete.errorColor.withAlpha(150),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                  ),
-                  child: Text(
-                    'Delete',
-                    style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
+              : Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: EditUserScreen(userDetail: studentDetail),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorPallete.green500.withAlpha(150),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                      ),
+                      child: Text(
+                        'Edit',
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    ElevatedButton(
+                      onPressed: () {
+                        context
+                            .read<StudentsBloc>()
+                            .add(DeleteStudent(studentDetail: studentDetail));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorPallete.errorColor.withAlpha(150),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 0),
+                      ),
+                      child: Text(
+                        'Delete',
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ),
+                  ],
                 ),
         ],
       ),

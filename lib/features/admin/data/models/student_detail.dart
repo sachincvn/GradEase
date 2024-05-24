@@ -11,6 +11,7 @@ class StudentDetail {
   final DateTime? dob;
   final String? gender;
   final String? course;
+  final String? role;
   final int? courseYear;
   final String? email;
   final String? studentPhone;
@@ -26,6 +27,7 @@ class StudentDetail {
       required this.dob,
       required this.gender,
       required this.course,
+      required this.role,
       required this.courseYear,
       required this.email,
       required this.studentPhone,

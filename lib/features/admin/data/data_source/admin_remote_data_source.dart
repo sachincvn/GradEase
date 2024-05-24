@@ -5,6 +5,7 @@ import 'package:grad_ease/core/remote/gradease_rest_service.dart';
 import 'package:grad_ease/features/admin/data/models/student_detail.dart';
 import 'package:grad_ease/features/admin/data/models/students_response_model.dart';
 import 'package:grad_ease/features/admin/data/models/time_table_response_model.dart';
+import 'package:grad_ease/features/auth/data/models/student_model.dart';
 import 'package:grad_ease/features/communities/data/models/communites_reponse_model.dart';
 import 'package:grad_ease/features/communities/data/models/communtiy_model.dart';
 import 'package:grad_ease/features/timetable/data/models/time_table_respose_model.dart'
@@ -16,6 +17,20 @@ abstract interface class AdminRemoteDataSource {
   Future<StudentsResponseModel> getAllStudents();
   Future<StudentDetail> approveStudent(String studentEmail);
   Future<StudentDetail> deleteStudent(String studentEmail);
+  Future<AuthLoginDetailModel> updateStudentData(
+    String fullName,
+    String fatherName,
+    DateTime dob,
+    String gender,
+    String course,
+    int year,
+    String section,
+    String email,
+    String studentPhone,
+    String parentPhone,
+    String profileImage,
+    String role,
+  );
   Future<TimeTableResponseModel> getAllTimeTables();
   Future<tt.TimeTableResponseModel> addTimeTable(
       ttdto.TimeTableModel timeTable);
@@ -166,5 +181,38 @@ class AdminRemoteDataSourceImpl extends GradEaseRestService
     final restRequest = createDeleteRequest(RestResources.communityById(id));
     final response = await executeRequest(restRequest);
     return CommunityModel.fromJson(response.data['data']);
+  }
+
+  @override
+  Future<AuthLoginDetailModel> updateStudentData(
+      String fullName,
+      String fatherName,
+      DateTime dob,
+      String gender,
+      String course,
+      int year,
+      String section,
+      String email,
+      String studentPhone,
+      String parentPhone,
+      String profileImage,
+      String role) async {
+    final restRequest =
+        createPutRequest(RestResources.studentByEmail(email), body: {
+      "fullName": fullName,
+      "fatherName": fatherName,
+      "dob": dob.toIso8601String(),
+      "gender": gender,
+      "course": course,
+      "courseYear": year,
+      "email": email,
+      "studentPhone": studentPhone,
+      "parentPhone": parentPhone,
+      "profileImage": profileImage,
+      "section": section,
+      "role": role,
+    });
+    final response = await executeRequest(restRequest);
+    return AuthLoginDetailModel.fromMap(response.data['data']);
   }
 }

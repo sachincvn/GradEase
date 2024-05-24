@@ -4,7 +4,7 @@ import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/pages/manage_community_screen.dart';
-import 'package:grad_ease/features/admin/presentation/pages/manage_studends_screen.dart';
+import 'package:grad_ease/features/admin/presentation/pages/manage_users_screen.dart';
 import 'package:grad_ease/features/admin/presentation/pages/time_table_screen.dart';
 import 'package:grad_ease/features/auth/presentation/pages/admin_login_screen.dart';
 import 'package:grad_ease/features/uucms/presentation/pages/course_registered_info_screen.dart';

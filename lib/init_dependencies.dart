@@ -8,6 +8,7 @@ import 'package:grad_ease/features/admin/presentation/bloc/add_community/add_com
 import 'package:grad_ease/features/admin/presentation/bloc/add_timetable/add_timetable_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/communites_bloc/communites_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/edit_user_bloc/edit_user_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/timetable_bloc/timetable_bloc.dart';
 import 'package:grad_ease/features/auth/data/data_source/auth_remote_data_source.dart';
@@ -193,6 +194,7 @@ void _registerBlocs() {
     ..registerLazySingleton(() => AddCommunityBloc(serviceLocator()))
     ..registerLazySingleton(() => AdminBloc(serviceLocator()))
     ..registerLazySingleton(() => ProfileBloc(serviceLocator()))
+    ..registerLazySingleton(() => EditUserBloc(serviceLocator()))
     ..registerLazySingleton(
         () => StudentHomeBloc(serviceLocator(), serviceLocator()))
     ..registerLazySingleton(

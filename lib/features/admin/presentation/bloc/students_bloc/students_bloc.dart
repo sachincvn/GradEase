@@ -29,14 +29,25 @@ class StudentsBloc extends Bloc<StudentsEvent, StudentsState> {
             errorMessage: l.message)), (result) {
       if (result.isNotEmpty) {
         this.students = result;
-        final filterPendingApprovalStudents =
-            result.where((element) => !(element.isApproved!)).toList();
-        emit(
-          state.copyWith(
-            status: StudentsStateStatus.success,
-            students: filterPendingApprovalStudents,
-          ),
-        );
+        if (state.isPendinApprovalStudentsSelected ?? false) {
+          final filterPendingApprovalStudents =
+              result.where((element) => !(element.isApproved!)).toList();
+          emit(
+            state.copyWith(
+              status: StudentsStateStatus.success,
+              students: filterPendingApprovalStudents,
+              isPendinApprovalStudentsSelected: true,
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              status: StudentsStateStatus.success,
+              students: result,
+              isPendinApprovalStudentsSelected: false,
+            ),
+          );
+        }
       } else {
         emit(state.copyWith(
           status: StudentsStateStatus.error,
