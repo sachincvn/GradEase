@@ -40,7 +40,7 @@ class CommunityCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 32,
                   backgroundImage: NetworkImage(
-                      "${RestResources.imageBaseUrl}${communityEntity.profileImage}"),
+                      "${RestResources.fileBaseUrl}${communityEntity.profileImage}"),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -69,7 +69,15 @@ class CommunityCard extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Implement your button action here
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        child: CommunityDetailScreen(
+                          communityEntity: communityEntity,
+                        ),
+                      ),
+                    );
                   },
                   child: Text(
                     'View',

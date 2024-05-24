@@ -2,9 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/common/usecase/usecase.dart';
+import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/features/notes/domain/entity/note_entity.dart';
 import 'package:grad_ease/features/notes/domain/usecase/delete_note_use_case.dart';
 import 'package:grad_ease/features/notes/domain/usecase/get_all_notes_use_case.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'notes_event.dart';
 part 'notes_state.dart';
@@ -20,6 +22,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     on<FetchAllNotes>(_onFetchNotes);
     on<InsertNewNoteEvent>(_onInsertNote);
     on<RemoveNoteEvent>(_onRemoveNote);
+    on<OpenUrlEvent>(_onOpenUrlEvent);
   }
 
   FutureOr<void> _onFetchNotes(
@@ -67,5 +70,16 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       errorMessage: null,
       notes: state.notes..insert(0, event.noteEntity),
     ));
+  }
+
+  FutureOr<void> _onOpenUrlEvent(
+      OpenUrlEvent event, Emitter<NotesState> emit) async {
+    final Uri url = Uri.parse('${RestResources.fileBaseUrl}${event.url}');
+    if (!await launchUrl(url)) {
+      emit(state.copyWith(
+        notesStateStatus: NotesStateStatus.error,
+        errorMessage: "Unable to open the file",
+      ));
+    }
   }
 }

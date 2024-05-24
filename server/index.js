@@ -19,6 +19,7 @@ import postRoute from "./routes/postRoute.js";
 import communityRoutes from "./routes/communityRoute.js";
 import { initializeSocket } from "./socket.js";
 import feedbackRoute from "./routes/feedbackRoute.js";
+import assignmentsRoute from "./routes/assignmentRoute.js";
 
 initializeSocket(server);
 app.use(express.json());
@@ -35,6 +36,7 @@ app.use(`${apiBasePath}notes/`, notesRoute);
 app.use(`${apiBasePath}post/`, postRoute);
 app.use(`${apiBasePath}feedback/`, feedbackRoute);
 app.use(`${apiBasePath}communites/`, communityRoutes);
+app.use(`${apiBasePath}assignment/`, assignmentsRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome to GradEase" });

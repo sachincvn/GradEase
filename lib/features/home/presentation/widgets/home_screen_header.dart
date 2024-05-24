@@ -31,9 +31,9 @@ class HomeScreenHeader extends StatelessWidget {
                 minRadius: 28,
                 backgroundImage: profileImageUrl != null
                     ? NetworkImage(
-                        "${RestResources.imageBaseUrl}$profileImageUrl")
+                        "${RestResources.fileBaseUrl}$profileImageUrl")
                     : NetworkImage(
-                        "${RestResources.imageBaseUrl}${StringConstants.defaultAvatar}"),
+                        "${RestResources.fileBaseUrl}${StringConstants.defaultAvatar}"),
               ),
               const SizedBox(width: 20),
               Column(

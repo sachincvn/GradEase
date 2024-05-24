@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/extensions/string_extension.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/notes/domain/entity/note_entity.dart';
+import 'package:grad_ease/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 
 class NoteCard extends StatelessWidget {
   final NoteEntity note;
@@ -39,8 +41,8 @@ class NoteCard extends StatelessWidget {
                   minRadius: 28,
                   child: Image.network(
                     note.uploadedBy.profileImage == null
-                        ? "${RestResources.imageBaseUrl}${StringConstants.defaultAvatar}"
-                        : "${RestResources.imageBaseUrl}${note.uploadedBy.profileImage}",
+                        ? "${RestResources.fileBaseUrl}${StringConstants.defaultAvatar}"
+                        : "${RestResources.fileBaseUrl}${note.uploadedBy.profileImage}",
                     height: 40,
                     fit: BoxFit.cover,
                   ),
@@ -107,34 +109,43 @@ class NoteCard extends StatelessWidget {
                   .copyWith(fontWeight: FontWeight.w400),
             ),
             const Divider(),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: ColorPallete.whiteColor,
-                    width: .5,
-                  ),
-                  borderRadius: BorderRadius.circular(10)),
-              height: 35,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      Uri.parse(note.filepath).pathSegments.last,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(fontWeight: FontWeight.w600),
+            GestureDetector(
+              onTap: () {
+                context.read<NotesBloc>().add(OpenUrlEvent(note.filepath));
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorPallete.whiteColor,
+                      width: .5,
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(CupertinoIcons.cloud_download),
-                  )
-                ],
+                    borderRadius: BorderRadius.circular(10)),
+                height: 35,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        Uri.parse(note.filepath).pathSegments.last,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        context
+                            .read<NotesBloc>()
+                            .add(OpenUrlEvent(note.filepath));
+                      },
+                      icon: const Icon(CupertinoIcons.cloud_download),
+                    )
+                  ],
+                ),
               ),
             )
           ],

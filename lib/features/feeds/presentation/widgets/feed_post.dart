@@ -37,7 +37,7 @@ class FeedPost extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 28,
                     backgroundImage: NetworkImage(
-                      "${RestResources.imageBaseUrl}${post.author!.profileImage}",
+                      "${RestResources.fileBaseUrl}${post.author!.profileImage}",
                     ),
                   ),
                 ),

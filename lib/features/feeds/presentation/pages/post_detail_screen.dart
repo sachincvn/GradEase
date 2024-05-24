@@ -124,7 +124,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                             leading: CircleAvatar(
                               radius: 28,
                               backgroundImage: NetworkImage(
-                                "${RestResources.imageBaseUrl}${state.feedPostReplies![index].author.profileImage}",
+                                "${RestResources.fileBaseUrl}${state.feedPostReplies![index].author.profileImage}",
                               ),
                             ),
                             title: Text(

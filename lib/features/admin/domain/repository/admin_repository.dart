@@ -3,6 +3,7 @@ import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/common/models/upload_file_response_model.dart';
 import 'package:grad_ease/core/remote/response_wrapper.dart';
 import 'package:grad_ease/features/admin/data/models/student_detail.dart';
+import 'package:grad_ease/features/assignment/domain/entity/assignment_entity.dart';
 import 'package:grad_ease/features/communities/domain/entity/community_entity.dart';
 import 'package:grad_ease/features/timetable/data/models/time_table_model.dart';
 import 'package:grad_ease/features/timetable/domain/entity/time_table_entity.dart'
@@ -56,4 +57,15 @@ abstract interface class AdminRepository {
     String course,
   );
   Future<Either<Failure, CommunityEntity>> deleteCommunity(String id);
+  Future<Either<Failure, List<AssignmentEntity>>> getAllAssignments();
+  Future<Either<Failure, AssignmentEntity>> deleteAssignment(String id);
+  Future<Either<Failure, AssignmentEntity>> addAssignment(String title,
+      String description, String submissionDate, int year, String course);
+  Future<Either<Failure, AssignmentEntity>> updateAssignment(
+      String assignmentId,
+      String title,
+      String description,
+      String submissionDate,
+      int year,
+      String course);
 }

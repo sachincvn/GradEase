@@ -166,7 +166,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       : CircleAvatar(
                                           radius: 50,
                                           backgroundImage: NetworkImage(
-                                              "${RestResources.imageBaseUrl}/$profileImagePath"),
+                                              "${RestResources.fileBaseUrl}/$profileImagePath"),
                                         )),
                             ),
                             GradEaseInputField(

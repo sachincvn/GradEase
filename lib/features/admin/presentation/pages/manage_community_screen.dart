@@ -79,7 +79,7 @@ class _ManageCommunityScreenState extends State<ManageCommunityScreen> {
                             child: Image.network(
                               fit: BoxFit.cover,
                               height: 50,
-                              "${RestResources.imageBaseUrl}${community.profileImage}",
+                              "${RestResources.fileBaseUrl}${community.profileImage}",
                             ),
                           ),
                           const SizedBox(width: 10),
@@ -112,8 +112,7 @@ class _ManageCommunityScreenState extends State<ManageCommunityScreen> {
                               Navigator.push(
                                   context,
                                   PageTransition(
-                                    type:
-                                    PageTransitionType.rightToLeft,
+                                    type: PageTransitionType.rightToLeft,
                                     child: UpsertCommunityScreen(
                                       communityEntity: community,
                                     ),

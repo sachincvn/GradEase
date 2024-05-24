@@ -5,6 +5,8 @@ import 'package:grad_ease/core/remote/gradease_rest_service.dart';
 import 'package:grad_ease/features/admin/data/models/student_detail.dart';
 import 'package:grad_ease/features/admin/data/models/students_response_model.dart';
 import 'package:grad_ease/features/admin/data/models/time_table_response_model.dart';
+import 'package:grad_ease/features/assignment/data/models/assignment_model.dart';
+import 'package:grad_ease/features/assignment/data/models/assignment_response_model.dart';
 import 'package:grad_ease/features/auth/data/models/student_model.dart';
 import 'package:grad_ease/features/communities/data/models/communites_reponse_model.dart';
 import 'package:grad_ease/features/communities/data/models/communtiy_model.dart';
@@ -45,6 +47,27 @@ abstract interface class AdminRemoteDataSource {
   Future<CommunityModel> updateCommunity(String id, String communityName,
       String communityDescription, String profilePath, int year, String course);
   Future<CommunityModel> deleteCommunity(String id);
+  Future<AssignmentResponseModel> getAllAssignment();
+  Future<AssignmentModel> deleteAssignment(String id);
+  Future<AssignmentModel> addAssignment(
+    String title,
+    String description,
+    String submissionDate,
+    int year,
+    String course,
+    String authorName,
+    String authorEmail,
+  );
+  Future<AssignmentModel> updateAssignment(
+    String assignmentId,
+    String title,
+    String description,
+    String submissionDate,
+    int year,
+    String course,
+    String authorName,
+    String authorEmail,
+  );
 }
 
 class AdminRemoteDataSourceImpl extends GradEaseRestService
@@ -214,5 +237,64 @@ class AdminRemoteDataSourceImpl extends GradEaseRestService
     });
     final response = await executeRequest(restRequest);
     return AuthLoginDetailModel.fromMap(response.data['data']);
+  }
+
+  @override
+  Future<AssignmentResponseModel> getAllAssignment() async {
+    final restRequest = createGetRequest(RestResources.assignment);
+    final respone = await executeRequest(restRequest);
+    return AssignmentResponseModel.fromJson(respone.data);
+  }
+
+  @override
+  Future<AssignmentModel> deleteAssignment(String id) async {
+    final restRequest =
+        createDeleteRequest(RestResources.getAssingmentById(id));
+    final respone = await executeRequest(restRequest);
+    return AssignmentModel.fromJson(respone.data['data']);
+  }
+
+  @override
+  Future<AssignmentModel> addAssignment(
+      String title,
+      String description,
+      String submissionDate,
+      int year,
+      String course,
+      String authorName,
+      String authorEmail) async {
+    final restRequest = createPostRequest(RestResources.assignment, body: {
+      "title": title,
+      "description": description,
+      "uploadedBy": {"fullName": authorName, "email": authorEmail},
+      "year": year,
+      "course": course,
+      "submittionDate": submissionDate
+    });
+    final response = await executeRequest(restRequest);
+    return AssignmentModel.fromJson(response.data['data']);
+  }
+
+  @override
+  Future<AssignmentModel> updateAssignment(
+      String assignmentId,
+      String title,
+      String description,
+      String submissionDate,
+      int year,
+      String course,
+      String authorName,
+      String authorEmail) async {
+    final restRequest =
+        createPutRequest(RestResources.getAssingmentById(assignmentId), body: {
+      "title": title,
+      "description": description,
+      "uploadedBy": {"fullName": authorName, "email": authorEmail},
+      "year": year,
+      "course": course,
+      "submittionDate": submissionDate
+    });
+    final response = await executeRequest(restRequest);
+    return AssignmentModel.fromJson(response.data['data']);
   }
 }

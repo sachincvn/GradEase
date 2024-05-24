@@ -9,6 +9,17 @@ export async function getAllAssignments() {
   return assignmentModel;
 }
 
+export async function getAssignmentsByCourseYear(course, year) {
+  const assignmentModel = await AssignmentsModel.find({
+    course,
+    year,
+  });
+  if (!assignmentModel) {
+    throw ResponseError(401, "Assignment not found");
+  }
+  return assignmentModel;
+}
+
 export async function getAssignment(id) {
   const assignment = await AssignmentsModel.findById(id);
   if (!assignment) {
@@ -31,9 +42,13 @@ export async function deleteAssignment(id) {
 }
 
 export async function updateAssignment(id, updatedAssignment) {
-  const assignment = await AssignmentsModel.findByIdAndUpdate(id, updatedAssignment, {
-    new: true,
-  });
+  const assignment = await AssignmentsModel.findByIdAndUpdate(
+    id,
+    updatedAssignment,
+    {
+      new: true,
+    }
+  );
   if (!assignment) {
     throw new Error("Assignment not found");
   }
