@@ -205,8 +205,8 @@ void _registerBlocs() {
     ..registerLazySingleton(() => AdminBloc(serviceLocator()))
     ..registerLazySingleton(() => ProfileBloc(serviceLocator()))
     ..registerLazySingleton(() => EditUserBloc(serviceLocator()))
-    ..registerLazySingleton(
-        () => StudentHomeBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(() =>
+        StudentHomeBloc(serviceLocator(), serviceLocator(), serviceLocator()))
     ..registerLazySingleton(
         () => EditProfileBloc(serviceLocator(), serviceLocator()))
     ..registerLazySingleton(() => AssignmentBloc(serviceLocator()))

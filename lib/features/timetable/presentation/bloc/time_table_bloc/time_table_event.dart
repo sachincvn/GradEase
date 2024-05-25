@@ -9,8 +9,8 @@ final class FetchTimeTable extends TimeTableEvent {
   final String? section;
 
   FetchTimeTable({
-    required this.course,
-    required this.year,
-    required this.section,
+    this.course,
+    this.year,
+    this.section,
   });
 }

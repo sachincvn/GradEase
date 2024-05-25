@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/admin_bloc/admin_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/pages/manage_assignment_screen.dart';
@@ -18,16 +17,6 @@ class AdminHomeScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Admin"),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  context.read<AdminBloc>().add(LogoutAdminEvent());
-                },
-                icon: const Icon(
-                  Icons.logout_rounded,
-                  color: ColorPallete.errorColor,
-                ))
-          ],
         ),
         body: SafeArea(
             child: SingleChildScrollView(

@@ -9,6 +9,7 @@ import 'package:grad_ease/features/home/presentation/bloc/student_home/student_h
 import 'package:grad_ease/features/home/presentation/widgets/ongoing_class_widget.dart';
 import 'package:grad_ease/features/home/presentation/widgets/home_screen_header.dart';
 import 'package:grad_ease/features/home/presentation/widgets/quick_cards.dart';
+import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:grad_ease/features/timetable/presentation/pages/class_schedule_screen.dart';
 import 'package:grad_ease/features/uucms/presentation/pages/uucms_home_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<StudentHomeBloc>().add(FetchInitalDataEvent());
+    context.read<StudentHomeBloc>().add(GetStudentDataEvent());
   }
 
   @override
@@ -44,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   HomeScreenHeader(
-                    studentName: studentEntity.fullName,
+                    studentName: studentEntity!.fullName,
                     profileImageUrl: studentEntity.profileImage,
                   ),
                   (studentEntity.role == RoleEnum.Admin ||
@@ -159,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           QuickCards(
             context: context,
-            cardColor: const Color.fromARGB(228, 130, 149, 211),
+            cardColor: const Color.fromARGB(209, 169, 231, 226),
             textColor: ColorPallete.whiteColor,
             labelName: "UUCMS Services",
             lottieAssest: LocalResourcesConstants.universityLottie,
@@ -178,7 +180,11 @@ class _HomeScreenState extends State<HomeScreen> {
               cardColor: const Color.fromARGB(255, 120, 186, 212),
               textColor: ColorPallete.whiteColor,
               labelName: "Assignments",
-              lottieAssest: LocalResourcesConstants.assignmentLottie),
+              lottieAssest: LocalResourcesConstants.assignmentLottie,
+              onTap: () {
+                BlocProvider.of<LandingPageBloc>(context)
+                    .add(TabChange(tabIndex: 2));
+              }),
           QuickCards(
             context: context,
             cardColor: const Color.fromARGB(209, 169, 231, 226),

@@ -7,6 +7,7 @@ import 'package:grad_ease/features/home/presentation/pages/home_screen.dart';
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:grad_ease/features/notes/presentation/pages/notes_tab_screen.dart';
 import 'package:grad_ease/features/profile/presentation/pages/profile_screen.dart';
+import 'package:grad_ease/features/timetable/presentation/pages/class_schedule_screen.dart';
 
 List<BottomNavigationBarItem> bottomNavItems = const <BottomNavigationBarItem>[
   BottomNavigationBarItem(
@@ -22,6 +23,10 @@ List<BottomNavigationBarItem> bottomNavItems = const <BottomNavigationBarItem>[
     label: 'Notes',
   ),
   BottomNavigationBarItem(
+    icon: Icon(Icons.schedule_rounded),
+    label: 'Timetable',
+  ),
+  BottomNavigationBarItem(
     icon: Icon(CupertinoIcons.profile_circled),
     label: 'Profile',
   ),
@@ -31,6 +36,7 @@ const List<Widget> bottomNavScreen = <Widget>[
   HomeScreen(),
   LatestFeedScreen(),
   NotesTabScreen(),
+  ClassScheduleScreen(),
   ProfileScreen(),
 ];
 
@@ -50,13 +56,15 @@ class LandingPage extends StatelessWidget {
               highlightColor: Colors.transparent,
             ),
             child: BottomNavigationBar(
-              backgroundColor: ColorPallete.backgroundColor,
+              enableFeedback: true,
+              backgroundColor: const Color.fromARGB(218, 25, 32, 37),
               items: bottomNavItems,
               currentIndex: state.tabIndex,
-              selectedItemColor: Theme.of(context).colorScheme.primary,
-              unselectedItemColor: Colors.grey,
+              selectedItemColor: ColorPallete.blue700,
+              unselectedItemColor: ColorPallete.whiteColor,
               showUnselectedLabels: true,
               elevation: 0,
+              type: BottomNavigationBarType.fixed,
               onTap: (index) {
                 BlocProvider.of<LandingPageBloc>(context)
                     .add(TabChange(tabIndex: index));

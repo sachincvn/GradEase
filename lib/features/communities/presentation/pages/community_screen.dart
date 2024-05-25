@@ -30,6 +30,17 @@ class _CommunityScreenState extends State<CommunityScreen> {
             child: CircularProgressIndicator(),
           ));
         } else if (state.communityStateStatus == CommunityStateStatus.success) {
+          if (state.communites.isEmpty) {
+            return Center(
+              child: Text(
+                "No communites are created",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            );
+          }
           return Padding(
             padding: const EdgeInsets.only(left: 14, right: 14, bottom: 10),
             child: ListView.builder(

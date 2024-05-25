@@ -33,6 +33,7 @@ dependencies:
   webview_flutter: ^4.0.1
   webview_cookie_manager: ^2.0.6
   url_launcher: ^6.2.6
+  share_plus: ^7.2.2
 
 dev_dependencies:
   flutter_test:

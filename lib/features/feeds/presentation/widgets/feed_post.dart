@@ -10,11 +10,9 @@ import 'package:page_transition/page_transition.dart';
 class FeedPost extends StatelessWidget {
   final FeedPostEntity post;
   final VoidCallback? onTapCallback;
-  const FeedPost({
-    super.key,
-    required this.post,
-    this.onTapCallback,
-  });
+  final int? maxLines;
+  const FeedPost(
+      {super.key, required this.post, this.onTapCallback, this.maxLines = 3});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +72,7 @@ class FeedPost extends StatelessWidget {
             ),
             Text(
               post.content!,
-              maxLines: 3,
+              maxLines: maxLines,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context)
                   .textTheme

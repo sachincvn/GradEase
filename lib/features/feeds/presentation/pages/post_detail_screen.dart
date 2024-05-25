@@ -77,7 +77,10 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            FeedPost(post: widget.feedPost),
+            FeedPost(
+              post: widget.feedPost,
+              maxLines: 100,
+            ),
             const Divider(),
             BlocConsumer<FeedDetailBloc, FeedDetailState>(
               listener: (context, state) {

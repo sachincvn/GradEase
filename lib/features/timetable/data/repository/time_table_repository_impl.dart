@@ -25,7 +25,7 @@ class TimeTableRepositortImpl implements TimeTableRepository {
       final response = await _timeTableRemoteDataSource.getTimeTable(
           course ?? _studentEntity!.course!.name,
           year ?? _studentEntity!.courseYear!,
-          section ?? "A");
+          section ?? _studentEntity!.section!);
       return right(response.data!.toEntity());
     } catch (e) {
       return left(Failure(e.toString()));

@@ -79,6 +79,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                     AssignmentStateStatus.error) {
                   return Center(
                     child: Text(state.errorMessage ?? 'An error occurred',
+                        textAlign: TextAlign.center,
                         style: const TextStyle(color: ColorPallete.errorColor)),
                   );
                 } else if (state.notesStateStatus ==
@@ -93,6 +94,19 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                       return submissionDate.isBefore(DateTime.now());
                     }
                   }).toList();
+                  if (filteredAssignments.isEmpty) {
+                    return Center(
+                      child: Text(
+                        _showPending
+                            ? "No assignments present right now!"
+                            : "No assignments found",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    );
+                  }
 
                   return ListView.builder(
                     itemCount: filteredAssignments.length,

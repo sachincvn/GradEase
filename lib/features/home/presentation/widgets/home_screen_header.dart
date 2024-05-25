@@ -5,6 +5,7 @@ import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/home/presentation/bloc/student_home/student_home_bloc.dart';
+import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 
 class HomeScreenHeader extends StatelessWidget {
   final String studentName;
@@ -26,14 +27,20 @@ class HomeScreenHeader extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                backgroundColor: ColorPallete.transparentColor,
-                minRadius: 28,
-                backgroundImage: profileImageUrl != null
-                    ? NetworkImage(
-                        "${RestResources.fileBaseUrl}$profileImageUrl")
-                    : NetworkImage(
-                        "${RestResources.fileBaseUrl}${StringConstants.defaultAvatar}"),
+              GestureDetector(
+                onTap: () {
+                  BlocProvider.of<LandingPageBloc>(context)
+                      .add(TabChange(tabIndex: 3));
+                },
+                child: CircleAvatar(
+                  backgroundColor: ColorPallete.transparentColor,
+                  minRadius: 28,
+                  backgroundImage: profileImageUrl != null
+                      ? NetworkImage(
+                          "${RestResources.fileBaseUrl}$profileImageUrl")
+                      : NetworkImage(
+                          "${RestResources.fileBaseUrl}${StringConstants.defaultAvatar}"),
+                ),
               ),
               const SizedBox(width: 20),
               Column(
