@@ -11,7 +11,9 @@ CommunityMessageModel _$CommunityMessageModelFromJson(
     CommunityMessageModel(
       id: json['_id'] as String,
       communityId: json['communityId'] as String,
-      sender: Author.fromJson(json['sender'] as Map<String, dynamic>),
+      sender: json['sender'] == null
+          ? null
+          : Author.fromJson(json['sender'] as Map<String, dynamic>),
       message: json['message'] as String,
       createdAt: json['createdAt'] as String,
     );

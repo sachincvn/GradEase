@@ -31,7 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return right(response.data!);
     } catch (e) {
       authLocalDataSource.clearLoginCredientials();
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -55,7 +55,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return left(Failure(e.message));
     } catch (e) {
       authLocalDataSource.clearLoginCredientials();
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -75,7 +75,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return right(studentEntity!.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -110,7 +110,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return left(Failure(e.message));
     } catch (e) {
       authLocalDataSource.clearLoginCredientials();
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 

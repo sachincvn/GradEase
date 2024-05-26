@@ -20,6 +20,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       TextEditingController();
   final TextEditingController descriptionTextEditingController =
       TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -59,41 +60,59 @@ class _AddPostScreenState extends State<AddPostScreen> {
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(14),
-                child: Column(
-                  children: [
-                    GradEaseInputField(
-                      labelText: "Title",
-                      hintText: "Enter discussion title",
-                      controller: titleTextEditingController,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GradEaseInputField(
-                      labelText: "Description",
-                      hintText: "Enter description",
-                      controller: descriptionTextEditingController,
-                      maxLines: 5,
-                      maxLength: 400,
-                    ),
-                    const Spacer(),
-                    GradEaseButton(
-                      buttonText: "Start discussion",
-                      onPressed: () {
-                        context.read<AddPostBloc>().add(
-                              AddNewPostEvent(
-                                AddPostParams(
-                                    title:
-                                        titleTextEditingController.text.trim(),
-                                    description:
-                                        descriptionTextEditingController.text
-                                            .trim()),
-                              ),
-                            );
-                      },
-                      isLoading: isLoading,
-                    ),
-                  ],
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      GradEaseInputField(
+                        labelText: "Title",
+                        hintText: "Enter discussion title",
+                        controller: titleTextEditingController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter the discussion title";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GradEaseInputField(
+                        labelText: "Description",
+                        hintText: "Enter description",
+                        controller: descriptionTextEditingController,
+                        maxLines: 5,
+                        maxLength: 400,
+                        validator: (value) {
+                          if (value == null || value.length < 10) {
+                            return "Please enter the description";
+                          }
+                          return null;
+                        },
+                      ),
+                      const Spacer(),
+                      GradEaseButton(
+                        buttonText: "Start discussion",
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<AddPostBloc>().add(
+                                  AddNewPostEvent(
+                                    AddPostParams(
+                                        title: titleTextEditingController.text
+                                            .trim(),
+                                        description:
+                                            descriptionTextEditingController
+                                                .text
+                                                .trim()),
+                                  ),
+                                );
+                          }
+                        },
+                        isLoading: isLoading,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ));

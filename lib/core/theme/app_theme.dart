@@ -18,6 +18,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.all(18),
         enabledBorder: _inputBorder(ColorPallete.grey400),
+        disabledBorder: _inputBorder(ColorPallete.grey400),
         focusedBorder: _inputBorder(ColorPallete.blue800),
         errorBorder: _inputBorder(ColorPallete.errorColor),
         focusedErrorBorder: _inputBorder(ColorPallete.errorColor),

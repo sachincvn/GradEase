@@ -11,10 +11,10 @@ class FeedPostModel {
   final String id;
   final String? title;
   final String? content;
-  final Author author;
+  final Author? author;
   final List<String?> likedBy;
   final List<String?> dislikedBy;
-  final List<ReplyModel?> replies;
+  final List<ReplyModel?>? replies;
 
   FeedPostModel({
     required this.id,

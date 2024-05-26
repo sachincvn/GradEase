@@ -22,7 +22,7 @@ abstract class RestServiceBase extends RestClient {
     } catch (error) {
       if (error is DioException) {
         throw RestResponseException(
-            message: error.response?.data['message'] ?? error);
+            message: error.response!.data['message'] ?? error.toString());
       }
       rethrow;
     }

@@ -84,6 +84,11 @@ class UUCMSExamResultBloc
           examResults: result,
         ));
       });
+    } else if (!(selectedExamApplication.IsResultPublished ?? false)) {
+      emit(state.copyWith(
+          resultStatus: UUCMSExamResultStateStatus.success,
+          examResults: [],
+          errorMessage: "Result is not yet published !, try later"));
     }
   }
 

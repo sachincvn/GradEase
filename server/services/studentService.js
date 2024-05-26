@@ -2,6 +2,11 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import StudentModel from "../models/studentModel.js";
 import ResponseError from "../utils/RestResponseError.js";
+import PostModel from "../models/postModel.js";
+import NotesModel from "../models/noteModel.js";
+import FeedbackModel from "../models/feedbackModel.js";
+import AssignmentsModel from "../models/assignmentModel.js";
+import MessageModel from "../models/messageModel.js";
 
 export async function registerStudent(studentModel) {
   const existingStudent = await StudentModel.findOne({
@@ -57,6 +62,18 @@ export async function deleteStudentDetail(email, updatedData) {
   if (!deleteStudent) {
     throw new ResponseError(404, "Invalid email, Student not found");
   }
-
+  if (deleteStudent) {
+    await Promise.all([
+      PostModel.deleteMany({ author: deleteStudent._id }),
+      PostModel.updateMany(
+        { "replies.author": deleteStudent._id },
+        { $pull: { replies: { author: deleteStudent._id } } }
+      ),
+      NotesModel.deleteMany({ "uploadedBy.email": deleteStudent.email }),
+      MessageModel.deleteMany({ sender: deleteStudent._id }),
+      FeedbackModel.deleteMany({ "user.email": deleteStudent.email }),
+      AssignmentsModel.deleteMany({ "uploadedBy.email": deleteStudent.email }),
+    ]);
+  }
   return deleteStudent;
 }

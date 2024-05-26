@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/common/entities/auth_detail_enity.dart';
 import 'package:grad_ease/core/local/local_repository.dart';
+import 'package:grad_ease/features/auth/domain/repository/auth_repository.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_bloc/community_bloc.dart';
 import 'package:grad_ease/features/timetable/domain/entity/time_table_entity.dart';
 import 'package:grad_ease/features/timetable/domain/usecase/get_time_table_use_case.dart';
@@ -15,15 +16,19 @@ part 'student_home_state.dart';
 class StudentHomeBloc extends Bloc<StudentHomeEvent, StudentHomeState> {
   final LocalDetailsRepository _localDetailsRepository;
   final GetTimeTableUseCase _getTimeTableUseCase;
+  final AuthRepository _authRepository;
+
   AuthDetailEntity? studentEntity;
   TimeTableEntity? timetable;
   final CommunityBloc communityBloc = serviceLocator<CommunityBloc>();
 
-  StudentHomeBloc(this._localDetailsRepository, this._getTimeTableUseCase)
+  StudentHomeBloc(this._localDetailsRepository, this._getTimeTableUseCase,
+      this._authRepository)
       : super(StudentHomeInitial()) {
     on<FetchInitalDataEvent>(_onFetchInitalDataEvent);
     on<FetchTimetableEvent>(_onFetchTimetableEvent);
     on<RefreshHomeData>(_onRefreshHomeData);
+    on<GetStudentDataEvent>(_onGetStudentDataEvent);
   }
 
   Future<void> _onFetchInitalDataEvent(
@@ -32,7 +37,10 @@ class StudentHomeBloc extends Bloc<StudentHomeEvent, StudentHomeState> {
       emit(StudentHomeLoadingState());
       studentEntity = _localDetailsRepository.getStudentDetail();
       if (studentEntity != null) {
-        emit(StudentHomeSuccessState(studentEntity: studentEntity!));
+        emit(StudentHomeSuccessState(
+          studentEntity: studentEntity!,
+          toastMessage: null,
+        ));
         add(FetchTimetableEvent());
       } else {
         emit(StudentHomeErrorState());
@@ -56,7 +64,10 @@ class StudentHomeBloc extends Bloc<StudentHomeEvent, StudentHomeState> {
         (timetableData) {
           timetable = timetableData;
           emit(StudentHomeSuccessState(
-              studentEntity: studentEntity!, timeTableEntity: timetable));
+            toastMessage: null,
+            studentEntity: studentEntity!,
+            timeTableEntity: timetable,
+          ));
         },
       );
     } catch (e) {
@@ -69,5 +80,19 @@ class StudentHomeBloc extends Bloc<StudentHomeEvent, StudentHomeState> {
     add(FetchInitalDataEvent());
     add(FetchTimetableEvent());
     communityBloc.add(FetchAllCommunites());
+  }
+
+  FutureOr<void> _onGetStudentDataEvent(
+      GetStudentDataEvent event, Emitter<StudentHomeState> emit) async {
+    try {
+      final studentData = await _authRepository
+          .getStudentDetail(_localDetailsRepository.getLoginDetail()!.email!);
+      studentData.fold(
+          (l) => emit(StudentHomeSuccessState(toastMessage: l.message)),
+          (r) => emit(
+              StudentHomeSuccessState(studentEntity: r, toastMessage: null)));
+    } catch (e) {
+      emit(StudentHomeSuccessState(toastMessage: e.toString()));
+    }
   }
 }

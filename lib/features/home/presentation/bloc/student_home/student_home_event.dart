@@ -8,3 +8,5 @@ final class FetchInitalDataEvent extends StudentHomeEvent {}
 final class FetchTimetableEvent extends StudentHomeEvent {}
 
 final class RefreshHomeData extends StudentHomeEvent {}
+
+final class GetStudentDataEvent extends StudentHomeEvent {}

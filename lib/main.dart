@@ -7,6 +7,7 @@ import 'package:grad_ease/features/admin/presentation/bloc/add_community/add_com
 import 'package:grad_ease/features/admin/presentation/bloc/add_timetable/add_timetable_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/admin_assignment/admin_assignment_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/admin_bloc/admin_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/admin_feedback/admin_feedback_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/communites_bloc/communites_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/edit_user_bloc/edit_user_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
@@ -18,6 +19,7 @@ import 'package:grad_ease/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:grad_ease/features/auth/presentation/pages/student_login_screen.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_bloc/community_bloc.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_detail/community_detail_bloc.dart';
+import 'package:grad_ease/features/feedback/presentation/bloc/feedback_bloc/feedback_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/add_post_bloc/add_post_bloc_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feed_detail_bloc/feed_detail_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
@@ -70,6 +72,8 @@ void main() async {
       BlocProvider(create: (_) => serviceLocator<AssignmentBloc>()),
       BlocProvider(create: (_) => serviceLocator<AdminAssignmnetBloc>()),
       BlocProvider(create: (_) => serviceLocator<UpsertAssignmentBloc>()),
+      BlocProvider(create: (_) => serviceLocator<FeedbackBloc>()),
+      BlocProvider(create: (_) => serviceLocator<AdminFeedbackBloc>()),
     ],
     child: const MyApp(),
   ));

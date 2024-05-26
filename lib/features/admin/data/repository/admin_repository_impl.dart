@@ -23,7 +23,7 @@ class AdminRepositoryIml implements AdminRepository {
       final students = await adminRemoteDataSource.getAllStudents();
       return right(students.data!);
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -35,7 +35,7 @@ class AdminRepositoryIml implements AdminRepository {
           await adminRemoteDataSource.approveStudent(studentEmail);
       return right(updatedDetail);
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -46,7 +46,7 @@ class AdminRepositoryIml implements AdminRepository {
       final response = await adminRemoteDataSource.deleteStudent(studentEmail);
       return right(response);
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -56,7 +56,7 @@ class AdminRepositoryIml implements AdminRepository {
       final timeTables = await adminRemoteDataSource.getAllTimeTables();
       return right(timeTables.data!);
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -68,7 +68,7 @@ class AdminRepositoryIml implements AdminRepository {
           await adminRemoteDataSource.addTimeTable(timeTable);
       return right(timeTableResponse.data!.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -80,7 +80,7 @@ class AdminRepositoryIml implements AdminRepository {
           await adminRemoteDataSource.updateTimeTable(timeTable);
       return right(timeTableResponse.data!.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -92,7 +92,7 @@ class AdminRepositoryIml implements AdminRepository {
           await adminRemoteDataSource.deleteTimeTable(timeTable);
       return right(timeTableResponse.data!.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -102,7 +102,7 @@ class AdminRepositoryIml implements AdminRepository {
       final response = await adminRemoteDataSource.getCommunites();
       return right(response.data.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -114,7 +114,7 @@ class AdminRepositoryIml implements AdminRepository {
           await adminRemoteDataSource.uploadImage(fileName, filePath);
       return right(response);
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -130,7 +130,7 @@ class AdminRepositoryIml implements AdminRepository {
           communityName, communityDescription, profilePath, year, course);
       return right(response.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -147,7 +147,7 @@ class AdminRepositoryIml implements AdminRepository {
           id, communityName, communityDescription, profilePath, year, course);
       return right(response.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -157,7 +157,7 @@ class AdminRepositoryIml implements AdminRepository {
       final response = await adminRemoteDataSource.deleteCommunity(id);
       return right(response.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -191,7 +191,7 @@ class AdminRepositoryIml implements AdminRepository {
           role);
       return right(response.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -201,7 +201,7 @@ class AdminRepositoryIml implements AdminRepository {
       final response = await adminRemoteDataSource.getAllAssignment();
       return right(response.data!.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -211,7 +211,7 @@ class AdminRepositoryIml implements AdminRepository {
       final response = await adminRemoteDataSource.deleteAssignment(id);
       return right(response.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -235,7 +235,7 @@ class AdminRepositoryIml implements AdminRepository {
           userDetail.email!);
       return right(response.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -260,7 +260,7 @@ class AdminRepositoryIml implements AdminRepository {
           userDetail.email!);
       return right(response.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 }

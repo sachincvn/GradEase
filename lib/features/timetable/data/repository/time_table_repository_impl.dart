@@ -14,21 +14,19 @@ class TimeTableRepositortImpl implements TimeTableRepository {
   TimeTableRepositortImpl(
     this._localDetailsRepository,
     this._timeTableRemoteDataSource,
-  ) {
-    _studentEntity = _localDetailsRepository.getStudentDetail();
-  }
-
+  );
   @override
   Future<Either<Failure, TimeTableEntity>> getTimeTable(
       {String? course, int? year, String? section}) async {
     try {
+      _studentEntity = _localDetailsRepository.getStudentDetail();
       final response = await _timeTableRemoteDataSource.getTimeTable(
           course ?? _studentEntity!.course!.name,
           year ?? _studentEntity!.courseYear!,
-          section ?? "A");
+          section ?? _studentEntity!.section!);
       return right(response.data!.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 }

@@ -98,7 +98,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: const Text("Edit Profile"),
       ),
       body: BlocConsumer<EditProfileBloc, EditProfileState>(
         listener: (context, state) {
@@ -170,6 +170,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         )),
                             ),
                             GradEaseInputField(
+                              isEnabled: false,
                               labelText: "Name",
                               hintText: "Enter student full name",
                               controller: _nameController,
@@ -272,6 +273,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   .copyWith(fontWeight: FontWeight.w500),
                             ),
                             DropDownTextField(
+                              isEnabled: false,
                               controller: _yearController,
                               listTextStyle: Theme.of(context)
                                   .textTheme
@@ -335,6 +337,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                             const SizedBox(height: 10),
                             GradEaseInputField(
+                              isEnabled: false,
                               labelText: "Parent Phone",
                               hintText: "Enter your parent number",
                               controller: _parentPhoneController,
@@ -348,6 +351,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                             const SizedBox(height: 10),
                             GradEaseInputField(
+                              isEnabled: false,
                               labelText: "Email",
                               hintText: "Enter the email address",
                               controller: _emailController,

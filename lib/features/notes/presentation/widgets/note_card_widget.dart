@@ -86,7 +86,10 @@ class NoteCard extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: onRemoveNoteCallBack,
-                  icon: const Icon(Icons.delete_outline_rounded),
+                  icon: const Icon(
+                    Icons.delete_outline_rounded,
+                    color: ColorPallete.errorColor,
+                  ),
                 ),
               ],
             ),
@@ -117,7 +120,7 @@ class NoteCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                     border: Border.all(
-                      color: ColorPallete.whiteColor,
+                      color: ColorPallete.blue500,
                       width: .5,
                     ),
                     borderRadius: BorderRadius.circular(10)),
@@ -130,10 +133,9 @@ class NoteCard extends StatelessWidget {
                         Uri.parse(note.filepath).pathSegments.last,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(fontWeight: FontWeight.w600),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: ColorPallete.blue800),
                       ),
                     ),
                     IconButton(
@@ -142,7 +144,8 @@ class NoteCard extends StatelessWidget {
                             .read<NotesBloc>()
                             .add(OpenUrlEvent(note.filepath));
                       },
-                      icon: const Icon(CupertinoIcons.cloud_download),
+                      icon: const Icon(CupertinoIcons.cloud_download,
+                          color: ColorPallete.blue800),
                     )
                   ],
                 ),

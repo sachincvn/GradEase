@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/constants/rest_resources.dart';
+import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/features/feeds/domain/enitity/feed_post_entity.dart';
 import 'package:grad_ease/features/feeds/presentation/bloc/feeds_bloc/feed_post_bloc.dart';
 import 'package:grad_ease/features/feeds/presentation/pages/post_detail_screen.dart';
@@ -10,11 +11,9 @@ import 'package:page_transition/page_transition.dart';
 class FeedPost extends StatelessWidget {
   final FeedPostEntity post;
   final VoidCallback? onTapCallback;
-  const FeedPost({
-    super.key,
-    required this.post,
-    this.onTapCallback,
-  });
+  final int? maxLines;
+  const FeedPost(
+      {super.key, required this.post, this.onTapCallback, this.maxLines = 3});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,7 @@ class FeedPost extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 28,
                     backgroundImage: NetworkImage(
-                      "${RestResources.fileBaseUrl}${post.author!.profileImage}",
+                      "${RestResources.fileBaseUrl}${post.author?.profileImage ?? StringConstants.deletedMessageAvatar}",
                     ),
                   ),
                 ),
@@ -46,7 +45,7 @@ class FeedPost extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      post.author!.fullName!,
+                      post.author?.fullName ?? "Deleted User",
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -54,7 +53,7 @@ class FeedPost extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      post.author!.email!,
+                      post.author?.email ?? "deleteduser@gradease",
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall!
@@ -74,7 +73,7 @@ class FeedPost extends StatelessWidget {
             ),
             Text(
               post.content!,
-              maxLines: 3,
+              maxLines: maxLines,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context)
                   .textTheme
@@ -97,7 +96,7 @@ class FeedPost extends StatelessWidget {
                   iconSize: 22,
                 ),
                 Text(
-                  post.replies.length.toString(),
+                  post.replies == null ? "0" : post.replies!.length.toString(),
                   style: Theme.of(context).textTheme.labelMedium!,
                 ),
                 const Spacer(),

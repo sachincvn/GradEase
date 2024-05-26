@@ -47,6 +47,7 @@ export async function createCommunity(
 }
 
 export async function deleteCommunity(id) {
+  await MessageModel.deleteMany({ communityId: id });
   const response = await CommunityModel.findByIdAndDelete(id);
   return response;
 }

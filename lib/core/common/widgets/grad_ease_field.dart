@@ -13,6 +13,7 @@ class GradEaseInputField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool readOnly;
   final VoidCallback? onTap;
+  final bool? isEnabled;
 
   const GradEaseInputField({
     super.key,
@@ -27,6 +28,7 @@ class GradEaseInputField extends StatelessWidget {
     this.keyboardType,
     this.readOnly = false,
     this.onTap,
+    this.isEnabled = true,
   });
 
   @override
@@ -52,15 +54,18 @@ class GradEaseInputField extends StatelessWidget {
           ),
           validator: validator,
           obscureText: isObscureText,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
-            color: ColorPallete.whiteColor,
+            color: (isEnabled ?? false)
+                ? ColorPallete.whiteColor
+                : ColorPallete.grey500,
             fontWeight: FontWeight.w500,
           ),
           maxLines: maxLines,
           maxLength: maxLength,
           readOnly: readOnly,
           onTap: onTap,
+          enabled: isEnabled,
         ),
       ],
     );

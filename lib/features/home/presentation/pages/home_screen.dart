@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/admin/presentation/pages/admin_home_screen.dart';
+import 'package:grad_ease/features/assignment/presentation/pages/assignment_screen.dart';
 import 'package:grad_ease/features/auth/data/models/student_model.dart';
 import 'package:grad_ease/features/communities/presentation/pages/community_screen.dart';
 import 'package:grad_ease/features/home/presentation/bloc/student_home/student_home_bloc.dart';
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<StudentHomeBloc>().add(FetchInitalDataEvent());
+    context.read<StudentHomeBloc>().add(GetStudentDataEvent());
   }
 
   @override
@@ -44,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   HomeScreenHeader(
-                    studentName: studentEntity.fullName,
+                    studentName: studentEntity!.fullName,
                     profileImageUrl: studentEntity.profileImage,
                   ),
                   (studentEntity.role == RoleEnum.Admin ||
@@ -159,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           QuickCards(
             context: context,
-            cardColor: const Color.fromARGB(228, 130, 149, 211),
+            cardColor: const Color.fromARGB(209, 169, 231, 226),
             textColor: ColorPallete.whiteColor,
             labelName: "UUCMS Services",
             lottieAssest: LocalResourcesConstants.universityLottie,
@@ -178,7 +180,16 @@ class _HomeScreenState extends State<HomeScreen> {
               cardColor: const Color.fromARGB(255, 120, 186, 212),
               textColor: ColorPallete.whiteColor,
               labelName: "Assignments",
-              lottieAssest: LocalResourcesConstants.assignmentLottie),
+              lottieAssest: LocalResourcesConstants.assignmentLottie,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: const AssignmentScreen(),
+                  ),
+                );
+              }),
           QuickCards(
             context: context,
             cardColor: const Color.fromARGB(209, 169, 231, 226),

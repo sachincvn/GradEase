@@ -26,11 +26,7 @@ class _ClassScheduleScreenState extends State<ClassScheduleScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<TimeTableBloc>().add(FetchTimeTable(
-          course: null,
-          year: 1,
-          section: "A",
-        ));
+    context.read<TimeTableBloc>().add(FetchTimeTable());
   }
 
   @override
@@ -157,26 +153,42 @@ class _ClassScheduleScreenState extends State<ClassScheduleScreen> {
                       builder: (context, state) {
                         if (state.timeTableStateStatus ==
                             TimeTableStateStatus.loading) {
-                          return const Center(
-                              child: SizedBox(
-                            height: 40,
-                            width: 40,
-                            child: CircularProgressIndicator(),
-                          ));
+                          return const Expanded(
+                            child: Center(
+                                child: SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: CircularProgressIndicator(
+                                  color: ColorPallete.blue500),
+                            )),
+                          );
                         } else if (state.timeTableStateStatus ==
                             TimeTableStateStatus.success) {
                           String selectedDay =
                               _getDayFromIndex(selectedDayIndex);
                           List<TimetableEntry>? entries =
                               state.timeTableEntity?.timetable[selectedDay];
-
+                          if (entries == null || entries.isEmpty) {
+                            return Expanded(
+                              child: Center(
+                                  child: Text(
+                                "No data found !",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: ColorPallete.backgroundColor),
+                              )),
+                            );
+                          }
                           return Expanded(
                             child: ListView.builder(
-                              itemCount: entries?.length ?? 0,
+                              itemCount: entries.length,
                               itemBuilder: (context, index) {
                                 Color entryColor =
                                     _colors[index % _colors.length];
-                                TimetableEntry timetableEntry = entries![index];
+                                TimetableEntry timetableEntry = entries[index];
                                 return ListTile(
                                   titleAlignment: ListTileTitleAlignment.top,
                                   leading: Image.network(
@@ -295,8 +307,22 @@ class _ClassScheduleScreenState extends State<ClassScheduleScreen> {
                               },
                             ),
                           );
+                        } else if (state.timeTableStateStatus ==
+                            TimeTableStateStatus.error) {
+                          return Expanded(
+                            child: Center(
+                                child: Text(
+                              state.errorMessage ?? "Something Went Wrong",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorPallete.backgroundColor),
+                            )),
+                          );
                         }
-                        return const Text("Not Found");
+                        return const SizedBox();
                       },
                     )
                   ],

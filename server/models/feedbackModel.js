@@ -1,29 +1,23 @@
 import { Schema, model } from "mongoose";
 
-const feedbackSchema = new Schema(
-  {
-    user: {
-      name: {
-        type: String,
-        required: true,
-      },
-      email: {
-        type: String,
-        required: true,
-        match: [/.+\@.+\..+/, "Please enter a valid email address"], // this is for email formata
-      },
-    },
-    description: {
-      type: String,
-      required: false,
-    },
-    submittedDate: {
-      type: Date,
-      default: Date.now,
-    },
+const feedbackSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
   },
-  { timestamps: true }
-); // it will add createdAt and updatedAt fields automatically
+  email: {
+    type: String,
+    required: true,
+  },
+  message: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
 const FeedbackModel = model("Feedback", feedbackSchema);
 
