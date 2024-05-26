@@ -60,4 +60,6 @@ class RestResources {
   static String getAssingmentByCourseYear(String course, int year) =>
       "$assignment/$course/$year";
   static String getAssingmentById(String id) => "$assignment/$id";
+
+  static const String feedback = "feedback";
 }

@@ -32,6 +32,10 @@ import 'package:grad_ease/features/communities/domain/usecase/get_community_use_
 import 'package:grad_ease/features/communities/domain/usecase/send_message_use_case.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_bloc/community_bloc.dart';
 import 'package:grad_ease/features/communities/presentation/bloc/community_detail/community_detail_bloc.dart';
+import 'package:grad_ease/features/feedback/data/data_source/feedback_remote_datasourse.dart';
+import 'package:grad_ease/features/feedback/data/repository/feedback_repository_impl.dart';
+import 'package:grad_ease/features/feedback/domain/repository/feedback_repository.dart';
+import 'package:grad_ease/features/feedback/presentation/bloc/feedback_bloc/feedback_bloc.dart';
 import 'package:grad_ease/features/feeds/data/data_sourse/feed_post_remote_data_source.dart';
 import 'package:grad_ease/features/feeds/data/repository/feed_post_repository_impl.dart';
 import 'package:grad_ease/features/feeds/domain/repository/feed_post_repository.dart';
@@ -111,7 +115,9 @@ void _registerDataSources() {
         () => ProfileRemoteDataSourceImpl())
     ..registerFactory<AdminRemoteDataSource>(() => AdminRemoteDataSourceImpl())
     ..registerFactory<AssignmentRemoteDataSource>(
-        () => AssignmentRemoteDataSourceImpl());
+        () => AssignmentRemoteDataSourceImpl())
+    ..registerFactory<FeedbackRemoteDataSourse>(
+        () => FeedbackRemoteDataSourceImpl());
 }
 
 void _registerRepositories() {
@@ -135,7 +141,9 @@ void _registerRepositories() {
     ..registerFactory<ProfileRepository>(
         () => ProfileRepositoryIml(serviceLocator(), serviceLocator()))
     ..registerFactory<AssignmentRepository>(
-        () => AssignmentRepositoryImpl(serviceLocator(), serviceLocator()));
+        () => AssignmentRepositoryImpl(serviceLocator(), serviceLocator()))
+    ..registerFactory<FeedbackRepository>(
+        () => FeedbackRepositoryImpl(serviceLocator(), serviceLocator()));
 }
 
 void _registerUseCases() {
@@ -211,5 +219,6 @@ void _registerBlocs() {
         () => EditProfileBloc(serviceLocator(), serviceLocator()))
     ..registerLazySingleton(() => AssignmentBloc(serviceLocator()))
     ..registerLazySingleton(() => AdminAssignmnetBloc(serviceLocator()))
-    ..registerLazySingleton(() => UpsertAssignmentBloc(serviceLocator()));
+    ..registerLazySingleton(() => UpsertAssignmentBloc(serviceLocator()))
+    ..registerLazySingleton(() => FeedbackBloc(serviceLocator()));
 }

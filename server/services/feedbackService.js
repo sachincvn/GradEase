@@ -9,15 +9,8 @@ export async function getAllFeedbacks() {
   return feedbackModel;
 }
 
-export async function getfeedbackbyId(id) {
-  const feedback = await FeedbackModel.findById(id);
-  if (!feedback) {
-    throw ResponseError(401, "No feedback from ${id}");
-  }
-  return feedback;
-}
-
-export async function addFeedback(feed) {
-  const newFeedback = await FeedbackModel.create(feed);
-  return newFeedback;
+export async function addFeedback(feedBack) {
+  const feedback = new FeedbackModel(feedBack);
+  await feedback.save();
+  return feedBack;
 }

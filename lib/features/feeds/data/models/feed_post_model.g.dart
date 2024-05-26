@@ -19,8 +19,8 @@ FeedPostModel _$FeedPostModelFromJson(Map<String, dynamic> json) =>
       dislikedBy: (json['dislikedBy'] as List<dynamic>)
           .map((e) => e as String?)
           .toList(),
-      replies: (json['replies'] as List<dynamic>)
-          .map((e) =>
+      replies: (json['replies'] as List<dynamic>?)
+          ?.map((e) =>
               e == null ? null : ReplyModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );

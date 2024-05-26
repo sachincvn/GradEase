@@ -5,7 +5,7 @@ import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/auth/presentation/pages/student_login_screen.dart';
-import 'package:grad_ease/features/feedback/presentation/feedback_screen.dart';
+import 'package:grad_ease/features/feedback/presentation/pages/feedback_screen.dart';
 import 'package:grad_ease/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:grad_ease/features/profile/presentation/pages/edit_profile_screen.dart';
 import 'package:grad_ease/features/profile/presentation/widgets/profile_menu_widget.dart';
