@@ -9,7 +9,7 @@ class FeedPostEntity {
   final Author? author;
   final List<String?> likedBy;
   final List<String?> dislikedBy;
-  final List<ReplyModel?> replies;
+  final List<ReplyModel?>? replies;
 
   FeedPostEntity({
     required this.id,

@@ -15,7 +15,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Feedback"),
+        title: const Text("Feedback"),
       ),
       body: SafeArea(
           child: Padding(

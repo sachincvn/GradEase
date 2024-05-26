@@ -9,7 +9,7 @@ class CommunityMessageModel {
   @JsonKey(name: '_id')
   final String id;
   final String communityId;
-  final Author sender;
+  final Author? sender;
   final String message;
   final String createdAt;
 

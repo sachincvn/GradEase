@@ -130,7 +130,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
                     return Expanded(
                       child: Center(
                         child: Text(
-                          "No communites are created",
+                          "No messages found",
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!

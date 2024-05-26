@@ -11,17 +11,14 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
   final FeedPostRemoteDataSource _feedPostRemoteDataSource;
   final LocalDetailsRepository _localDetailsRepository;
 
-  late final String userId;
-
   FeedPostRepositoryImpl(
-      this._feedPostRemoteDataSource, this._localDetailsRepository) {
-    userId = _localDetailsRepository.getUserId()!;
-  }
+      this._feedPostRemoteDataSource, this._localDetailsRepository) {}
 
   @override
   Future<Either<Failure, String?>> deletePost(String id) async {
     try {
-      final deletePost = await _feedPostRemoteDataSource.deletePost(id, userId);
+      final deletePost = await _feedPostRemoteDataSource.deletePost(
+          id, _localDetailsRepository.getUserId()!);
       return right(deletePost.data);
     } catch (e) {
       return left(Failure(e.toString()));
@@ -31,8 +28,8 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
   @override
   Future<Either<Failure, FeedPostEntity>> dislikePost(String id) async {
     try {
-      final dislikePost =
-          await _feedPostRemoteDataSource.dislikePost(id, userId);
+      final dislikePost = await _feedPostRemoteDataSource.dislikePost(
+          id, _localDetailsRepository.getUserId()!);
       return right(dislikePost.data!.toEntity());
     } catch (e) {
       return left(Failure(e.toString()));
@@ -67,7 +64,8 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
   @override
   Future<Either<Failure, FeedPostEntity>> likePost(String id) async {
     try {
-      final likePost = await _feedPostRemoteDataSource.likePost(id, userId);
+      final likePost = await _feedPostRemoteDataSource.likePost(
+          id, _localDetailsRepository.getUserId()!);
       return right(likePost.data!.toEntity());
     } catch (e) {
       return left(Failure(e.toString()));
@@ -93,8 +91,8 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
     String content,
   ) async {
     try {
-      final response =
-          await _feedPostRemoteDataSource.addPostReply(postId, userId, content);
+      final response = await _feedPostRemoteDataSource.addPostReply(
+          postId, _localDetailsRepository.getUserId()!, content);
       return right(response);
     } catch (e) {
       return left(Failure(e.toString()));
@@ -126,7 +124,7 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
   ) async {
     try {
       final post = await _feedPostRemoteDataSource.createNewPost(
-          title, description, userId);
+          title, description, _localDetailsRepository.getUserId()!);
       return right(post.data!.toEntity());
     } catch (e) {
       return left(Failure(e.toString()));

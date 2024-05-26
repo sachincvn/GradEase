@@ -7,9 +7,9 @@ part of 'reply_model.dart';
 // **************************************************************************
 
 ReplyModel _$ReplyModelFromJson(Map<String, dynamic> json) => ReplyModel(
-      id: json['_id'] as String,
-      content: json['content'] as String,
-      author: json['author'] as String,
+      id: json['_id'] as String?,
+      content: json['content'] as String?,
+      author: json['author'] as String?,
     );
 
 Map<String, dynamic> _$ReplyModelToJson(ReplyModel instance) =>

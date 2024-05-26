@@ -1,5 +1,10 @@
 import { Schema, model } from "mongoose";
 import { CourseEnum, GenderEnum, RoleEnum } from "../utils/enum.js";
+import PostModel from "../models/postModel.js";
+import NotesModel from "../models/noteModel.js";
+import MessageModel from "../models/messageModel.js";
+import FeedbackModel from "../models/feedbackModel.js";
+import AssignmentsModel from "../models/assignmentModel.js";
 
 const studentSchema = new Schema({
   fullName: {

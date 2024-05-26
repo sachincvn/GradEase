@@ -11,7 +11,9 @@ FeedPostModel _$FeedPostModelFromJson(Map<String, dynamic> json) =>
       id: json['_id'] as String,
       title: json['title'] as String?,
       content: json['content'] as String?,
-      author: Author.fromJson(json['author'] as Map<String, dynamic>),
+      author: json['author'] == null
+          ? null
+          : Author.fromJson(json['author'] as Map<String, dynamic>),
       likedBy:
           (json['likedBy'] as List<dynamic>).map((e) => e as String?).toList(),
       dislikedBy: (json['dislikedBy'] as List<dynamic>)

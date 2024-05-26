@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grad_ease/core/constants/rest_resources.dart';
+import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/extensions/string_extension.dart';
 import 'package:grad_ease/features/communities/domain/entity/community_message_entity.dart';
 
@@ -22,11 +23,16 @@ class CommunityPost extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
-                  child: CircleAvatar(
-                    radius: 28,
-                    backgroundImage: NetworkImage(
-                        "${RestResources.fileBaseUrl}${message.sender.profileImage}"),
-                  ),
+                  child: message.sender != null
+                      ? CircleAvatar(
+                          radius: 28,
+                          backgroundImage: NetworkImage(
+                              "${RestResources.fileBaseUrl}${message.sender != null ? message.sender!.profileImage : StringConstants.deletedMessageAvatar}"),
+                        )
+                      : const Icon(
+                          Icons.dangerous_rounded,
+                          size: 59,
+                        ),
                 ),
                 const SizedBox(width: 10),
                 Column(
@@ -34,7 +40,7 @@ class CommunityPost extends StatelessWidget {
                   children: [
                     RichText(
                       text: TextSpan(
-                        text: message.sender.fullName,
+                        text: message.sender?.fullName ?? "Deleted user",
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -53,7 +59,7 @@ class CommunityPost extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      message.sender.email ?? "sender@gmail.com",
+                      message.sender?.email ?? "deleted@gmail.com",
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall!
