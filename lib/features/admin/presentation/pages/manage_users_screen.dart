@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grad_ease/core/common/widgets/confirmation_dailog.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/admin/data/models/student_detail.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
@@ -178,9 +179,15 @@ class _ManageStudendsScreenState extends State<ManageStudendsScreen> {
                     const SizedBox(height: 5),
                     ElevatedButton(
                       onPressed: () {
-                        context
-                            .read<StudentsBloc>()
-                            .add(DeleteStudent(studentDetail: studentDetail));
+                        showConfirmationDialog(
+                          context: context,
+                          title: 'Delete',
+                          content: 'Are you sure you want to delete?',
+                          onConfirm: () {
+                            context.read<StudentsBloc>().add(
+                                DeleteStudent(studentDetail: studentDetail));
+                          },
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorPallete.errorColor.withAlpha(150),
@@ -225,9 +232,15 @@ class _ManageStudendsScreenState extends State<ManageStudendsScreen> {
                     const SizedBox(height: 5),
                     ElevatedButton(
                       onPressed: () {
-                        context
-                            .read<StudentsBloc>()
-                            .add(DeleteStudent(studentDetail: studentDetail));
+                        showConfirmationDialog(
+                          context: context,
+                          title: 'Delete',
+                          content: 'Are you sure you want to delete?',
+                          onConfirm: () {
+                            context.read<StudentsBloc>().add(
+                                DeleteStudent(studentDetail: studentDetail));
+                          },
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorPallete.errorColor.withAlpha(150),

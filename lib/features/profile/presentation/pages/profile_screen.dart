@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grad_ease/core/common/widgets/confirmation_dailog.dart';
 import 'package:grad_ease/core/constants/rest_resources.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/core/utils/show_snackbar.dart';
@@ -32,6 +33,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void _exitApp() {
     SystemNavigator.pop();
+  }
+
+  void _logout() {
+    showConfirmationDialog(
+      context: context,
+      title: 'Logout',
+      content: 'Are you sure you want to logout?',
+      onConfirm: () {
+        context.read<ProfileBloc>().add(StudentLogoutEvent());
+      },
+    );
   }
 
   @override
@@ -158,11 +170,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ProfileMenuWidget(
                       title: "Logout",
                       leadingIcon: const Icon(Icons.logout_rounded),
-                      textColor: Colors.red,
+                      textColor: ColorPallete.errorColor,
                       trailingIcon: const Icon(null),
-                      onTap: () {
-                        context.read<ProfileBloc>().add(StudentLogoutEvent());
-                      },
+                      onTap: _logout,
                     ),
                   ],
                 ),

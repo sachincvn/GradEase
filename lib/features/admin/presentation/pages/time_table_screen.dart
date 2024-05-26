@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grad_ease/core/common/widgets/confirmation_dailog.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/timetable_bloc/timetable_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/pages/upsert_time_table_screen.dart';
@@ -138,10 +139,18 @@ class _TimeTableScreenState extends State<TimeTableScreen> {
                                 ),
                                 child: IconButton(
                                     onPressed: () {
-                                      context.read<TimetableBloc>().add(
-                                            DeleteTimeTable(
-                                                timeTableModel: timeTable),
-                                          );
+                                      showConfirmationDialog(
+                                        context: context,
+                                        title: 'Delete',
+                                        content:
+                                            'Are you sure you want to delete?',
+                                        onConfirm: () {
+                                          context.read<TimetableBloc>().add(
+                                                DeleteTimeTable(
+                                                    timeTableModel: timeTable),
+                                              );
+                                        },
+                                      );
                                     },
                                     icon: const Icon(
                                       Icons.delete,

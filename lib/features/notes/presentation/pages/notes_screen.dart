@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grad_ease/core/common/widgets/confirmation_dailog.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 import 'package:grad_ease/features/notes/presentation/pages/add_note_screen.dart';
@@ -68,9 +69,16 @@ class _NotesScreenState extends State<NotesScreen> {
                 return NoteCard(
                   note: state.notes[index]!,
                   onRemoveNoteCallBack: () {
-                    context
-                        .read<NotesBloc>()
-                        .add(RemoveNoteEvent(state.notes[index]!.id));
+                    showConfirmationDialog(
+                      context: context,
+                      title: 'Delete',
+                      content: 'Are you sure you want to delete?',
+                      onConfirm: () {
+                        context
+                            .read<NotesBloc>()
+                            .add(RemoveNoteEvent(state.notes[index]!.id));
+                      },
+                    );
                   },
                 );
               },
