@@ -200,9 +200,22 @@ class _ResultInfoScreenState extends State<ResultInfoScreen> {
                           width: 40,
                           child: CircularProgressIndicator(),
                         ));
-                      }
-                      if (state.resultStatus ==
+                      } else if (state.resultStatus ==
                           UUCMSExamResultStateStatus.success) {
+                        if (state.examResults.isEmpty) {
+                          return Expanded(
+                              child: Center(
+                            child: Text(
+                              state.errorMessage ?? "Something went wrong",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: ColorPallete.errorColor),
+                            ),
+                          ));
+                        }
                         final resultCardData = state.examResults.last;
                         return Expanded(
                           child: Column(
@@ -317,8 +330,20 @@ class _ResultInfoScreenState extends State<ResultInfoScreen> {
                 ],
               ),
             );
+          } else if (state.resultStatus == UUCMSExamResultStateStatus.error) {
+            return Expanded(
+                child: Center(
+              child: Text(
+                state.errorMessage ?? "Something went wrong",
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: ColorPallete.errorColor),
+              ),
+            ));
           }
-          return const SizedBox();
+          return const SizedBox(
+            child: Text("Hello"),
+          );
         },
       )),
     );
