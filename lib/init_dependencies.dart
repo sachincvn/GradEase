@@ -8,6 +8,7 @@ import 'package:grad_ease/features/admin/presentation/bloc/add_community/add_com
 import 'package:grad_ease/features/admin/presentation/bloc/add_timetable/add_timetable_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/admin_assignment/admin_assignment_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/admin_bloc/admin_bloc.dart';
+import 'package:grad_ease/features/admin/presentation/bloc/admin_feedback/admin_feedback_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/communites_bloc/communites_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/edit_user_bloc/edit_user_bloc.dart';
 import 'package:grad_ease/features/admin/presentation/bloc/students_bloc/students_bloc.dart';
@@ -220,5 +221,6 @@ void _registerBlocs() {
     ..registerLazySingleton(() => AssignmentBloc(serviceLocator()))
     ..registerLazySingleton(() => AdminAssignmnetBloc(serviceLocator()))
     ..registerLazySingleton(() => UpsertAssignmentBloc(serviceLocator()))
-    ..registerLazySingleton(() => FeedbackBloc(serviceLocator()));
+    ..registerLazySingleton(() => FeedbackBloc(serviceLocator()))
+    ..registerLazySingleton(() => AdminFeedbackBloc(serviceLocator()));
 }

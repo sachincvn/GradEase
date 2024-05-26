@@ -25,6 +25,8 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
       TextEditingController();
   File? _selectedFile;
 
+  final _formKey = GlobalKey<FormState>();
+
   void _pickFile() async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -88,108 +90,125 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(14),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GradEaseInputField(
-                          labelText: "Title",
-                          hintText: "Enter discussion title",
-                          controller: titleTextEditingController,
-                        ),
-                        const SizedBox(height: 20),
-                        GradEaseInputField(
-                          labelText: "Description",
-                          hintText: "Enter description",
-                          controller: descriptionTextEditingController,
-                          maxLines: 5,
-                          maxLength: 100,
-                        ),
-                        const SizedBox(height: 20),
-                        _selectedFile == null
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Select File",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium!
-                                        .copyWith(fontWeight: FontWeight.w500),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  GestureDetector(
-                                    onTap: () {
-                                      _pickFile();
-                                    },
-                                    child: Container(
-                                      height: 100,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ColorPallete.grey400),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(
-                                              CupertinoIcons.cloud_upload),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            "Select File: (Jpg, png, pdf) MAX: 10MB",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelMedium!
-                                                .copyWith(
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                ],
-                              )
-                            : Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: ColorPallete.grey400,
-                                    width: 0.5,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                height: 35,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GradEaseInputField(
+                            labelText: "Title",
+                            hintText: "Enter note title",
+                            controller: titleTextEditingController,
+                            validator: (value) {
+                              if (value == null) {
+                                return "Please enter the note title";
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          GradEaseInputField(
+                            labelText: "Description",
+                            hintText: "Enter description",
+                            controller: descriptionTextEditingController,
+                            maxLines: 5,
+                            maxLength: 100,
+                            validator: (value) {
+                              if (value == null) {
+                                return "Please enter the note description";
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          _selectedFile == null
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Expanded(
-                                      child: Text(
-                                        _selectedFile!.path.split('/').last,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge!
-                                            .copyWith(
-                                                fontWeight: FontWeight.w500),
+                                    Text(
+                                      "Select File",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w500),
+                                    ),
+                                    const SizedBox(height: 5),
+                                    GestureDetector(
+                                      onTap: () {
+                                        _pickFile();
+                                      },
+                                      child: Container(
+                                        height: 100,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorPallete.grey400),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Icon(
+                                                CupertinoIcons.cloud_upload),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              "Select File: (Jpg, png, pdf) MAX: 10MB",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                    IconButton(
-                                      onPressed: _removeFile,
-                                      icon: Icon(
-                                        Icons.remove_circle_outline_outlined,
-                                        color: Colors.red.shade400,
-                                      ),
-                                    )
+                                    const SizedBox(height: 10),
                                   ],
+                                )
+                              : Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: ColorPallete.grey400,
+                                      width: 0.5,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  height: 35,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          _selectedFile!.path.split('/').last,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: _removeFile,
+                                        icon: Icon(
+                                          Icons.remove_circle_outline_outlined,
+                                          color: Colors.red.shade400,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -198,12 +217,19 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                   child: GradEaseButton(
                     buttonText: "Upload Note",
                     onPressed: () {
-                      context.read<AddNoteBloc>().add(AddNewNoteEvent(
-                            filePath: _selectedFile!.path,
-                            title: titleTextEditingController.text,
-                            desctipiton: descriptionTextEditingController.text,
-                            fileName: _selectedFile!.path.split('/').last,
-                          ));
+                      if (_selectedFile == null) {
+                        showErrorSnackBar(context, "Please upload a note");
+                        return;
+                      }
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AddNoteBloc>().add(AddNewNoteEvent(
+                              filePath: _selectedFile!.path,
+                              title: titleTextEditingController.text,
+                              desctipiton:
+                                  descriptionTextEditingController.text,
+                              fileName: _selectedFile!.path.split('/').last,
+                            ));
+                      }
                     },
                     isLoading: isLoading,
                   ),

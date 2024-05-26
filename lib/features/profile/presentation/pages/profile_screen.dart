@@ -7,6 +7,7 @@ import 'package:grad_ease/core/utils/show_snackbar.dart';
 import 'package:grad_ease/features/auth/presentation/pages/student_login_screen.dart';
 import 'package:grad_ease/features/feedback/presentation/pages/feedback_screen.dart';
 import 'package:grad_ease/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:grad_ease/features/profile/presentation/pages/about_us_screen.dart';
 import 'package:grad_ease/features/profile/presentation/pages/edit_profile_screen.dart';
 import 'package:grad_ease/features/profile/presentation/widgets/profile_menu_widget.dart';
 import 'package:page_transition/page_transition.dart';
@@ -142,8 +143,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 20),
                     const Divider(color: ColorPallete.grey400, height: .1),
                     const SizedBox(height: 40),
-                    const ProfileMenuWidget(
-                        title: "About", leadingIcon: Icon(Icons.settings)),
+                    ProfileMenuWidget(
+                      title: "About",
+                      leadingIcon: const Icon(Icons.settings),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: const AboutUsScreen(),
+                            ));
+                      },
+                    ),
                     ProfileMenuWidget(
                       title: "Feedback",
                       leadingIcon: const Icon(Icons.feedback),
