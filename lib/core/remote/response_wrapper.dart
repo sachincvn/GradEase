@@ -1,3 +1,5 @@
+import 'package:grad_ease/core/remote/rest_exception.dart';
+
 class RestResponse<T> {
   final int statusCode;
   final String? message;
@@ -37,4 +39,13 @@ class Failure {
   final String? message;
 
   Failure([this.message = "Something Went Wrong !"]);
+
+  factory Failure.handleException(Object e) {
+    if (e is RestResponseException) {
+      return Failure(e.message);
+    } else if (e is Exception) {
+      return Failure(e.toString());
+    }
+    return Failure("Something Went Wrong !");
+  }
 }

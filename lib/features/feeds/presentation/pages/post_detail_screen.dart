@@ -51,7 +51,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
               }
               if (context
                   .read<FeedDetailBloc>()
-                  .canDeletePost(widget.feedPost.id)) {
+                  .canDeletePost(widget.feedPost.author!.id!)) {
                 return IconButton(
                     onPressed: () {
                       context

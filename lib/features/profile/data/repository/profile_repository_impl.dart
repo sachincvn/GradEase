@@ -45,7 +45,7 @@ class ProfileRepositoryIml implements ProfileRepository {
     } on RestResponseException catch (e) {
       return left(Failure(e.message));
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 

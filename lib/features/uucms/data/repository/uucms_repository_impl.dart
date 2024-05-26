@@ -31,7 +31,7 @@ class UUCMSRepositoryImpl implements UUCMSRepository {
           termId, enbsid, localDetailsRepository.getUUCMSLoginCookie()!);
       return right(response.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -43,7 +43,7 @@ class UUCMSRepositoryImpl implements UUCMSRepository {
           termId, enbsid, localDetailsRepository.getUUCMSLoginCookie()!);
       return right(response.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 }

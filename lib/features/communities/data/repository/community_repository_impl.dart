@@ -25,7 +25,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
       );
       return right(response.data.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -37,7 +37,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
           communityId!, page, pageLimt);
       return right(messages.data.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -49,7 +49,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
           _localDetailsRepository.getUserId()!, communityId, message);
       return right(sentMessage.data.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 }

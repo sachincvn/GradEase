@@ -23,7 +23,7 @@ class NotesRepositoryImpl implements NotesRepository {
           await _noteRemoteDataSource.getNotes(_studentEntity!.courseYear!);
       return right(notes.data!.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -48,7 +48,7 @@ class NotesRepositoryImpl implements NotesRepository {
         return left(Failure("Error while uploading an file"));
       }
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -60,7 +60,7 @@ class NotesRepositoryImpl implements NotesRepository {
           await _noteRemoteDataSource.uploadNote(fileName, filePath);
       return right(response);
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -70,7 +70,7 @@ class NotesRepositoryImpl implements NotesRepository {
       final response = await _noteRemoteDataSource.deletedNote(id);
       return right(response.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 }

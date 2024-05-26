@@ -21,7 +21,7 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
           id, _localDetailsRepository.getUserId()!);
       return right(deletePost.data);
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -32,7 +32,7 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
           id, _localDetailsRepository.getUserId()!);
       return right(dislikePost.data!.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -45,7 +45,7 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
       }
       return left(Failure("Something went wrong !"));
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -57,7 +57,7 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
       final post = await _feedPostRemoteDataSource.getPostById(id);
       return right(post?.data?.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -68,7 +68,7 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
           id, _localDetailsRepository.getUserId()!);
       return right(likePost.data!.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -81,7 +81,7 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
           await _feedPostRemoteDataSource.getFeesPostReplies(id);
       return right(postReplies.data!.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -95,7 +95,7 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
           postId, _localDetailsRepository.getUserId()!, content);
       return right(response);
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -109,7 +109,7 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
           await _feedPostRemoteDataSource.deletePostReply(postId, replyId);
       return right(response);
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 
@@ -127,7 +127,7 @@ class FeedPostRepositoryImpl implements FeedPostRepository {
           title, description, _localDetailsRepository.getUserId()!);
       return right(post.data!.toEntity());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 }

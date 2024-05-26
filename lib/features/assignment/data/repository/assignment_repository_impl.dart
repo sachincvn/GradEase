@@ -20,7 +20,7 @@ class AssignmentRepositoryImpl implements AssignmentRepository {
           studentDetail.course!.name, studentDetail.courseYear!);
       return right(response.data!.map((e) => e.toEntity()).toList());
     } catch (e) {
-      return left(Failure(e.toString()));
+      return left(Failure.handleException(e));
     }
   }
 }
