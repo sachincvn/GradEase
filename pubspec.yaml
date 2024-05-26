@@ -42,6 +42,14 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.4.9
   json_serializable: ^6.7.1
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/icon_ease.png"
+  adaptive_icon_background: "#0e1317"
+  adaptive_icon_foreground: "assets/icons/icon_ease.png"
 
 flutter:
   uses-material-design: true
