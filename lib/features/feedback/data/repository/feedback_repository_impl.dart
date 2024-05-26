@@ -23,4 +23,14 @@ class FeedbackRepositoryImpl implements FeedbackRepository {
       return left(Failure.handleException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, List<FeedbackEntity?>>> getAllFeedbacks() async {
+    try {
+      final response = await _feedbackRemoteDataSourse.getAllFeedbacks();
+      return right(response.data.map((e) => e.toEntity()).toList());
+    } catch (e) {
+      return left(Failure.handleException(e));
+    }
+  }
 }
