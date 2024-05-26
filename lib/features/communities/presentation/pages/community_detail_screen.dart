@@ -126,6 +126,19 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
                 } else if (state.communityDetailStateStatus ==
                     CommunityDetailStateStatus.success) {
                   messages = state.messages;
+                  if (messages.isEmpty) {
+                    return Expanded(
+                      child: Center(
+                        child: Text(
+                          "No communites are created",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    );
+                  }
                   return Expanded(
                     child: ListView.builder(
                         controller: _scrollController,
@@ -150,7 +163,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
                       controller: _messageEditingController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        hintText: 'Enter message',
+                        hintText: 'Enter message here',
                       ),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),

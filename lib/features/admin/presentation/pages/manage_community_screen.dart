@@ -74,13 +74,9 @@ class _ManageCommunityScreenState extends State<ManageCommunityScreen> {
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundColor: ColorPallete.grey400,
-                            maxRadius: 35,
-                            child: Image.network(
-                              fit: BoxFit.cover,
-                              height: 50,
-                              "${RestResources.fileBaseUrl}${community.profileImage}",
-                            ),
+                            radius: 32,
+                            backgroundImage: NetworkImage(
+                                "${RestResources.fileBaseUrl}${community.profileImage}"),
                           ),
                           const SizedBox(width: 10),
                           Expanded(

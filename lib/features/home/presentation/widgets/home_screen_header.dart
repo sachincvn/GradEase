@@ -30,7 +30,7 @@ class HomeScreenHeader extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   BlocProvider.of<LandingPageBloc>(context)
-                      .add(TabChange(tabIndex: 3));
+                      .add(TabChange(tabIndex: 4));
                 },
                 child: CircleAvatar(
                   backgroundColor: ColorPallete.transparentColor,

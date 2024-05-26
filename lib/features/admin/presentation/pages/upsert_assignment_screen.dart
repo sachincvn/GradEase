@@ -199,7 +199,7 @@ class _UpsertAssignmentScreenState extends State<UpsertAssignmentScreen> {
                             hintText: "Enter assignment description",
                             controller: descriptionTextEditingController,
                             maxLines: 5,
-                            maxLength: 100,
+                            maxLength: 1000,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter a description';

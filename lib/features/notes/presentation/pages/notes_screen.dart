@@ -24,6 +24,9 @@ class _NotesScreenState extends State<NotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Notes"),
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorPallete.greyColor,
         onPressed: () {

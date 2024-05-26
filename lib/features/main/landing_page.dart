@@ -5,7 +5,7 @@ import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/feeds/presentation/pages/latest_feed_screen.dart';
 import 'package:grad_ease/features/home/presentation/pages/home_screen.dart';
 import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
-import 'package:grad_ease/features/notes/presentation/pages/notes_tab_screen.dart';
+import 'package:grad_ease/features/notes/presentation/pages/notes_screen.dart';
 import 'package:grad_ease/features/profile/presentation/pages/profile_screen.dart';
 import 'package:grad_ease/features/timetable/presentation/pages/class_schedule_screen.dart';
 
@@ -35,7 +35,7 @@ List<BottomNavigationBarItem> bottomNavItems = const <BottomNavigationBarItem>[
 const List<Widget> bottomNavScreen = <Widget>[
   HomeScreen(),
   LatestFeedScreen(),
-  NotesTabScreen(),
+  NotesScreen(),
   ClassScheduleScreen(),
   ProfileScreen(),
 ];

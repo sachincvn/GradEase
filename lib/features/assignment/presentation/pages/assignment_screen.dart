@@ -20,9 +20,48 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
 
   bool _showPending = true;
 
+  void _showFullDescription(String title, String description) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          expand: false,
+          builder: (context, scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    const SizedBox(height: 10),
+                    SelectableText(
+                      description,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Assignments"),
+      ),
       backgroundColor: ColorPallete.backgroundColor,
       body: Column(
         children: [
@@ -133,13 +172,30 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                               children: [
                                 Text(
                                   'Description: ${assignment.description ?? ''}',
-                                  maxLines: 5,
+                                  maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelLarge!
                                       .copyWith(fontWeight: FontWeight.w500),
                                 ),
+                                if ((assignment.description?.length ?? 0) > 100)
+                                  GestureDetector(
+                                    onTap: () => _showFullDescription(
+                                      assignment.title,
+                                      assignment.description!,
+                                    ),
+                                    child: Text(
+                                      'Tap to see more',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: ColorPallete.backgroundColor,
+                                          ),
+                                    ),
+                                  ),
                                 const SizedBox(height: 10),
                                 Text(
                                   'Submission Date: $formattedDate',
@@ -147,12 +203,18 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                       .textTheme
                                       .labelMedium!
                                       .copyWith(
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.bold,
                                         color: ColorPallete.blue700,
                                       ),
                                 ),
                               ],
                             ),
+                            onTap: (assignment.description?.length ?? 0) > 100
+                                ? () => _showFullDescription(
+                                      assignment.title,
+                                      assignment.description!,
+                                    )
+                                : null,
                             trailing: assignment.filepath != null
                                 ? IconButton(
                                     icon: const Icon(

@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_ease/core/constants/string_contants.dart';
 import 'package:grad_ease/core/theme/color_pallete.dart';
 import 'package:grad_ease/features/admin/presentation/pages/admin_home_screen.dart';
+import 'package:grad_ease/features/assignment/presentation/pages/assignment_screen.dart';
 import 'package:grad_ease/features/auth/data/models/student_model.dart';
 import 'package:grad_ease/features/communities/presentation/pages/community_screen.dart';
 import 'package:grad_ease/features/home/presentation/bloc/student_home/student_home_bloc.dart';
 import 'package:grad_ease/features/home/presentation/widgets/ongoing_class_widget.dart';
 import 'package:grad_ease/features/home/presentation/widgets/home_screen_header.dart';
 import 'package:grad_ease/features/home/presentation/widgets/quick_cards.dart';
-import 'package:grad_ease/features/main/bloc/landing_page_bloc.dart';
 import 'package:grad_ease/features/timetable/presentation/pages/class_schedule_screen.dart';
 import 'package:grad_ease/features/uucms/presentation/pages/uucms_home_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -182,8 +182,13 @@ class _HomeScreenState extends State<HomeScreen> {
               labelName: "Assignments",
               lottieAssest: LocalResourcesConstants.assignmentLottie,
               onTap: () {
-                BlocProvider.of<LandingPageBloc>(context)
-                    .add(TabChange(tabIndex: 2));
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: const AssignmentScreen(),
+                  ),
+                );
               }),
           QuickCards(
             context: context,
