@@ -6,7 +6,7 @@ GradEase simplifies academic management for students. It offers a centralized pl
 
 ## Screenshots
 
-![GradEase Thumbnail](https://github.com/sachincvn/GradEase/blob/master/Thumbnail.jpg?raw=true)
+![GradEase Thumbnail](https://github.com/sachincvn/GradEase/blob/master/screenshots/Thumbnail.jpg?raw=true)
 
 ## Features
 
