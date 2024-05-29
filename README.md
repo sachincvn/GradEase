@@ -4,6 +4,10 @@
 
 GradEase simplifies academic management for students. It offers a centralized platform for tracking attendance, managing schedules, accessing online classes, monitoring internal marks, managing assignments, organizing notes, providing feedback, and receiving notifications. With a user-friendly interface, GradEase aims to empower students to excel academically and enhance communication with instructors.
 
+## Screenshots
+
+![GradEase Thumbnail](https://github.com/sachincvn/GradEase/blob/master/Thumbnail.jpg?raw=true)
+
 ## Features
 
 - **View Courses [UUCMS]:** Browse and manage your enrolled courses .
