@@ -26,6 +26,9 @@ const notesSchema = new Schema({
       type: String,
       required: true,
     },
+    profileImage: {
+      type: String,
+    },
   },
   year: {
     type: Number,

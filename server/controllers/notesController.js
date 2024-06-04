@@ -47,14 +47,22 @@ export async function GetNoteByIdContoller(req, res) {
 
 export async function AddNoteContoller(req, res) {
   try {
-    const { title, description, filepath, createdDate, uploadedBy, year } =
-      req.body;
+    const {
+      title,
+      description,
+      filepath,
+      createdDate,
+      uploadedBy,
+      profileImage,
+      year,
+    } = req.body;
     const noteData = {
       title,
       description,
       filepath,
       createdDate,
       uploadedBy,
+      profileImage,
       year,
     };
     const response = await addNote(noteData);

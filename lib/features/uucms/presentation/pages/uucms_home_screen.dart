@@ -30,14 +30,21 @@ class _UucmsHomeScreenState extends State<UucmsHomeScreen> {
       appBar: AppBar(
         title: const Text("UUCMS Services"),
         actions: [
-          IconButton(
-              onPressed: () {
-                context.read<UUCMSBloc>().add(LogoutUUCMSEvent());
-              },
-              icon: const Icon(
-                Icons.logout_rounded,
-                color: ColorPallete.errorColor,
-              ))
+          BlocBuilder<UUCMSBloc, UUCMSState>(
+            builder: (context, state) {
+              if (state.uucmsStateStatus == UUCMSStateStatus.success) {
+                return IconButton(
+                    onPressed: () {
+                      context.read<UUCMSBloc>().add(LogoutUUCMSEvent());
+                    },
+                    icon: const Icon(
+                      Icons.logout_rounded,
+                      color: ColorPallete.errorColor,
+                    ));
+              }
+              return const SizedBox();
+            },
+          )
         ],
       ),
       body: SafeArea(

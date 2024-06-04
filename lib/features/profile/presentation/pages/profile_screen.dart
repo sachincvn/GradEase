@@ -29,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _shareApp() {
-    Share.share('Check out this awesome app: <Playstore Link>');
+    Share.share('Check out this awesome app: http://tiny.cc/gradeaseapk');
   }
 
   void _exitApp() {

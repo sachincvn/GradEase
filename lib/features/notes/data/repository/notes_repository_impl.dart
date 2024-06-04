@@ -41,6 +41,7 @@ class NotesRepositoryImpl implements NotesRepository {
           uploadNoteResponse.filePath,
           _studentEntity!.fullName,
           _studentEntity!.email!,
+          _studentEntity!.profileImage!,
           _studentEntity!.courseYear!,
         );
         return right(result.toEntity());

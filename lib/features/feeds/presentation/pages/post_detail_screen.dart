@@ -151,7 +151,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                       controller: replyTextEditingController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        hintText: 'Enter item',
+                        hintText: 'Enter your reply..',
                       ),
                       style: Theme.of(context).textTheme.labelMedium,
                       onSubmitted: (replyText) {

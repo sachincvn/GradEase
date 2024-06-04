@@ -13,6 +13,7 @@ abstract interface class NoteRemoteDataSource {
     String filePath,
     String uploaderName,
     String uploaderEmail,
+    String uploaderProfileImage,
     int year,
   );
 
@@ -31,13 +32,23 @@ class NotesRemoteDataSourceImpl extends GradEaseRestService
   }
 
   @override
-  Future<NoteModel> addNote(String title, String description, String filePath,
-      String uploaderName, String uploaderEmail, int year) async {
+  Future<NoteModel> addNote(
+      String title,
+      String description,
+      String filePath,
+      String uploaderName,
+      String uploaderEmail,
+      String uploaderProfileImage,
+      int year) async {
     final restRequest = createPostRequest(RestResources.notes, body: {
       "title": title,
       "description": description,
       "filepath": filePath,
-      "uploadedBy": {"fullName": uploaderName, "email": uploaderEmail},
+      "uploadedBy": {
+        "fullName": uploaderName,
+        "email": uploaderEmail,
+        "profileImage": uploaderProfileImage
+      },
       "year": year
     });
     final response = await executeRequest(restRequest);

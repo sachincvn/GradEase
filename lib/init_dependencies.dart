@@ -194,7 +194,8 @@ void _registerBlocs() {
     ..registerLazySingleton(() => StudentsBloc(serviceLocator()))
     ..registerLazySingleton(() => AddPostBloc(serviceLocator()))
     ..registerLazySingleton(() => CommunityBloc(serviceLocator()))
-    ..registerLazySingleton(() => NotesBloc(serviceLocator(), serviceLocator()))
+    ..registerLazySingleton(
+        () => NotesBloc(serviceLocator(), serviceLocator(), serviceLocator()))
     ..registerLazySingleton(() => AddNoteBloc(serviceLocator()))
     ..registerLazySingleton(
         () => CommunityDetailBloc(serviceLocator(), serviceLocator()))

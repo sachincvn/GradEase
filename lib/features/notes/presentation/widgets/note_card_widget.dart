@@ -12,12 +12,14 @@ class NoteCard extends StatelessWidget {
   final NoteEntity note;
   final VoidCallback? onTapCallback;
   final VoidCallback? onRemoveNoteCallBack;
+  final bool? isDeleteAble;
 
   const NoteCard({
     Key? key,
     required this.note,
     this.onTapCallback,
     this.onRemoveNoteCallBack,
+    this.isDeleteAble,
   }) : super(key: key);
 
   @override
@@ -37,14 +39,11 @@ class NoteCard extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: ColorPallete.transparentColor,
-                  minRadius: 28,
-                  child: Image.network(
+                  radius: 28,
+                  backgroundImage: NetworkImage(
                     note.uploadedBy.profileImage == null
                         ? "${RestResources.fileBaseUrl}${StringConstants.defaultAvatar}"
                         : "${RestResources.fileBaseUrl}${note.uploadedBy.profileImage}",
-                    height: 40,
-                    fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -84,13 +83,16 @@ class NoteCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                IconButton(
-                  onPressed: onRemoveNoteCallBack,
-                  icon: const Icon(
-                    Icons.delete_outline_rounded,
-                    color: ColorPallete.errorColor,
-                  ),
-                ),
+                context.read<NotesBloc>().currentUserEmail ==
+                        note.uploadedBy.email
+                    ? IconButton(
+                        onPressed: onRemoveNoteCallBack,
+                        icon: const Icon(
+                          Icons.delete_outline_rounded,
+                          color: ColorPallete.errorColor,
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
             const SizedBox(height: 10),
