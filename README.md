@@ -1,4 +1,4 @@
-# GradEase [WIP]
+# GradEase
 
 ## Description
 
